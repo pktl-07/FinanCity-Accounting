@@ -1,0 +1,9 @@
+<kendo-menu [items]="items">
+    <ng-template kendoMenuItemLinkTemplate let-item="item" let-index="index">
+        <a [kendoMenuItemLink]="index" (click)="onSelect(item)" [ngClass]="{'active':isActivePage(item)}">
+            <span *ngIf="index < 8" class="{{ item?.icon }}" style="min-width: 20px; margin-right: 3px;"></span>
+            <span [ngClass]="{'item-width': item.items && item.depth > 0 }">{{ item.text }}</span>
+            <span *ngIf="item.items && item.items.length" [kendoMenuExpandArrow]="index"></span>
+        </a>
+    </ng-template>
+</kendo-menu>

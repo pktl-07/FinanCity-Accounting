@@ -1,0 +1,150 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div class="card-deck" [formGroup]="form">
+      <div class="card">
+        <div class="card-header text-white">
+          Personal
+        </div>
+        <div class="card-body">
+          <div formGroupName="Person">
+            <input type="hidden" formControlName="VendorSK">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label class="control-label">Company Name</label>
+                <kendo-dropdownlist class="form-control" [filterable]="true" formControlName="VendorSK"
+                  [data]="_vendorService | async" [valuePrimitive]="true" [textField]="'CompanyName'"
+                  [itemDisabled]="itemDisabled" [valueField]="'SysKey'"
+                  (filterChange)="handelVendorFilterChange($event)">
+                  <ng-template kendoDropDownListValueTemplate let-dataItem>
+                    <div class="row w-100">
+                      <div class="col-md-4">
+                        {{dataItem?.CompanyName}}
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template kendoDropDownListItemTemplate let-dataItem>
+                    <div class="row w-100">
+                      <div class="col-md-2">
+                        {{dataItem?.R1}}
+                      </div>
+                      <div class="col-md-4">
+                        {{dataItem?.CompanyName}}
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template kendoDropDownListNoDataTemplate>
+                    <div>
+                      Type at least 3 words to start serach.
+                      <br />
+                      <button kendoButton [primary]="true" (click)="addNewCompany()">Add New
+                        vendor</button>
+                    </div>
+                  </ng-template>
+                </kendo-dropdownlist>
+                <div class="text-danger"
+                  *ngIf="form?.get('Person')?.get('VendorSK')?.hasError('required') && (form?.get('Person')?.get('VendorSK')?.touched || form?.get('Person')?.get('VendorSK')?.dirty)">
+                  'Company' is required.
+                </div>
+              </div>
+              <div class="col-md-6 form-group">
+                <label>Designation</label>
+                <input type="text" class="form-control" formControlName="Designation">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>External Salesperson No.</label>
+                <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly pInputIcon>
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="">Salutation</label>
+                <kendo-dropdownlist class="form-control" [data]="_salutation" [valueField]="'value'"
+                  [textField]="'text'" [valuePrimitive]="true" formControlName="Salutation">
+                </kendo-dropdownlist>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label for="">First Name</label>
+                <input type="text" kendoTextBox class="form-control" formControlName="FirstName">
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="">Last Name</label>
+                <input type="text" kendoTextBox class="form-control" formControlName="LastName">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>Dispaly Name</label>
+                <input type="text" readonly pInputIcon class="form-control" formControlName="Name" [ngClass]="{'is-invalid':form?.get('Person')?.get('Name')?.errors 
+                        && (form?.get('Person')?.get('Name')?.touched || form?.get('Person')?.get('Name')?.dirty)}">
+                <div class="text-danger"
+                  *ngIf="form?.get('Person')?.get('Name')?.hasError('required') && (form?.get('Person')?.get('Name')?.touched || form?.get('Person')?.get('Name')?.dirty)">
+                  'Name' is required.
+                </div>
+              </div>
+              <div class="col-md-6 form-group">
+                <label>Name Options</label>
+                <div class="form-control">
+                  <label class="radio-inline">
+                    <input type="radio" name="IsLastNameFirst" [value]="false"
+                      formControlName="IsLastNameFirst">&nbsp;'First Name' First
+                  </label>&nbsp;&nbsp;
+                  <label class="radio-inline">
+                    <input type="radio" name="IsLastNameFirst" [value]="true"
+                      formControlName="IsLastNameFirst">&nbsp;'Last Name' First
+                  </label>&nbsp;&nbsp;
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>
+                  {{'NRIC No.'}}
+                </label>
+                <input type="text" kendoTextBox class="form-control" formControlName="NRIC" [ngClass]="{'is-invalid':form?.get('Person')?.get('NRIC')?.errors 
+                        && (form?.get('Person')?.get('NRIC')?.touched || form?.get('Person')?.get('NRIC')?.dirty)}">
+                <div class="text-danger"
+                  *ngIf="form?.get('Person')?.get('NRIC')?.hasError('required') && (form?.get('Person')?.get('NRIC')?.touched || form?.get('Person')?.get('NRIC')?.dirty)">
+                  'NRIC No.' is required.
+                </div>
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="">Date of Birth</label>
+                <p-custom-kendo-date-picker formControlName="DOB"></p-custom-kendo-date-picker>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>Nationality</label>
+                <input type="text" kendoTextBox class="form-control" formControlName="Nationality">
+              </div>
+              <div class="col-md-6 form-group">
+                <label>Gender</label>
+                <kendo-dropdownlist [data]="_gender" [valueField]="'value'" [textField]="'text'" [valuePrimitive]="true"
+                  class="form-control" formControlName="Gender"></kendo-dropdownlist>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>Is Active</label>
+                <div class="form-group">
+                  <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+                  </kendo-switch>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header text-white">
+          Contact
+        </div>
+        <div class="card-body">
+          <app-content-information [formGroup]="form?.get('Contact')" [showWebSite]="false"></app-content-information>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

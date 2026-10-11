@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Agent Tools
+    </ion-title>
+    <ion-buttons slot="end">
+      <fc-notification-summary></fc-notification-summary>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<super-tabs>
+  <super-tabs-toolbar color="tab-light" slot="bottom" scrollablePadding="false">
+    <super-tab-button>
+      <ion-label>Bank Rates</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Calculator</ion-label>
+    </super-tab-button>
+  </super-tabs-toolbar>
+  <super-tabs-container>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <fc-bank-best-rate></fc-bank-best-rate>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <fc-financial-calculator></fc-financial-calculator>
+      </ion-content>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>

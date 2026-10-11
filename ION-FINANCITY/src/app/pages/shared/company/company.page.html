@@ -1,0 +1,46 @@
+<div [formGroup]="form">
+  <ion-list>
+    <fc-image-loader [uploadId]="form?.get('SysKey')?.value" [fileType]="10">
+    </fc-image-loader>
+    <ion-item>
+      <ion-label position="stacked">Vendor No.</ion-label>
+      <ion-input formControlName="R1" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Company Name</ion-label>
+      <ion-input formControlName="CompanyName"></ion-input>
+      <fc-validation-container [control]="form.get('CompanyName')" label="Company Name">
+        <fc-validation-required></fc-validation-required>
+      </fc-validation-container>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">ACRA No.</ion-label>
+      <ion-input formControlName="CompanyReg"></ion-input>
+      <fc-validation-container [control]="form.get('CompanyReg')" label="ACRA No.">
+        <fc-validation-required></fc-validation-required>
+      </fc-validation-container>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Vendor Type</ion-label>
+      <ion-select formControlName="TransType">
+        <ion-select-option *ngFor="let p of _vendorType" [value]='p.value'>{{p.text}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Open Date</ion-label>
+      <ion-datetime fcDate formControlName="OpenDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Contact Person</ion-label>
+      <ion-input formControlName="ContactPerson"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Is GST Registered?</ion-label>
+      <ion-toggle formControlName="HasGST"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Is Active?</ion-label>
+      <ion-toggle formControlName="IsActive"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</div>

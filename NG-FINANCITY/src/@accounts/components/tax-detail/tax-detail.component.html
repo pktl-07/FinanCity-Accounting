@@ -1,0 +1,149 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div [formGroup]="form" *ngIf="formReady.value.ready">
+      <div style="height: 100%">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="control-label">Tax Code</label>
+            <input formControlName="TaxCode" type="text" kendoTextBox class="form-control" [ngClass]="{'is-invalid':form.get('TaxCode').errors 
+                  && (form.get('TaxCode').touched || form.get('TaxCode').dirty)}">
+            <div class="text-danger"
+              *ngIf="form.get('TaxCode').hasError('required') && (form.get('TaxCode').touched || form.get('TaxCode').dirty)">
+              'Tax Code' is required.
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="control-label">Tax Percent</label>
+            <kendo-numerictextbox class="form-control" formControlName="TaxPercent" [spinners]="false">
+            </kendo-numerictextbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="control-label">Tax Name</label>
+            <input type="text" kendoTextBox formControlName="Description" class="form-control" [ngClass]="{'is-invalid':form.get('Description').errors 
+                && (form.get('Description').touched || form.get('Description').dirty)}">
+            <div class="text-danger"
+              *ngIf="form.get('Description').hasError('required') && (form.get('Description').touched || form.get('Description').dirty)">
+              'Tax Name' is required.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="control-label">Tax Type</label>
+            <kendo-dropdownlist class="form-control" formControlName="TaxType" [data]="_taxType" [valuePrimitive]="true"
+              [textField]="'text'" [valueField]="'value'">
+            </kendo-dropdownlist>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="control-label">Tax Category</label>
+            <kendo-dropdownlist class="form-control" formControlName="TaxCategory" [data]="_taxCategory"
+              [valuePrimitive]="true" [textField]="'text'" [valueField]="'value'">
+            </kendo-dropdownlist>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="control-label">Input Account Code</label>
+            <kendo-dropdownlist class="form-control" [filterable]="true" formControlName="InputTaxSK"
+              [data]="_inputTaxAccountService | async" [valuePrimitive]="true" [textField]="'AccCode'"
+              [itemDisabled]="itemDisabled" [valueField]="'SysKey'"
+              (filterChange)="handelTaxAccountFilterChange({value:$event,service:_inputTaxAccountService})">
+              <ng-template kendoDropDownListValueTemplate let-dataItem>
+                <div class="row w-100">
+                  <div class="col-md-1">
+                    {{dataItem?.AccCode}}
+                  </div>
+                  <div class="col-md-11">
+                    {{dataItem?.AccDescription}}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoDropDownListItemTemplate let-dataItem>
+                <div class="row w-100">
+                  <div class="col-md-1">
+                    {{dataItem?.AccCode}}
+                  </div>
+                  <div class="col-md-11">
+                    {{dataItem?.AccDescription}}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoDropDownListNoDataTemplate>
+                <div>
+                  Type at least 3 words to start serach.
+                  <br />
+                  <button kendoButton [primary]="true"
+                    (click)="addNewAccount({ field:'InputTaxSK', service : _inputTaxAccountService})">Add
+                    New
+                    account</button>
+                </div>
+              </ng-template>
+            </kendo-dropdownlist>
+            <div class="text-danger"
+              *ngIf="form.get('InputTaxSK').hasError('required') && (form.get('InputTaxSK').touched || form.get('InputTaxSK').dirty)">
+              'Input Account Code' is required.
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="control-label">Output Account Code</label>
+            <kendo-dropdownlist class="form-control" formControlName="OutputTaxSK"
+              [data]="_outputTaxAccountService | async" [filterable]="true" [valuePrimitive]="true"
+              [textField]="'AccCode'" [valueField]="'SysKey'" [itemDisabled]="itemDisabled"
+              (filterChange)="handelTaxAccountFilterChange({value:$event,service:_outputTaxAccountService})">
+              <ng-template kendoDropDownListValueTemplate let-dataItem>
+                <div class="row w-100">
+                  <div class="col-md-1">
+                    {{dataItem?.AccCode}}
+                  </div>
+                  <div class="col-md-11">
+                    {{dataItem?.AccDescription}}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoDropDownListItemTemplate let-dataItem>
+                <div class="row w-100">
+                  <div class="col-md-1">
+                    {{dataItem?.AccCode}}
+                  </div>
+                  <div class="col-md-11">
+                    {{dataItem?.AccDescription}}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoDropDownListNoDataTemplate>
+                <div>
+                  Type at least 3 words to start serach.
+                  <br />
+                  <button kendoButton [primary]="true"
+                    (click)="addNewAccount({field:'OutputTaxSK', service : _outputTaxAccountService})">Add New
+                    account</button>
+                </div>
+              </ng-template>
+            </kendo-dropdownlist>
+            <div class="text-danger"
+              *ngIf="form.get('OutputTaxSK').hasError('required') && (form.get('OutputTaxSK').touched || form.get('OutputTaxSK').dirty)">
+              'Output Account Code' is required.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label class="control-label">Description</label>
+            <textarea formControlName="Remark" class="form-control" rows="5"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label>Is Active</label>
+            <div class="form-group">
+              <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+              </kendo-switch>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

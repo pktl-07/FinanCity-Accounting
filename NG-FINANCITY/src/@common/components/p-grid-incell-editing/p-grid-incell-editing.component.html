@@ -1,0 +1,320 @@
+<ng-template #template let-anchor>
+  <span>{{ anchor.nativeElement.innerText }}</span>
+</ng-template>
+
+
+<div class="fc-grid fc-grid-edit" kendoTooltip showOn="none" [tooltipTemplate]="template" filter=".k-grid td"
+  (mouseover)="showTooltip($event)" [class.lock]="lock">
+
+  <div *ngIf="lock" style="position: absolute;right:0;top: -10px; z-index: 9999;">
+    <i class="fa fa-lock"></i>
+  </div>
+
+  <kendo-grid #grid [data]="view | async" [resizable]="true" [style.height.%]="100" (edit)="editHandler($event)"
+    [loading]="view?.loading" (cellClick)="cellClickHandler($event)" (cellClose)="cellCloseHandler($event)"
+    (add)="addHandler($event)" selectable="true" (cancel)="cancelHandler($event)" (save)="saveHandler($event)"
+    (remove)="removeHandler($event)">
+
+    <ng-template kendoGridToolbarTemplate>
+      <b>{{title}}</b>
+      <button class='k-button float-right' [disabled]="!service.hasChanges()" (click)="cancelChanges(grid);">Cancel
+        Changes</button>
+      <button kendoGridAddCommand class="float-right" [disabled]="disabledAddNewButton">Add New</button>
+    </ng-template>
+
+    <ng-container *ngFor="let c of config?.columns">
+      <ng-container *ngIf="c?.dataType == 'dropdown' 
+        && (isBaseApiService(c?.dropdown?.fetch) 
+        || isBehaviourSubject(c?.dropdown?.fetch))">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [width]="c?.width">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <div class="row w-100" *ngIf="c?.dropdown?.itemTemplateField;else noneItemTemplate">
+              <div class="col-md-3">
+                <span
+                  style="font-weight: bold;">{{ dataItem[c?.field +'_item'][c?.dropdown?.itemTemplateField?.field1] }}</span>
+              </div>
+              <div class="col-md-9">
+                <span class="ml-1">
+                  {{ dataItem[c?.field +'_item'][c?.dropdown?.itemTemplateField?.field2] }}</span>
+              </div>
+            </div>
+            <ng-template #noneItemTemplate>
+              {{ isundefined(dataItem[c?.field +'_item'],c?.dropdown?.textField) ? null :
+                 dataItem[c.field +'_item'][c?.dropdown.textField] }}
+            </ng-template>
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+            let-rowIndex="rowIndex" let-isNew="isNew">
+            <kendo-dropdownlist #ddl="popupAnchor" popupAnchor [data]="c?.dropdown?.fetch | async" class="form-control"
+              [itemDisabled]="itemDisabled" [disabled]="canEditCell(c)" [textField]="c?.dropdown?.textField"
+              [valueField]="c?.dropdown?.valueField"
+              (open)="dropdownOpen({ dataItem : dataItem ,  event : $event, column : c , isNew : isNew , rowIndex : rowIndex})"
+              (close)="dropdownClose({ dataItem : dataItem ,  event : $event, column : c , isNew : isNew , rowIndex : rowIndex})"
+              (filterChange)="filterDropDown({value:$event,dropDown: c?.dropdown})" [valuePrimitive]="true"
+              (valueChange)="cellValueChange({ dataItem : dataItem ,  event : $event, column : c , isNew : isNew , rowIndex: rowIndex  })"
+              [kendoDropDownFilter]="filterSettings" [formControl]="formGroup?.get(column?.field)">
+              <ng-container *ngIf="c?.dropdown?.itemEmpty">
+                <ng-template kendoDropDownListNoDataTemplate>
+                  <div>
+                    No data found.
+                    <br />
+                    <button kendoButton [primary]="true"
+                      (click)="addDropDownItem({ dataItem : dataItem , column : c, cell : c?.dropdown , isNew : isNew , rowIndex : rowIndex })">Add
+                      New {{c?.title}}</button>
+                  </div>
+                </ng-template>
+              </ng-container>
+              <ng-container *ngIf="c?.dropdown?.itemTemplateField">
+                <ng-template kendoDropDownListItemTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-4">
+                      <span style="font-weight: bold;">{{dataItem[c?.dropdown?.itemTemplateField?.field1]}}</span>
+                    </div>
+                    <div class="col-md-8">
+                      <span class="ml-1">{{dataItem[c?.dropdown?.itemTemplateField?.field2]}}</span>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </kendo-dropdownlist>
+            <kendo-popup [anchor]="ddl.element"
+              *ngIf="formGroup?.get(column?.field)?.invalid && !(isNew && formGroup?.get(column?.field)?.untouched)"
+              popupClass="k-widget k-tooltip k-tooltip-validation k-invalid-msg">
+              <span class="k-icon k-i-warning"></span>
+              {{c?.title}} is invalid.
+            </kendo-popup>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'dropdown' 
+        && (!isBaseApiService(c?.dropdown?.fetch)
+        && !isBehaviourSubject(c?.dropdown?.fetch))">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [width]="c?.width">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <div class="row w-100" *ngIf="c?.dropdown?.itemTemplateField;else noneItemTemplate">
+              <div class="col-md-3">
+                <span
+                  style="font-weight: bold;">{{ getDropDownItem(c?.dropdown, dataItem[c?.dropdown?.itemTemplateField?.field1]) }}</span>
+              </div>
+              <div class="col-md-9">
+                <span class="ml-1">
+                  {{ getDropDownItem(c?.dropdown, dataItem[c?.dropdown?.itemTemplateField?.field2]) }}</span>
+              </div>
+            </div>
+            <ng-template #noneItemTemplate>
+              {{ getDropDownItem(c?.dropdown, dataItem[c?.field]) }}
+            </ng-template>
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+            let-rowIndex="rowIndex" let-isNew="isNew">
+            <kendo-dropdownlist #_ddl="popupAnchor" popupAnchor [data]="c?.dropdown?.fetch" class="form-control"
+              [disabled]="canEditCell(c)" [textField]="c?.dropdown?.textField" [valueField]="c?.dropdown?.valueField"
+              [itemDisabled]="itemDisabled" (filterChange)="filterDropDown({value:$event,dropDown: c?.dropdown})"
+              [valuePrimitive]="true"
+              (open)="dropdownOpen({ dataItem : dataItem ,  event : $event, column : c , isNew : isNew , rowIndex : rowIndex})"
+              (valueChange)="cellValueChange({ dataItem : dataItem ,  event : $event, column : c , isNew : isNew , rowIndex : rowIndex})"
+              [kendoDropDownFilter]="filterSettings" [formControl]="formGroup?.get(column?.field)">
+            </kendo-dropdownlist>
+            <kendo-popup [anchor]="_ddl?.element"
+              *ngIf="formGroup?.get(column?.field)?.invalid && !(isNew && formGroup?.get(column?.field)?.untouched)"
+              popupClass="k-widget k-tooltip k-tooltip-validation k-invalid-msg">
+              <span class="k-icon k-i-warning"></span>
+              {{c?.title}} is invalid.
+            </kendo-popup>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'display'">
+        <kendo-grid-column [field]=" c?.field" [title]="c?.title" [width]="c?.width"
+          [class]="{'text-center':c?.align == 'center'}">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            {{ dataItem[c?.field] }}
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <span>{{ dataItem[c?.field] }}</span>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'dispaly/currency'">
+        <kendo-grid-column [field]=" c?.field" [title]="c?.title" [width]="c?.width" [headerClass]="{'text-right':true}"
+          [class]="{'text-right':true}">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            {{ dataItem[c?.field] | currency }}
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <span>{{ dataItem[c?.field] }}</span>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'dispaly/checkbox'">
+        <kendo-grid-column [field]=" c?.field" [title]="c?.title" [class]="{'text-center':true}"
+          [headerClass]="{'text-center':true}" [width]="c?.width">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <ng-container *ngIf="dataItem[c?.field] == true;else falseTemplate">
+              <span class="text-success">
+                <i class="fas fa-check"></i>
+              </span>
+            </ng-container>
+            <ng-template #falseTemplate>
+              <span class="text-danger">
+                <i class="fas fa-times"></i>
+              </span>
+            </ng-template>
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+            let-isNew="isNew">
+            <ng-container *ngIf="dataItem[c?.field] == true;else falseTemplate">
+              <span class="text-success">
+                <i class="fas fa-check"></i>
+              </span>
+            </ng-container>
+            <ng-template #falseTemplate>
+              <span class="text-danger">
+                <i class="fas fa-times"></i>
+              </span>
+            </ng-template>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'string'">
+        <kendo-grid-column [field]=" c?.field" [title]="c?.title" [width]="c?.width"
+          [class]="{'text-center':c?.align == 'center'}">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            {{ toUpperCase(dataItem[c?.field]) }}
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+            let-rowIndex="rowIndex" let-isNew="isNew">
+            <input #stb="popupAnchor" popupAnchor kendoTextBox [disabled]="canEditCell(c)"
+              class="form-control text-uppercase"
+              (change)="cellValueChange({ dataItem : dataItem, event : $event.target.value, column : c , isNew : isNew , rowIndex: rowIndex})"
+              [formControl]="formGroup.get(c?.field)" />
+            <kendo-popup [anchor]="stb.element"
+              *ngIf="formGroup?.get(column.field)?.invalid && !(isNew && formGroup?.get(column?.field).untouched)"
+              popupClass="k-widget k-tooltip k-tooltip-validation k-invalid-msg">
+              <span class="k-icon k-i-warning"></span>
+              {{c?.title}} is invalid.
+            </kendo-popup>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'chekbox'">
+        <kendo-grid-column [field]=" c?.field" [title]="c?.title" [headerClass]="{'text-center':true}"
+          [class]="{'text-center':true}" [width]="c?.width">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <ng-container *ngIf="dataItem[c?.field] == true;else falseTemplate">
+              <span class="text-success">
+                <i class="fas fa-check"></i>
+              </span>
+            </ng-container>
+            <ng-template #falseTemplate>
+              <span class="text-danger">
+                <i class="fas fa-times"></i>
+              </span>
+            </ng-template>
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+            let-rowIndex="rowIndex" let-isNew="isNew">
+            <input type="checkbox" [formControl]="formGroup?.get(c?.field)"
+              (change)="cellValueChange({ dataItem : dataItem ,  event : $event.target.checked, column : c , isNew : isNew , rowIndex: rowIndex})" />
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'cascade_checkbox'">
+        <kendo-grid-column [field]=" c?.field" [title]="c?.title" [class]="{'text-center':true}" [width]="c?.width">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <ng-container *ngIf="dataItem[c?.field] == true;else falseTemplate">
+              <span class="text-success">
+                <i class="fas fa-check"></i>
+              </span>
+            </ng-container>
+            <ng-template #falseTemplate>
+              <span class="text-danger">
+                <i class="fas fa-times"></i>
+              </span>
+            </ng-template>
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+            let-rowIndex="rowIndex" let-isNew="isNew">
+            <div [class.lock]="lock">
+              <input #cascade_checkbox type="checkbox" [formControl]="formGroup?.get(c?.field)"
+                (change)="cascadeChange({ dataItem : dataItem , event : $event, column : c , isNew : isNew , rowIndex : rowIndex})" />
+            </div>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'number'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [headerClass]="{'text-right':true}"
+          [class]="{'text-right':true}" [width]="c?.width">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            {{dataItem[c?.field]}}
+          </ng-template>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+            let-rowIndex="rowIndex" let-isNew="isNew">
+            <kendo-numerictextbox #ntb="popupAnchor" popupAnchor [disabled]="canEditCell(c)" class="form-control"
+              (valueChange)="cellValueChange({ dataItem : dataItem ,  event:$event,column:c , isNew : isNew , rowIndex: rowIndex})"
+              [formControl]="formGroup?.get(column?.field)" [spinners]="false">
+            </kendo-numerictextbox>
+            <kendo-popup [anchor]="ntb.element"
+              *ngIf="formGroup?.get(column?.field)?.invalid && !(isNew && formGroup?.get(column.field)?.untouched)"
+              popupClass="k-widget k-tooltip k-tooltip-validation k-invalid-msg">
+              <span class="k-icon k-i-warning"></span>
+              {{c?.title}} is invalid.
+            </kendo-popup>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+
+      <ng-container *ngIf="c?.dataType == 'currency'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [headerClass]="{'text-right':true}"
+          [class]="{'text-right':true}" [width]="c?.width">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <div>
+              {{dataItem[c?.field] | currency }}
+            </div>
+          </ng-template>
+          <ng-container>
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+              let-rowIndex="rowIndex" let-isNew="isNew">
+              <kendo-numerictextbox #ctb="popupAnchor" popupAnchor [disabled]="canEditCell(c)" class="form-control"
+                (valueChange)="cellValueChange({ dataItem : dataItem ,  event:$event,column:c , isNew : isNew , rowIndex: rowIndex})"
+                [spinners]="false" [formControl]="formGroup.get(column.field)" [format]="'c2'">
+              </kendo-numerictextbox>
+              <kendo-popup [anchor]="ctb.element"
+                *ngIf="formGroup?.get(column?.field)?.invalid && !(isNew && formGroup?.get(column?.field)?.untouched)"
+                popupClass="k-widget k-tooltip k-tooltip-validation k-invalid-msg">
+                <span class="k-icon k-i-warning"></span>
+                {{c?.title}} is invalid.
+              </kendo-popup>
+            </ng-template>
+          </ng-container>
+        </kendo-grid-column>
+      </ng-container>
+    </ng-container>
+    <kendo-grid-column width="120">
+      <ng-template kendoGridCellTemplate let-dataItem let-isNew="isNew" let-rowIndex="rowIndex"
+        let-formGroup="formGroup">
+        <button *ngIf="isNew == false" type="button" class="btn btn-danger btn-sm" style="float: right;width: 100px;"
+          [disabled]="disableDeleteButton(dataItem) || !canDeleteRow({ rowIndex: rowIndex, dataItem : dataItem})"
+          (click)="removeHandler({ sender : grid, formGroup : formGroup, dataItem : dataItem, rowIndex : rowIndex })">
+          <i class="fa fa-trash"></i>
+          Delete
+        </button>
+      </ng-template>
+      <ng-template kendoGridEditTemplate let-rowIndex="rowIndex" let-dataItem="dataItem" let-column="column"
+        let-formGroup="formGroup" let-isNew="isNew">
+        <button *ngIf="isNew == true" type="button" class="btn btn-light btn-sm" style="float: right;"
+          (click)="cancelHandler({ sender : grid, rowIndex : rowIndex  })">Cancel</button>
+        <button *ngIf="isNew == true" type="button" class="btn btn-primary btn-sm mr-3" style="float: right;"
+          (click)="saveHandler({ sender : grid, formGroup : formGroup, rowIndex : rowIndex , isNew : isNew })">Add</button>
+      </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
+</div>

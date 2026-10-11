@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{907DFA5B-B184-4D7F-BE05-446A31F7583D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FC.Domain.Sales</RootNamespace>
+    <AssemblyName>FC.Domain.Sales</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\BankBestRate.cs" />
+    <Compile Include="Business\BonusPayment.cs" />
+    <Compile Include="Business\BonusPaymentDetail.cs" />
+    <Compile Include="Business\CareerManagement.cs" />
+    <Compile Include="Business\Chatting.cs" />
+    <Compile Include="Business\CommissionAllocation.cs" />
+    <Compile Include="Business\BonusPayable.cs" />
+    <Compile Include="Business\CommissionPayment.cs" />
+    <Compile Include="Business\CommissionReceived.cs" />
+    <Compile Include="Business\CommissionStructure.cs" />
+    <Compile Include="Business\CommissionStructureBase.cs" />
+    <Compile Include="Business\CommissionStructureDetail.cs" />
+    <Compile Include="Business\Company.cs" />
+    <Compile Include="Business\Contact.cs" />
+    <Compile Include="Business\Country.cs" />
+    <Compile Include="Business\Currency.cs" />
+    <Compile Include="Business\CurrencyRate.cs" />
+    <Compile Include="Business\CurrencyTransaction.cs" />
+    <Compile Include="Business\DataList.cs" />
+    <Compile Include="Business\Employment.cs" />
+    <Compile Include="Business\EmploymentHistory.cs" />
+    <Compile Include="Business\FollowUp.cs" />
+    <Compile Include="Business\IDIndexing.cs" />
+    <Compile Include="Business\IndustryExam.cs" />
+    <Compile Include="Business\Lead.cs" />
+    <Compile Include="Business\Notification.cs" />
+    <Compile Include="Business\SalesInvoiceLog.cs" />
+    <Compile Include="Business\SalesOrderType.cs" />
+    <Compile Include="DAO\BankBestRateDAO.cs" />
+    <Compile Include="DAO\CareerManagementDAO.cs" />
+    <Compile Include="DAO\ChattingDAO.cs" />
+    <Compile Include="DAO\FollowUpDAO.cs" />
+    <Compile Include="DAO\LeadDAO.cs" />
+    <Compile Include="DAO\NotificationDAO.cs" />
+    <Compile Include="DAO\SalesInvoiceLogDAO.cs" />
+    <Compile Include="DAO\SalesOrderTypeDAO.cs" />
+    <Compile Include="DTO\CareerManagementDTO.cs" />
+    <Compile Include="DTO\LeadFollowUpDTO.cs" />
+    <Compile Include="DTO\LeadManagementDTO.cs" />
+    <Compile Include="DTO\NotificatonMortageSalesDTO.cs" />
+    <Compile Include="DTO\SalesOrderTypeDTO.cs" />
+    <Compile Include="Entity\BankBestRateEntity.cs" />
+    <Compile Include="Entity\CareerManagementEntity.cs" />
+    <Compile Include="Entity\ChattingEntity.cs" />
+    <Compile Include="Entity\FollowUpEntity.cs" />
+    <Compile Include="Entity\LeadEntity.cs" />
+    <Compile Include="Entity\NotificationEntity.cs" />
+    <Compile Include="Entity\SalesInvoiceLogEntity.cs" />
+    <Compile Include="Entity\SalesOrderTypeEntity.cs" />
+    <Compile Include="Extensions\EntityExtensions.cs" />
+    <Compile Include="Infrastructure\CommissionAllocationAccountResult.cs" />
+    <Compile Include="Infrastructure\OverridingProfile\OverridingProfileCollection.cs" />
+    <Compile Include="Infrastructure\OverridingProfile\OverridingProfileItem.cs" />
+    <Compile Include="Infrastructure\OverridingProfile\OverridingIterator.cs" />
+    <Compile Include="Infrastructure\OverridingProfile\OverridingProfileContext.cs" />
+    <Compile Include="Infrastructure\SalespersonCommission\CommissionHelper.cs" />
+    <Compile Include="Infrastructure\SalespersonCommission\ICommissionBaseHelperFactory.cs" />
+    <Compile Include="Infrastructure\SalespersonCommission\SalespersonWhoDoNotHaveResetScheme.cs" />
+    <Compile Include="Infrastructure\SalespersonCommission\SelespersonWhoHasResetScheme.cs" />
+    <Compile Include="Infrastructure\CommissionPayableAccountResult.cs" />
+    <Compile Include="Infrastructure\CommissionReceivableAccountResult.cs" />
+    <Compile Include="Infrastructure\Extensions\ContactExtension.cs" />
+    <Compile Include="Infrastructure\LeadManagement\ILeadManagement.cs" />
+    <Compile Include="Infrastructure\LeadManagement\LeadDePromotion.cs" />
+    <Compile Include="Infrastructure\LeadManagement\LeadPromotion.cs" />
+    <Compile Include="Infrastructure\LeadManagement\LeadManagementBuilder.cs" />
+    <Compile Include="Infrastructure\LeadManagement\LeadManagementContext.cs" />
+    <Compile Include="Infrastructure\PromotionHelper\BaseCommissionHelper.cs" />
+    <Compile Include="Infrastructure\PromotionHelper\CommissionHelperFactory.cs" />
+    <Compile Include="Infrastructure\PromotionHelper\ExternalContext.cs" />
+    <Compile Include="Infrastructure\PromotionHelper\FixedContext.cs" />
+    <Compile Include="Infrastructure\PromotionHelper\ICommissionContext.cs" />
+    <Compile Include="Infrastructure\PromotionHelper\PromotionSchemeContext.cs" />
+    <Compile Include="Infrastructure\PromotionHelper\TireContext.cs" />
+    <Compile Include="Infrastructure\OverridingSchemeGenerator\OverridingSchemeFactory.cs" />
+    <Compile Include="Infrastructure\OverridingSchemeGenerator\OverridingSchemeGenerator.cs" />
+    <Compile Include="Infrastructure\OverridingSchemeGenerator\PromoteTypeEnum.cs" />
+    <Compile Include="Infrastructure\OverridingSchemeGenerator\PromotionSchmeFactoryBase.cs" />
+    <Compile Include="Infrastructure\RecursiveSalesBonus\FinanCitySalesBonus.cs" />
+    <Compile Include="Infrastructure\RecursiveSalesBonus\IRecursiveSalesBonus.cs" />
+    <Compile Include="Infrastructure\RecursiveSalesBonus\RecursiveSalesBonusBuilder.cs" />
+    <Compile Include="Infrastructure\RecursiveSalesBonus\RecursiveSalesContext.cs" />
+    <Compile Include="Infrastructure\SalesinvoiceAccountResult.cs" />
+    <Compile Include="Infrastructure\SalespersonRecursiveTree\DownTree.cs" />
+    <Compile Include="Infrastructure\SalespersonRecursiveTree\FullTree.cs" />
+    <Compile Include="Infrastructure\SalespersonRecursiveTree\SalespersonRecursiveTree.cs" />
+    <Compile Include="Infrastructure\SalespersonRecursiveTree\TreeBuilder.cs" />
+    <Compile Include="Infrastructure\SalespersonRecursiveTree\TreeBuilderBase.cs" />
+    <Compile Include="Infrastructure\SalespersonRecursiveTree\UpTree.cs" />
+    <Compile Include="Business\Logger.cs" />
+    <Compile Include="Business\OverridingProfile.cs" />
+    <Compile Include="Business\OverridingScheme.cs" />
+    <Compile Include="Business\PayableScheme.cs" />
+    <Compile Include="Business\PaymentTerm.cs" />
+    <Compile Include="Business\PayNow.cs" />
+    <Compile Include="Business\Person.cs" />
+    <Compile Include="Business\PersonEducation.cs" />
+    <Compile Include="Business\PersonIndustry.cs" />
+    <Compile Include="Business\PostalCode.cs" />
+    <Compile Include="Business\MarketingItem.cs" />
+    <Compile Include="Business\MarketingExpense.cs" />
+    <Compile Include="Business\PTOClient.cs" />
+    <Compile Include="Business\Qualification.cs" />
+    <Compile Include="Business\ReferenceIndexTree.cs" />
+    <Compile Include="Business\PropertyTransaction.cs" />
+    <Compile Include="Business\PropertyTransactionDetail.cs" />
+    <Compile Include="Business\SalesInvoice.cs" />
+    <Compile Include="Business\ClientShare.cs" />
+    <Compile Include="Business\TNC.cs" />
+    <Compile Include="Business\TNC_Duration.cs" />
+    <Compile Include="Business\TNC_InterestRateType.cs" />
+    <Compile Include="Business\TNC_PropertyPurpose.cs" />
+    <Compile Include="Business\TNC_PropertyType.cs" />
+    <Compile Include="Business\TNC_RateType.cs" />
+    <Compile Include="Business\TNC_TimeFrame.cs" />
+    <Compile Include="Business\TNC_TransactionType.cs" />
+    <Compile Include="DAO\AllocationDAO.cs" />
+    <Compile Include="DAO\BonusPayableDAO.cs" />
+    <Compile Include="DAO\BonusPaymentDAO.cs" />
+    <Compile Include="DAO\BonusPaymentDetailDAO.cs" />
+    <Compile Include="DAO\CommissionPaymentDAO.cs" />
+    <Compile Include="DAO\CommissionReceivedDAO.cs" />
+    <Compile Include="DAO\CommissionStructureBaseDAO.cs" />
+    <Compile Include="DAO\CommissionStructureDAO.cs" />
+    <Compile Include="DAO\CommissionStructureDetailDAO.cs" />
+    <Compile Include="DAO\CompanyDAO.cs" />
+    <Compile Include="DAO\ContactDAO.cs" />
+    <Compile Include="DAO\CountryDAO.cs" />
+    <Compile Include="DAO\CurrencyDAO.cs" />
+    <Compile Include="DAO\CurrencyRateDAO.cs" />
+    <Compile Include="DAO\CurrencyTransactionDAO.cs" />
+    <Compile Include="DAO\DataListDAO.cs" />
+    <Compile Include="DAO\EmploymentDAO.cs" />
+    <Compile Include="DAO\EmploymentHistoryDAO.cs" />
+    <Compile Include="DAO\IDIndexingDAO.cs" />
+    <Compile Include="DAO\IndustryExamDAO.cs" />
+    <Compile Include="DAO\LoggerDAO.cs" />
+    <Compile Include="DAO\OverridingProfileDAO.cs" />
+    <Compile Include="DAO\OverridingSchemeDAO.cs" />
+    <Compile Include="DAO\PayableSchemeDAO.cs" />
+    <Compile Include="DAO\PaymentTermDAO.cs" />
+    <Compile Include="DAO\PayNowDAO.cs" />
+    <Compile Include="DAO\PersonDAO.cs" />
+    <Compile Include="DAO\PersonEducationDAO.cs" />
+    <Compile Include="DAO\PersonIndustryDAO.cs" />
+    <Compile Include="DAO\PostalCodeDAO.cs" />
+    <Compile Include="DAO\MarketingItemDAO.cs" />
+    <Compile Include="DAO\MarketingExpenseDAO.cs" />
+    <Compile Include="DAO\PTOClientDAO.cs" />
+    <Compile Include="DAO\QualificationDAO.cs" />
+    <Compile Include="DAO\PropertyTransactionDAO.cs" />
+    <Compile Include="DAO\PropertyTransactionDetailDAO.cs" />
+    <Compile Include="DAO\SalesInvoiceDAO.cs" />
+    <Compile Include="DAO\ClientShareDAO.cs" />
+    <Compile Include="DAO\TNC_DAO.cs" />
+    <Compile Include="DAO\TNC_DurationDAO.cs" />
+    <Compile Include="DAO\TNC_InterestRateTypeDAO.cs" />
+    <Compile Include="DAO\TNC_PropertyPurposeDAO.cs" />
+    <Compile Include="DAO\TNC_PropertyTypeDAO.cs" />
+    <Compile Include="DAO\TNC_RateTypeDAO.cs" />
+    <Compile Include="DAO\TNC_TimeFrameDAO.cs" />
+    <Compile Include="DAO\TNC_TransactionTypeDAO.cs" />
+    <Compile Include="DependencyContainer.cs" />
+    <Compile Include="DTO\AgencyCommDTO.cs" />
+    <Compile Include="DTO\CommissionPayableDetailDTO.cs" />
+    <Compile Include="DTO\CommissionPayableDTO.cs" />
+    <Compile Include="DTO\CommissionReceivedAllocationDTO.cs" />
+    <Compile Include="DTO\CommissionReceivedDTO.cs" />
+    <Compile Include="DTO\CompanyAndContactDTO.cs" />
+    <Compile Include="DTO\CurrencyRateDTO.cs" />
+    <Compile Include="DTO\FullAddressDTO.cs" />
+    <Compile Include="DTO\InvoiceDTO.cs" />
+    <Compile Include="DTO\SalespersonCommissionDTO.cs" />
+    <Compile Include="DTO\LeadAndContactDTO.cs" />
+    <Compile Include="DTO\EmploymentDTO.cs" />
+    <Compile Include="DTO\PropertyTransactionDTO.cs" />
+    <Compile Include="DTO\RankingTierDTO.cs" />
+    <Compile Include="DTO\SalesPersonTireDTO.cs" />
+    <Compile Include="Entity\AllocationEntity.cs" />
+    <Compile Include="Entity\BonusPayableEntity.cs" />
+    <Compile Include="Entity\BonusPaymentDetailEntity.cs" />
+    <Compile Include="Entity\BonusPaymentEntity.cs" />
+    <Compile Include="Entity\BuildingEntity.cs" />
+    <Compile Include="Entity\CommissionPaymentEntity.cs" />
+    <Compile Include="Entity\CommissionReceivedEntity.cs" />
+    <Compile Include="Entity\CommissionStructureBaseEntity.cs" />
+    <Compile Include="Entity\CommissionStructureDetailEntity.cs" />
+    <Compile Include="Entity\CommissionStructureEntity.cs" />
+    <Compile Include="Entity\CompanyEntity.cs" />
+    <Compile Include="Entity\ContactEntity.cs" />
+    <Compile Include="Entity\CountryEntity.cs" />
+    <Compile Include="Entity\CurrencyEntity.cs" />
+    <Compile Include="Entity\CurrencyRateEntity.cs" />
+    <Compile Include="Entity\CurrencyTransactionEntity.cs" />
+    <Compile Include="Entity\EmploymentEntity.cs" />
+    <Compile Include="Entity\EmploymentHistoryEntity.cs" />
+    <Compile Include="Entity\IDIndexingEntity.cs" />
+    <Compile Include="Entity\IndustryExamEntity.cs" />
+    <Compile Include="Entity\LoggerEntity.cs" />
+    <Compile Include="Entity\OverridingProfileEntity.cs" />
+    <Compile Include="Entity\OverridingSchemeEntity.cs" />
+    <Compile Include="Entity\PayableSchemeEntity.cs" />
+    <Compile Include="Entity\PaymentTermEntity.cs" />
+    <Compile Include="Entity\PayNowEntity.cs" />
+    <Compile Include="Entity\PersonEducationEntity.cs" />
+    <Compile Include="Entity\PersonEntity.cs" />
+    <Compile Include="Entity\PersonIndustryEntity.cs" />
+    <Compile Include="Entity\PostalCodeEntity.cs" />
+    <Compile Include="Entity\MarketingItemEntity.cs" />
+    <Compile Include="Entity\MarketingExpenseEntity.cs" />
+    <Compile Include="Entity\PTOClientEntity.cs" />
+    <Compile Include="Entity\QualificationEntity.cs" />
+    <Compile Include="Entity\PropertyTransactionEntity.cs" />
+    <Compile Include="Entity\PropertyTransactionDetailEntity.cs" />
+    <Compile Include="Entity\SalesInvoiceEntity.cs" />
+    <Compile Include="Entity\ClientShareEntity.cs" />
+    <Compile Include="Entity\StreetEntity.cs" />
+    <Compile Include="Entity\TNC_Entity.cs" />
+    <Compile Include="Entity\TNC_DurationEntity.cs" />
+    <Compile Include="Entity\TNC_InterestRateTypeEntity.cs" />
+    <Compile Include="Entity\TNC_PropertyPurposeEntity.cs" />
+    <Compile Include="Entity\TNC_PropertyTypeEntity.cs" />
+    <Compile Include="Entity\TNC_RateTypeEntity.cs" />
+    <Compile Include="Entity\TNC_TimeFrameEntity.cs" />
+    <Compile Include="Entity\TNC_TransactionTypeEntity.cs" />
+    <Compile Include="Infrastructure\SQLNotificationService\SQLNotificationService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FC.Core.Common\FC.Core.Common.csproj">
+      <Project>{4310952a-70d2-41f9-85a0-6765dedc527f}</Project>
+      <Name>FC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core.Data\FC.Core.Data.csproj">
+      <Project>{638430aa-6095-4324-a849-f0d8ca45f01d}</Project>
+      <Name>FC.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core\FC.Core.csproj">
+      <Project>{af7c6f02-8d8a-4dfe-b3ff-eb2d6ff3b11f}</Project>
+      <Name>FC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Domain.Accounts\FC.Domain.Accounts.csproj">
+      <Project>{2e3513fa-769e-48df-89d7-b55ddecb3b97}</Project>
+      <Name>FC.Domain.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Domain.Auth\FC.Domain.Auth.csproj">
+      <Project>{189bb090-524e-4539-98d0-fc07fe7df281}</Project>
+      <Name>FC.Domain.Auth</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

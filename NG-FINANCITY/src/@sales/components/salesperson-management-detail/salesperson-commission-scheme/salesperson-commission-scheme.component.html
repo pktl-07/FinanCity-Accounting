@@ -1,0 +1,167 @@
+<div [formGroup]='formGroup' style="height: 100%;">
+  <div class="card" style="height: auto;">
+    <div class="card-header text-white">
+      Sales Target
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <label>Opening Account Sales</label>
+          <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [format]="'c2'"
+            (blur)="onChangeAccSales()" formControlName="OpeningAccSales">
+          </kendo-numerictextbox>
+          <div class="text-danger"
+            *ngIf="formGroup?.get('OpeningAccSales')?.hasError('required') && (formGroup?.get('OpeningAccSales')?.touched || formGroup?.get('OpeningAccSales')?.dirty)">
+            'Opening Account Sales' is required.
+          </div>
+        </div>
+        <div class="col-md-4 form-group">
+          <label>Sales Commission to Date</label>
+          <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [format]="'c2'"
+            formControlName="CloseSalesCommissionToDate" [readonly]="true" pInputIcon>
+          </kendo-numerictextbox>
+        </div>
+        <div class="col-md-4 form-group">
+          <label>Sales Value to Date</label>
+          <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [format]="'c2'"
+            formControlName="CloseSalesValueToDate" [readonly]="true" pInputIcon>
+          </kendo-numerictextbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <label>Gross to Next Promotion</label>
+          <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [format]="'c2'"
+            formControlName="GrossToPromoteNext" [readonly]="true" pInputIcon>
+          </kendo-numerictextbox>
+        </div>
+        <div class="col-md-4 form-group">
+          <label>Sales Commission to Year</label>
+          <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [format]="'c2'"
+            formControlName="CloseSalesCommissionToYear" [readonly]="true" pInputIcon>
+          </kendo-numerictextbox>
+        </div>
+        <div class="col-md-4 form-group">
+          <label>Sales Value to Year</label>
+          <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [format]="'c2'"
+            formControlName="CloseSalesValueToYear" [readonly]="true" pInputIcon>
+          </kendo-numerictextbox>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3" style="height: 60%;">
+    <div class="card-header text-white">
+      Commission Structure
+    </div>
+    <div class="card-body" style="height: 100%;">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Commission Structure</label>
+          <kendo-dropdownlist class="form-control" [data]="_commissionScheme | async" [valueField]="'SysKey'"
+            [kendoDropDownFilter]="filterSettings" [textField]="'SchemeName'" [valuePrimitive]="true"
+            [itemDisabled]="itemDisabled" (filterChange)="handelCommissionSchemeFilterChange($event)"
+            formControlName="SalespersonCommScheme">
+            <ng-template kendoDropDownListNoDataTemplate>
+              <div>
+                <button kendoButton [primary]="true" (click)="addNewScheme()">Add New
+                  Scheme</button>
+              </div>
+            </ng-template>
+          </kendo-dropdownlist>
+          <div class="text-danger" *ngIf="formGroup?.get('SalespersonCommScheme')?.hasError('required') 
+              && (formGroup?.get('SalespersonCommScheme')?.touched || formGroup?.get('SalespersonCommScheme')?.dirty)">
+            'Commission Scheme' is required.
+          </div>
+        </div>
+
+        <div class="col-md-3 form-group">
+          <label>Reset Scheme Every Month</label>
+          <div class="form-group">
+            <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'"
+              formControlName="ResetEffectiveDate">
+            </kendo-switch>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 row" style="height: 80%;">
+        <div class="col-md-12 form-group" style="height: 100%;">
+
+          <ng-template #template let-anchor>
+            <span>{{ anchor.nativeElement.innerText }}</span>
+          </ng-template>
+          <div kendoTooltip showOn="none" [tooltipTemplate]="template" filter=".k-grid td"
+            (mouseover)="showTooltip($event)" class="fc-grid">
+
+            <!-- <p-grid-view></p-grid-view> -->
+            <kendo-grid [data]="_gridService.formArray.controls" [style.height.%]="90" [loading]="_gridService.loading">
+
+              <kendo-grid-column title="" width="50" class="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  <input kendoCheckBox type="checkbox" [formControl]="dataItem?.value?.IsCurrent"
+                    [attr.disabled]="dataItem?.value?.Disabled?.value ? true : null"
+                    (change)="handleDesignation({ event: $event, index: rowIndex, data: dataItem })">
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="Designation">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.Designation?.value }}
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="Base ($)" width="150">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.MinCom?.value | currency }}
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="Cap ($)" width="150">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.MaxCom?.value | currency }}
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="Salesperson (%)" width="110">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.AssociatedPercent?.value }}
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="Company (%)" width="110">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.AgencyPercent?.value }}
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="L1 (%)" width="80">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.L1?.value }}
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="L2 (%)" width="80">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.L2?.value }}
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="L3 (%)" width="80">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.L3?.value }}
+                </ng-template>
+              </kendo-grid-column>
+
+              <kendo-grid-column title="L4 (%)" width="80">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  {{ dataItem?.value?.L4?.value }}
+                </ng-template>
+              </kendo-grid-column>
+
+            </kendo-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

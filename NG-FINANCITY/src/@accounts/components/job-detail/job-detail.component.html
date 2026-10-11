@@ -1,0 +1,60 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div [formGroup]="form" *ngIf="formReady.value.ready">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Job No.</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Create Date</label>
+          <p-custom-kendo-date-picker formControlName="JobCreatedDate"></p-custom-kendo-date-picker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="control-label">Job Name</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Name">
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="control-label">Start Date</label>
+          <p-custom-kendo-date-picker formControlName="StartDate"></p-custom-kendo-date-picker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="control-label">Job Description</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Description" [ngClass]="{'is-invalid':form?.get('Description')?.errors 
+          && (form?.get('Description')?.touched || form?.get('Description')?.dirty)}">
+          <div class="text-danger"
+            *ngIf="form?.get('Description')?.hasError('required') && (form?.get('Description')?.touched || form?.get('Description')?.dirty)">
+            'Job Description' is required.
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="control-label">End Date</label>
+          <p-custom-kendo-date-picker formControlName="FinishDate"></p-custom-kendo-date-picker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="control-label">Contact</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Contact">
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="control-label">Contact</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Manager">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Is Active</label>
+          <div class="form-group">
+            <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+            </kendo-switch>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{638430AA-6095-4324-A849-F0D8CA45F01D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FC.Core.Data</RootNamespace>
+    <AssemblyName>FC.Core.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalDecisions.CrystalReports.Engine.1.0.0\lib\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\ColumnAttribute.cs" />
+    <Compile Include="Attributes\IgnoreAttribute.cs" />
+    <Compile Include="Attributes\TableAttribute.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="BusinessLogic.cs" />
+    <Compile Include="DAO.cs" />
+    <Compile Include="DbExcutor.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Infrastructure\DependencyContainer.cs" />
+    <Compile Include="Infrastructure\IAuto.cs" />
+    <Compile Include="Infrastructure\IColumnMetadata.cs" />
+    <Compile Include="Infrastructure\ICreaetedTime.cs" />
+    <Compile Include="Infrastructure\ICreatedDate.cs" />
+    <Compile Include="Infrastructure\ICreatedUser.cs" />
+    <Compile Include="Infrastructure\IDataPageable.cs" />
+    <Compile Include="Infrastructure\IDataPagerResult.cs" />
+    <Compile Include="Infrastructure\IDbMetadata.cs" />
+    <Compile Include="Infrastructure\IExpressionFilter.cs" />
+    <Compile Include="Infrastructure\IExpressionSelector.cs" />
+    <Compile Include="Infrastructure\IKey.cs" />
+    <Compile Include="Infrastructure\IModifiedDate.cs" />
+    <Compile Include="Infrastructure\IModifiedTime.cs" />
+    <Compile Include="Infrastructure\IModifiedUser.cs" />
+    <Compile Include="Infrastructure\Implementation\ColumnMetadata.cs" />
+    <Compile Include="Infrastructure\Implementation\DbMetadata.cs" />
+    <Compile Include="Infrastructure\Implementation\DbParameterAnnotation.cs" />
+    <Compile Include="Infrastructure\Implementation\DbReaderItrator.cs" />
+    <Compile Include="Infrastructure\Implementation\QueryAgent.cs" />
+    <Compile Include="Infrastructure\Implementation\QueryExpressionVisitor\BaseQueryExpressionVisitor.cs" />
+    <Compile Include="Infrastructure\Implementation\QueryExpressionVisitor\FilterExpressionVistor.cs" />
+    <Compile Include="Infrastructure\Implementation\QueryExpressionVisitor\ReaderExpressionVisitor.cs" />
+    <Compile Include="Infrastructure\Implementation\QueryExpressionVisitor\WriterExpressionVisitor.cs" />
+    <Compile Include="Infrastructure\IQueryAssert.cs" />
+    <Compile Include="Infrastructure\IQueryMetadata.cs" />
+    <Compile Include="Infrastructure\IRecordStatus.cs" />
+    <Compile Include="Infrastructure\IReferenIndexing.cs" />
+    <Compile Include="Infrastructure\QueryComponent.cs" />
+    <Compile Include="Infrastructure\QueryComponentBase.cs" />
+    <Compile Include="Infrastructure\QueryComponentBuilderBase.cs" />
+    <Compile Include="Infrastructure\SQL\Delete\Delete.cs" />
+    <Compile Include="Infrastructure\SQL\Delete\Fluent\DeleteBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Delete\IDelete.cs" />
+    <Compile Include="Infrastructure\SQL\Insert\Fluent\InsertBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Insert\Fluent\InsertTableBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Insert\IInsertTable.cs" />
+    <Compile Include="Infrastructure\SQL\Insert\Insert.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\AggregrateColumnBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\ColumnBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\ColumnFacotry.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\GroupByBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\HavingAppendixBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\HavingBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\JoinQueryBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\OrderByBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\QueryEndBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\SelectBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\SubQueryBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\TableBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\WhereAppendixBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Fluent\WhereBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IAggregrate.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IAppendix.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IColumn.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IColumnFactory.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IGroupBy.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IHaving.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IInsert.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IJoin.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IOrderBy.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IQueryEnd.cs" />
+    <Compile Include="Infrastructure\SQL\Select\ISelect.cs" />
+    <Compile Include="Infrastructure\SQL\Select\ISubQuery.cs" />
+    <Compile Include="Infrastructure\SQL\Select\ITable.cs" />
+    <Compile Include="Infrastructure\SQL\Select\IWhere.cs" />
+    <Compile Include="Infrastructure\SQL\Select\Select.cs" />
+    <Compile Include="Infrastructure\SQL\Update\Fluent\CommitableTableBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Update\Fluent\CommitableWhereBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Update\Fluent\UpdateBuilder.cs" />
+    <Compile Include="Infrastructure\SQL\Update\ICommitableTable.cs" />
+    <Compile Include="Infrastructure\SQL\Update\ICommitableWhere.cs" />
+    <Compile Include="Infrastructure\SQL\Update\IUpdate.cs" />
+    <Compile Include="Infrastructure\SQL\Update\Update.cs" />
+    <Compile Include="Infrastructure\SQL\XQuery.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="ILayerServices.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryAssert.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FC.Core\FC.Core.csproj">
+      <Project>{af7c6f02-8d8a-4dfe-b3ff-eb2d6ff3b11f}</Project>
+      <Name>FC.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

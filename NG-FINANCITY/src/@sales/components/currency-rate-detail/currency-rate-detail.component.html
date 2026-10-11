@@ -1,0 +1,109 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div [formGroup]="form" *ngIf="formReady.value.ready">
+      <!--unless put this condition, the filed value is missing we dont know why? -->
+      <div class="row">
+        <div class="col-md-6 form-group" *ngIf="form?.get('SysKey')">
+          <label>Currency Code</label>
+          <kendo-dropdownlist class="form-control" [data]="_currencyService | async" [valuePrimitive]="true"
+            [itemDisabled]="itemDisabled" formControlName="SysKey" [valueField]="'SysKey'"
+            [textField]="'Currency_AlphaCode'" [filterable]="true"
+            (filterChange)="handelCurrencyCodeFilterChange($event)" (valueChange)="onChangeCurrencyCode($event)">
+            <ng-template kendoDropDownListValueTemplate let-dataItem>
+              <div class="row w-100">
+                <div class="col-md-2">
+                  {{dataItem?.Currency_AlphaCode}}
+                </div>
+                <div class="col-md-10">
+                  {{dataItem?.Currency_Name}}
+                </div>
+              </div>
+            </ng-template>
+            <ng-template kendoDropDownListItemTemplate let-dataItem>
+              <div class="row w-100">
+                <div class="col-md-2">
+                  {{dataItem?.Currency_AlphaCode}}
+                </div>
+                <div class="col-md-10">
+                  {{dataItem?.Currency_Name}}
+                </div>
+              </div>
+            </ng-template>
+            <ng-template kendoDropDownListNoDataTemplate>
+              <div>
+                Type at least 3 words to start serach.
+              </div>
+            </ng-template>
+          </kendo-dropdownlist>
+          <div class="text-danger"
+            *ngIf="form.get('SysKey').hasError('required') && (form.get('SysKey').touched || form.get('SysKey').dirty)">
+            'Currency Code' is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 form-group" *ngIf="form?.get('Rate')">
+          <label>Exchange Rate</label>
+          <kendo-numerictextbox class="form-control" (valueChange)="onChangeRate()" formControlName="Rate"
+            [spinners]="false" [format]="'n4'">
+          </kendo-numerictextbox>
+          <div class="text-danger"
+            *ngIf="form.get('Rate').hasError('required') && (form.get('Rate').touched || form.get('Rate').dirty)">
+            'Exchange Rate' is required.
+          </div>
+          <div class="text-danger"
+            *ngIf="form.get('Rate').hasError('min') && (form.get('Rate').touched || form.get('Rate').dirty)">
+            'Exchange Rate' must greater than 0.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Currency Name</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Description" [ngClass]="{'is-invalid':form.get('Description').errors 
+            && (form.get('Description').touched || form.get('Description').dirty)}">
+          <div class="text-danger"
+            *ngIf="form.get('Description').hasError('required') && (form.get('Description').touched || form.get('Description').dirty)">
+            'Currency Name' is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <label><span class="red"> {{currCode}}</span> 1.00 equals: {{_config.general.currCode}}</label>
+          <kendo-numerictextbox class="form-control" formControlName="CompareRate" [spinners]="false" [readonly]="true"
+            pInputIcon [format]="'n4'">
+          </kendo-numerictextbox>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6 form-group">
+          <label>Symbol</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Symbol" [ngClass]="{'is-invalid':form.get('Symbol').errors 
+                    && (form.get('Symbol').touched || form.get('Symbol').dirty)}">
+          <div class="text-danger"
+            *ngIf="form.get('Symbol').hasError('required') && (form.get('Symbol').touched || form.get('Symbol').dirty)">
+            'Symbol' is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <label><span class="red">{{_config.general.currCode}}</span> [Base] 1.00 equals: {{currCode}}</label>
+          <kendo-numerictextbox class="form-control" formControlName="BaseRate" [spinners]="false" [format]="'n4'"
+            [readonly]="true" pInputIcon>
+          </kendo-numerictextbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Operator</label>
+          <kendo-dropdownlist class="form-control" [data]="operator" [valuePrimitive]="true" formControlName="Operator"
+            (valueChange)="onChangeOperator()">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

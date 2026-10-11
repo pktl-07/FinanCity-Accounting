@@ -1,0 +1,111 @@
+<div [formGroup]='formGroup'>
+    <div class="row" *ngIf="readonlyFields == false">
+        <div class="col-md-6 form-group">
+            <label>Bill to Vendor</label>
+            <div class="form-group">
+                <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" [readonly]="readonlyFields"
+                    formControlName="BillToCoBroke">
+                </kendo-switch>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="form-group col-md-6">
+            <label>Vendor Type</label>
+            <kendo-dropdownlist class="form-control" [data]="_vendorType" [valuePrimitive]="true"
+                [readonly]="readonly || readonlyFields"
+                [defaultItem]="clientTraansTypeDefaultItem" pInputIcon
+                [iconVisible]="readonly || readonlyFields"
+                formControlName="ClientTransType" [valueField]="'value'" [textField]="'text'">
+            </kendo-dropdownlist>
+        </div>
+        <div class="col-md-6 form-group" *ngIf="readonlyFields == false">
+            <label>Blk/House No.</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="BuildingHouseNo" readonly pInputIcon>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Company Name</label>
+            <kendo-dropdownlist class="form-control" [data]="_vendorService | async" formControlName="VendorSK"
+                [itemDisabled]="itemDisabled" [readonly]="readonly || readonlyFields"
+                pInputIcon [iconVisible]="readonly || disableVendor"
+                [valuePrimitive]="true" [kendoDropDownFilter]="filterSettings" [defaultItem]="companyDefaultItem"
+                [valueField]="'SysKey'" [textField]="'CompanyName'"
+                (filterChange)="handelCompanyFilterChange({value:$event})">
+                <ng-template kendoDropDownListNoDataTemplate>
+                    <div>
+                        Type at least 3 words to start serach.
+                        <br />
+                        <button kendoButton [primary]="true" (click)="addNewCompany()">Add New company
+                        </button>
+                    </div>
+                </ng-template>
+            </kendo-dropdownlist>
+        </div>
+        <div class="col-md-6 form-group" *ngIf="readonlyFields == false">
+            <label>Address 1</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="Address1" readonly pInputIcon>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Contact Name</label>
+            <kendo-dropdownlist class="form-control" [filterable]="true" formControlName="BankerSK"
+                [readonly]="readonly || readonlyFields" pInputIcon
+                [iconVisible]="readonly || disableContact"
+                [data]="_peopleService | async" [itemDisabled]="itemDisabled" [defaultItem]="bankerDefaultItem"
+                [valuePrimitive]="true" [textField]="'Name'" [valueField]="'SysKey'"
+                (filterChange)="handelPeopleFilterChange({value:$event})">
+                <ng-template kendoDropDownListNoDataTemplate>
+                    <div>
+                        Type at least 3 words to start serach.
+                        <br />
+                        <button kendoButton [primary]="true" (click)="addNewBanker()">Add New banker
+                        </button>
+                    </div>
+                </ng-template>
+            </kendo-dropdownlist>
+        </div>
+        <div class="col-md-6 form-group" *ngIf="readonlyFields == false">
+            <label>Address 2</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="Address2" readonly pInputIcon>
+        </div>
+    </div>
+    <div class="row" *ngIf="readonlyFields == false">
+        <div class="col-md-6 form-group">
+            <label></label>
+            <div class="form-group">
+                <!-- empty -->
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Floor-Unit</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="FloorUnit" readonly pInputIcon>
+        </div>
+    </div>
+    <div class="row" *ngIf="readonlyFields == false">
+        <div class="col-md-6 form-group">
+            <label></label>
+            <div class="form-group">
+                <!-- empty -->
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Postal Code</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="PostalCode" readonly pInputIcon>
+        </div>
+    </div>
+    <div class="row" *ngIf="readonlyFields == false">
+        <div class="col-md-6 form-group">
+            <label></label>
+            <div class="form-group">
+                <!-- empty -->
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Country</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="Country" readonly pInputIcon>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<page-loader *ngIf="_pageLoaderService?.loading || _pageLoaderService?.submitting"></page-loader>
+<div class="fc-app-main-wrapper" [class.overlay]="_pageLoaderService?.submitting"
+    style="width: 100%;height:100%;overflow: hidden;">
+    <div class="fc-app-banner"
+        [style.visibility]="(_global?.FinanCityConfig | async)?.auth?.isAuthenticate ? 'visible' : 'hidden'">
+        <div class="p-nav-wrapper" *ngIf="(_global?.FinanCityConfig | async)?.auth?.isAuthenticate">
+            <!-- <a class="p-nav-brand"></a> -->
+            <!-- <a class="p-nav-brand">
+                <img class="p-nav-brand" src="../assets/imgs/favicon.png">
+                FinanCity
+            </a> -->
+            <div class="mr-auto pl-5">
+                <p-main-menu></p-main-menu>
+            </div>
+            <app-chatting-notification></app-chatting-notification>
+            <app-mortgage-sales-notification></app-mortgage-sales-notification>
+            <span class="mr-5 pt-2 p-nav-item">
+                <span>{{(_global?.FinanCityConfig | async)?.auth?.isAuthenticate ? 'Welcome!' : '' }} <span
+                        style="font-weight: 700;">{{(_global?.FinanCityConfig | async)?.auth?.profileName
+                        }}</span></span>
+            </span>
+            <button type="button" class="btn btn-secondary btn-lg btn-icon pt-2 p-nav-item" (click)="signOut()">
+                <span>Sign Out</span>
+            </button>
+        </div>
+    </div>
+    <div class="fc-app-content">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="fc-app-footer">
+        <div class="fc-app-footer-description">1.1.1.209 © 2014 <a href="https://www.peas.sg">Professional Estate Agent
+                System</a></div>
+        <div class="fc-app-footer-power">Powered by <b><a href="http://www.earthstonesolutions.com">Earth Stone
+                    Solutions</a></b></div>
+    </div>
+</div>
+<div class="k-i-loading size-3" *ngIf="_pageLoaderService?.circularLoading | async"></div>

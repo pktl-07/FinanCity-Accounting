@@ -1,0 +1,28 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-5">Create accounting period for year {{ form?.get('YearCode')?.value }}.</h1>
+    </div>
+</div>
+<form [formGroup]="form">
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Period Type</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="PeriodType" [readonly]="true"
+                pInputIcon>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Start Date</label>
+            <p-custom-kendo-date-picker formControlName="FromDate" [readonly]="true" pInputIcon>
+            </p-custom-kendo-date-picker>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>End Date</label>
+            <p-custom-kendo-date-picker formControlName="ToDate" [readonly]="true" pInputIcon>
+            </p-custom-kendo-date-picker>
+        </div>
+    </div>
+</form>

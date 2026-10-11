@@ -1,0 +1,26 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-checkbox [indeterminate]="indeterminateState" [(ngModel)]="checkParent" slot="start"
+        (click)="handleSelectAll()"></ion-checkbox>
+      All
+    </ion-item>
+  </ion-toolbar>
+  <ion-searchbar (ionInput)="handleSearchInput($event)"></ion-searchbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ng-container *ngFor="let dataItem of checkItems">
+      <ion-item *ngIf="dataItem.show == true">
+        <ion-checkbox slot="start" [(ngModel)]="dataItem.checked" (ionChange)="handleCheckState()">
+        </ion-checkbox>
+        <ion-avatar slot="start">
+          <ion-img [src]="(dataItem?.value | fcImage:1 | async) || 'assets/icon/empty-picture.png'"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          {{ dataItem?.name }}
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+</ion-content>

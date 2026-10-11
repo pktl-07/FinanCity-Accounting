@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Client Contact
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="action()">
+        <ion-icon slot="icon-only" name="flash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<super-tabs>
+  <super-tabs-toolbar color="tab-light" slot="bottom" scrollablePadding="false" scrollable="true">
+    <super-tab-button>
+      <ion-label>Personal</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Contact</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Transaction History</ion-label>
+    </super-tab-button>
+  </super-tabs-toolbar>
+  <super-tabs-container>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <fc-client [form]="form?.get('Person')"></fc-client>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <fc-contact [form]="form?.get('Contact')"></fc-contact>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <fc-client-contact-transaction-history [ClientSK]="form?.get('Person')?.get('SysKey')?.value">
+        </fc-client-contact-transaction-history>
+      </ion-content>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>

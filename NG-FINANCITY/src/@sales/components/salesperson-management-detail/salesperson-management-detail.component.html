@@ -1,0 +1,98 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <kendo-tabstrip style="height: 100%;" #tabstrip>
+      <kendo-tabstrip-tab [title]="'Profile'" [selected]="true">
+        <ng-template kendoTabContent>
+          <div class="card-deck">
+            <div class="card">
+              <div class="card-header text-white">
+                Personal
+              </div>
+              <div class="card-body">
+                <app-salesperson-profile [formGroup]="form?.get('Person')"
+                  [rank]="form?.get('Employment')?.get('Rank')?.value" [clearImage]="clearImageSubject">
+                </app-salesperson-profile>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header text-white">
+                Contact
+              </div>
+              <div class="card-body">
+                <app-content-information [formGroup]="form?.get('Contact')" [showWebSite]="false">
+                </app-content-information>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Employment Information'">
+        <ng-template kendoTabContent>
+          <div class="card-deck">
+            <div class="card">
+              <div class="card-header text-white">
+                Employment Information
+              </div>
+              <div class="card-body">
+                <app-salesperson-employment [formGroup]="form?.get('EmploymentHistory')"
+                  [industry]="form?.get('Industry')" [qualification]="form?.get('Qualification')">
+                </app-salesperson-employment>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header text-white">
+                Bank Information
+              </div>
+              <div class="card-body">
+                <app-salesperson-management-bank [formGroup]="form?.get('Person')"></app-salesperson-management-bank>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header text-white">
+                PayNow
+              </div>
+              <div class="card-body">
+                <app-salesperson-paynow [formGroup]="form?.get('PayNow')"></app-salesperson-paynow>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="card-deck pt-3">
+            <div class="card">
+              <div class="card-header text-white">
+                PayNow
+              </div>
+              <div class="card-body">
+                <app-salesperson-paynow [formGroup]="form?.get('PayNow')"></app-salesperson-paynow>
+              </div>
+            </div>
+          </div> -->
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <!-- <kendo-tabstrip-tab [title]="'Employment Information'">
+        <ng-template kendoTabContent>
+          <app-salesperson-employment [formGroup]="form?.get('EmploymentHistory')" [industry]="form?.get('Industry')"
+            [qualification]="form?.get('Qualification')">
+          </app-salesperson-employment>
+        </ng-template>
+      </kendo-tabstrip-tab> -->
+      <kendo-tabstrip-tab [title]="'Commission Structure'">
+        <ng-template kendoTabContent>
+          <app-salesperson-commission-scheme [formGroup]="form?.get('Employment')">
+          </app-salesperson-commission-scheme>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Hierarchy Chart'">
+        <ng-template kendoTabContent>
+          <app-salesperson-tier [formGroup]="form?.get('Employment')">
+          </app-salesperson-tier>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Career Activity'">
+        <ng-template kendoTabContent>
+          <app-salesperson-career-activity [SPSK]="form?.get('Person')?.get('SysKey')?.value">
+          </app-salesperson-career-activity>
+        </ng-template>
+      </kendo-tabstrip-tab>
+    </kendo-tabstrip>
+  </ng-template>
+</p-modal-form>

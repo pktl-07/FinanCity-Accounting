@@ -1,0 +1,42 @@
+<p-modal-form>
+  <ng-template fcModalContentTemplate>
+    <form [formGroup]="form">
+      <div style="height: 25vh">
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label>Division No.</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="R1" [ngClass]="{'is-invalid':form.get('R1').errors 
+                && (form.get('R1').touched || form.get('R1').dirty)}">
+
+            <div class="text-danger"
+              *ngIf="form.get('R1').hasError('required') && (form.get('R1').touched || form.get('R1').dirty)">
+              'Department No.' is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label>Division Name</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="Description" [ngClass]="{'is-invalid':form.get('Description').errors 
+                    && (form.get('Description').touched || form.get('Description').dirty)}">
+            <div class="text-danger"
+              *ngIf="form.get('Description').hasError('required') && (form.get('Description').touched || form.get('Description').dirty)">
+              'Division Name' is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label>Is Active</label>
+            <div class="form-group">
+              <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+              </kendo-switch>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-modal-form>

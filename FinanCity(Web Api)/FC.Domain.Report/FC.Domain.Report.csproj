@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F58A62E0-5636-4A2B-8978-C183A7793DD9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FC.Domain.Report</RootNamespace>
+    <AssemblyName>FC.Domain.Report</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\AccountingReport.cs" />
+    <Compile Include="Business\AgedReceivables.cs" />
+    <Compile Include="Business\CashbookReport.cs" />
+    <Compile Include="Business\FinancialReport.cs" />
+    <Compile Include="Business\JobReport.cs" />
+    <Compile Include="Business\SalesBonusReport.cs" />
+    <Compile Include="Business\SalesReport.cs" />
+    <Compile Include="DAO\AccountingReportDAO.cs" />
+    <Compile Include="DAO\AgedReceivablesDAO.cs" />
+    <Compile Include="DAO\CashbookReportDAO.cs" />
+    <Compile Include="DAO\FinancialReportDAO.cs" />
+    <Compile Include="DAO\JobReportDAO.cs" />
+    <Compile Include="DAO\SalesBonusReportDAO.cs" />
+    <Compile Include="DAO\SalesReportDAO.cs" />
+    <Compile Include="DependencyContainer.cs" />
+    <Compile Include="Filter\AgedReceivableFilter.cs" />
+    <Compile Include="Filter\CashbookLogReportFilter.cs" />
+    <Compile Include="Filter\CashbookReceiptPaymentReportFilter.cs" />
+    <Compile Include="Filter\CommissionPaidReportFilter.cs" />
+    <Compile Include="Filter\CommissionPayableBSReportFilter.cs" />
+    <Compile Include="Filter\CommissionPayableReportFilter.cs" />
+    <Compile Include="Filter\CommissionReceivableReportFilter.cs" />
+    <Compile Include="Filter\CommissionReceivedReportFilter.cs" />
+    <Compile Include="Filter\CommissionReceivedReportDTO.cs" />
+    <Compile Include="Filter\CompareMonthlyIncomeStatementFilter.cs" />
+    <Compile Include="Filter\CompareYearlyIncomeStatementFilter.cs" />
+    <Compile Include="Filter\FinantialStatementReportDTO.cs" />
+    <Compile Include="Filter\GeneralLedgerReportFilter.cs" />
+    <Compile Include="Filter\JobActivityDatailReportFilter.cs" />
+    <Compile Include="Filter\JobDetailReportDTO.cs" />
+    <Compile Include="Filter\JobListReportDTO.cs" />
+    <Compile Include="Filter\JobSummaryReportDTO.cs" />
+    <Compile Include="Filter\PropertyTransactionListReportFilter.cs" />
+    <Compile Include="Filter\CompareQuarterlyIncomeStatementReportFilter.cs" />
+    <Compile Include="Filter\SalesBonusReportFilter.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\FranchiseeFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\GLRefFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\PaidDateFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\RankTypeFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\RecordStatusFor.cs" />
+    <Compile Include="Filter\RecruitmentIncentiveReportFilter.cs" />
+    <Compile Include="Filter\SalesDetailReportFilter.cs" />
+    <Compile Include="Filter\SalesSummaryReportFilter.cs" />
+    <Compile Include="Filter\TaxReportFilter.cs" />
+    <Compile Include="Filter\TopSalesReportFilter.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\AccountCodeFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\CashbookFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\ClientFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\CobrokerAccuralChangeDateFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\IRegisterFormulaFieldFactory.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\Interfaces.cs" />
+    <Compile Include="Filter\AccountingReportFilter.cs" />
+    <Compile Include="Filter\IndividualSalesReportFilter.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\AbstractFormulaField.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\DateRangeFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\JobFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\PayableStatusFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\SalespersonFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\ReceivableStatusFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\SalespersonTypeFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\SecondRefFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\T1For.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\TaxFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\TNC_PropertyFormulaFieldFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\TNC_TransactionFormulaFieldFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\TopFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\TransTypeFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\VendorFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\YCEndFor.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\YCStartFor.cs" />
+    <Compile Include="Infrastructure\Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Infrastructure\AbstractFormulaFields\RegisterFormulaFieldFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FC.Core.Common\FC.Core.Common.csproj">
+      <Project>{4310952a-70d2-41f9-85a0-6765dedc527f}</Project>
+      <Name>FC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core.Data\FC.Core.Data.csproj">
+      <Project>{638430aa-6095-4324-a849-f0d8ca45f01d}</Project>
+      <Name>FC.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core\FC.Core.csproj">
+      <Project>{af7c6f02-8d8a-4dfe-b3ff-eb2d6ff3b11f}</Project>
+      <Name>FC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Domain.Accounts\FC.Domain.Accounts.csproj">
+      <Project>{2e3513fa-769e-48df-89d7-b55ddecb3b97}</Project>
+      <Name>FC.Domain.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Domain.Sales\FC.Domain.Sales.csproj">
+      <Project>{907dfa5b-b184-4d7f-be05-446a31f7583d}</Project>
+      <Name>FC.Domain.Sales</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

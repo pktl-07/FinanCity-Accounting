@@ -1,0 +1,32 @@
+<ion-list [formGroup]='form'>
+  <ion-item>
+    <ion-label position="stacked">Property Value</ion-label>
+    <ion-input formControlName="PropertyValue" (ionChange)="handleValueChange()" fcCurrency></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Deposit – CPF</ion-label>
+    <ion-input formControlName="DepositCPF" (ionChange)="handleValueChange()" fcCurrency></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Deposit – Cash</ion-label>
+    <ion-input formControlName="DepositeCash" (ionChange)="handleValueChange()" fcCurrency></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Loan Amount</ion-label>
+    <ion-input formControlName="LoneAmount" readonly fcCurrency></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Loan Tenure (Years)</ion-label>
+    <ion-input formControlName="LoneTenure" (ionChange)="handleValueChange()" fcDecimal>
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Interest Rate – Monthly Rest (%)</ion-label>
+    <ion-input formControlName="InterestRate" (ionChange)="handleValueChange()" fcDecimal>
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Estimate Repayment Amount (Monthly)</ion-label>
+    <ion-input formControlName="PaymentAmount" readonly fcCurrency></ion-input>
+  </ion-item>
+</ion-list>

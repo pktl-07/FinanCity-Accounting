@@ -1,0 +1,21 @@
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-12">
+            <section>
+                <span>
+                    <label><b>Commissoin Received:</b></label>
+                    <p-sales-status class="pl-3" style="display: inline-table;" [value]="receivableStatus | async">
+                    </p-sales-status>
+                </span>
+                <span>
+                    <label><b>Commission Payment:</b></label>
+                    <p-sales-status class="pl-3" style="display: inline-table;" [value]="payableStatus | async">
+                    </p-sales-status>
+                </span>
+            </section>
+        </div>
+    </div>
+</div>
+<div style="height: 80%">
+    <p-grid-view #commissionGrid [config]="gridConfig"></p-grid-view>
+</div>

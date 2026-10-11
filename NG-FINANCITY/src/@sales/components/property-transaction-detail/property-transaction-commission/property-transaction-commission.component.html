@@ -1,0 +1,95 @@
+<div [formGroup]='formGroup'>
+    <div class="row">
+        <div class="col-md-2 form-group">
+            <label>Transaction Price</label>
+            <kendo-numerictextbox formControlName="TransactedPrice" class="form-control" [min]="0" [format]="'c2'"
+                [spinners]="false" [readonly]="readonly" pInputIcon [iconVisible]="readonly">
+            </kendo-numerictextbox>
+            <div class="text-danger"
+                *ngIf="formGroup?.get('TransactedPrice')?.hasError('required') && (formGroup?.get('TransactedPrice')?.touched || formGroup?.get('TransactedPrice')?.dirty)">
+                'Transaction Price' is required.
+            </div>
+            <div class="text-danger"
+                *ngIf="formGroup?.get('TransactedPrice')?.hasError('min') && (formGroup?.get('TransactedPrice')?.touched || formGroup?.get('TransactedPrice')?.dirty)">
+                'Transaction Price' should be greater than 0.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 form-group">
+            <label>Commission Rate (%)</label>
+            <kendo-numerictextbox formControlName="CommissionRate" class="form-control" min="0" max="100"
+                [spinners]="false" (valueChange)="onChangeCommissionRate()" [readonly]="readonly" pInputIcon
+                [iconVisible]="readonly">
+            </kendo-numerictextbox>
+            <div class="text-danger" *ngIf="formGroup?.get('CommissionRate')?.hasError('required') 
+                && (formGroup?.get('CommissionRate')?.touched || formGroup?.get('CommissionRate')?.dirty)">
+                'Commission Rate' is required.
+            </div>
+            <div class="text-danger"
+                *ngIf="formGroup?.get('CommissionRate')?.hasError('min') && (formGroup?.get('CommissionRate')?.touched || formGroup?.get('CommissionRate')?.dirty)">
+                'Commission Rate' should be greater than 0.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 form-group">
+            <label>Gross Commission</label>
+            <kendo-numerictextbox formControlName="GrossCommission" class="form-control" [min]="0" [format]="'c2'"
+                [spinners]="false" (valueChange)="onChangeGrossCommission()" [readonly]="readonly" pInputIcon
+                [iconVisible]="readonly">
+            </kendo-numerictextbox>
+            <div class="invalid-message">
+                <div class="text-danger" *ngIf="formGroup?.get('GrossCommission')?.hasError('required') && 
+                    (formGroup?.get('GrossCommission')?.touched || formGroup?.get('GrossCommission')?.dirty)">
+                    'Gross Commission' is required.
+                </div>
+                <div class="text-danger" *ngIf="formGroup?.get('GrossCommission')?.hasError('commissionError') && 
+                    (formGroup?.get('GrossCommission')?.touched || formGroup?.get('GrossCommission')?.dirty)">
+                    'Gross Commission' should not be equals to Internal and External Gross Commission.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>GST</label>
+            <kendo-dropdownlist [data]="_taxService | async" [valuePrimitive]="true" [valueField]="'SysKey'"
+                [itemDisabled]="itemDisabled" [defaultItem]="{ SysKey : null , TaxCode : 'N/A' , TaxPercent : 0  }"
+                [readonly]="readonly" pInputIcon [iconVisible]="readonly" [textField]="'TaxCode'"
+                (filterChange)="handelTaxAccountFilterChange($event)" [kendoDropDownFilter]="filterSettings"
+                formControlName="TaxSK" class="form-control">
+                <ng-template kendoDropDownListNoDataTemplate>
+                    <div>
+                        No data found.
+                        <br />
+                        <button kendoButton [primary]="true" (click)="addNewTax()">Add New GST</button>
+                    </div>
+                </ng-template>
+            </kendo-dropdownlist>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>GST (%)</label>
+            <kendo-numerictextbox formControlName="TaxPercent" class="form-control" [min]="0" [format]="'n2'"
+                [spinners]="false" [readonly]="true" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>GST ($)</label>
+            <kendo-numerictextbox formControlName="TaxAmount" class="form-control" [min]="0" [format]="'c2'"
+                [spinners]="false" [readonly]="true" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Total Amount</label>
+            <kendo-numerictextbox formControlName="TotalAmount" class="form-control" [min]="0" [format]="'c2'"
+                [spinners]="false" (valueChange)="onChangeTotalCommission()" [readonly]="readonly" pInputIcon
+                [iconVisible]="readonly">
+            </kendo-numerictextbox>
+            <div class="invalid-message">
+                <div class="text-danger" *ngIf="formGroup?.get('TotalAmount')?.hasError('required') && 
+                    (formGroup?.get('TotalAmount')?.touched || formGroup?.get('TotalAmount')?.dirty)">
+                    'Total Amount' is required.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

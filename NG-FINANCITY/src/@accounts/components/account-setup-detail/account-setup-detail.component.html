@@ -1,0 +1,90 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div [formGroup]="form" *ngIf="formReady.value.ready">
+      <input type="hidden" formControlName="AccountType" />
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Account Classification</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Classification" readonly pInputIcon>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label class="control-label">Account Type</label>
+          <kendo-dropdownlist class="form-control" formControlName="AccountType" [data]="_accountType"
+            [valuePrimitive]="true" [textField]="'text'" [valueField]="'value'" [readonly]="isReadonly()" pInputIcon
+            [iconVisible]="isReadonly()">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label class="control-label">Account Category</label>
+          <kendo-dropdownlist class="form-control" formControlName="CategorySK" [data]="_accountCategoryService | async"
+            [kendoDropDownFilter]="filterSettings" [valuePrimitive]="true" [textField]="'CategoryDescription'"
+            [valueField]="'SysKey'" [readonly]="isReadonly()" pInputIcon [iconVisible]="isReadonly()">
+          </kendo-dropdownlist>
+
+          <div class="text-danger"
+            *ngIf="form.get('CategorySK').hasError('required') && (form.get('CategorySK').touched || form.get('CategorySK').dirty)">
+            'Account Category' is required.
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2 form-group">
+          <label>Account Code</label>
+          <input type="text" kendoTextBox readonly class="form-control" formControlName="PrefixAccountCode">
+        </div>
+        <div class="col-md-9 form-group">
+          <label>&nbsp;</label>
+          <kendo-numerictextbox class="form-control" formControlName="PostfixAccountCode" [spinners]="false"
+            format="'n0'" [readonly]="isReadonly()" pInputIcon [iconVisible]="isReadonly()">
+          </kendo-numerictextbox>
+
+          <div class="text-danger"
+            *ngIf="form.get('PostfixAccountCode').hasError('required') && (form.get('PostfixAccountCode').touched || form.get('PostfixAccountCode').dirty)">
+            'Account Code' is required.
+          </div>
+          <div class="text-danger"
+            *ngIf="form.get('PostfixAccountCode').hasError('minLength') && (form.get('PostfixAccountCode').touched || form.get('PostfixAccountCode').dirty)">
+            'Account Code' length must be 4 digit.
+          </div>
+          <div class="text-danger"
+            *ngIf="form.get('PostfixAccountCode').hasError('maxLength') && (form.get('PostfixAccountCode').touched || form.get('PostfixAccountCode').dirty)">
+            'Account Code' length must be 4 digit.
+          </div>
+
+        </div>
+        <div class="col-md-1 form-group">
+          <label>&nbsp;</label>
+          <input type="text" kendoTextBox style="text-align: center;" class="form-control" formControlName="DRCR"
+            readonly>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Account Name</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="AccDescription" [ngClass]="{'is-invalid':form.get('AccDescription').errors 
+          && (form.get('AccDescription').touched || form.get('AccDescription').dirty)}">
+
+          <div class="text-danger"
+            *ngIf="form.get('AccDescription').hasError('required') && (form.get('AccDescription').touched || form.get('AccDescription').dirty)">
+            'Account Name' is required.
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Is Active</label>
+          <div class="form-group">
+            <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+            </kendo-switch>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

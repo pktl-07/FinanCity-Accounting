@@ -1,0 +1,73 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='My Company Setup' type='3'></p-toolbar>
+  </div>
+  <div class="fc-content">
+    <div [formGroup]="form">
+      <div formGroupName="Vendor">
+        <div class="card-deck">
+          <div class="card">
+            <div class="card-header text-white">
+              Profile picture attachments
+            </div>
+            <div class="card-body">
+              <div style="width: 200px;height: 200px;">
+                <p-image-loader [uploadId]="1" [fileType]="10" [width]='200' [height]='200'></p-image-loader>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header text-white">
+              Company Information
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>Company Name</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="CompanyName"
+                    [ngClass]="{'is-invalid':form.get('Vendor').get('CompanyName').errors 
+                        && (form.get('Vendor').get('CompanyName').touched || form.get('Vendor').get('CompanyName').dirty)}">
+                  <div class="text-danger"
+                    *ngIf="form.get('Vendor').get('CompanyName').hasError('required')
+                                 && (form.get('Vendor').get('CompanyName').touched || form.get('Vendor').get('CompanyName').dirty)">
+                    'Company Name' is required.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>Company Registration Number</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="CompanyReg"
+                    [ngClass]="{'is-invalid':form.get('Vendor').get('CompanyReg').errors 
+                        && (form.get('Vendor').get('CompanyReg').touched || form.get('Vendor').get('CompanyReg').dirty)}">
+                  <div class="text-danger"
+                    *ngIf="form.get('Vendor').get('CompanyReg').hasError('required')
+                                 && (form.get('Vendor').get('CompanyReg').touched || form.get('Vendor').get('CompanyReg').dirty)">
+                    'Company Reg No.' is required.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Is GST Registered?</label>
+                  <div class="form-group">
+                    <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsGST">
+                    </kendo-switch>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card pt-3">
+      <div class="card-header text-white">
+        Contact Information
+      </div>
+      <div class="card-body">
+        <app-content-information [formGroup]="form.get('Contact')"></app-content-information>
+      </div>
+    </div>
+  </div>
+</div>

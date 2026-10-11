@@ -1,0 +1,102 @@
+<div class="fc-app">
+    <div class="fc-header">
+        <p-toolbar title='Journal Entry' type='2'>
+            <ng-template fcToolbarTemplate>
+                <p-recordstatus [value]="form?.get('RecordStatus')?.value"></p-recordstatus>
+            </ng-template>
+        </p-toolbar>
+    </div>
+    <div class="fc-content">
+        <div [formGroup]='form'>
+            <div class="card">
+                <div class="card-header text-white">
+                    Journal Entry Detail
+                </div>
+                <div class="card-body">
+                    <div class="card-deck">
+                        <div class="form-group col-md-3">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label>Journal No.</label>
+                                    <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly
+                                        pInputIcon>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label>Date</label>
+                                    <p-custom-kendo-date-picker formControlName="PostDate" [readonly]="readonly"
+                                        pInputIcon [iconVisible]="readonly">
+                                    </p-custom-kendo-date-picker>
+                                    <div class="text-danger" *ngIf="form?.get('PostDate')?.hasError('required') 
+                                        && (form?.get('PostDate')?.touched ||
+                                        form?.get('PostDate')?.dirty)">
+                                        'Post Date' is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label>Currency</label>
+                                    <kendo-dropdownlist class="form-control" [data]="_currencyRateService | async"
+                                        [valuePrimitive]="true" formControlName="CURRSK" [itemDisabled]="itemDisabled"
+                                        [readonly]="readonly" pInputIcon [iconVisible]="readonly"
+                                        [kendoDropDownFilter]="filterSettings" [valueField]="'SysKey'"
+                                        (filterChange)="handelCurrencyCodeFilterChange($event)"
+                                        [textField]="'CurrencyCode'">
+                                        <ng-template kendoDropDownListNoDataTemplate>
+                                            <div>
+                                                <button kendoButton [primary]="true" (click)="addNewCurrency()">Add new
+                                                    currency</button>
+                                            </div>
+                                        </ng-template>
+                                    </kendo-dropdownlist>
+                                </div>
+                                <div class="col-md-8 form-group">
+                                    <label>&nbsp;</label>
+                                    <kendo-numerictextbox class="form-control" formControlName="CURRATE"
+                                        [spinners]="false" required [format]="'n4'"
+                                        [readonly]="form.get('CURRSK').value == baseCurr" pInputIcon
+                                        [iconVisible]="form.get('CURRSK').value == baseCurr">
+                                    </kendo-numerictextbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label>Is Opening Journal Entry</label>
+                                    <div class="form-group">
+                                        <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'"
+                                            readonly="true" formControlName="IsOpening">
+                                        </kendo-switch>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label>Second Ref</label>
+                                    <input type="text" kendoTextBox class="form-control" formControlName="SecondRef">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label>Description</label>
+                                    <textarea type="text" rows="5" formControlName="Description" kendoTextBox
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height: 100%;" class="mt-3">
+            <p-grid-incell-editing [lock]="readonly"
+                title="Debit= {{ totalDebit | async | currency }} / Credit= {{ totalCredit | async | currency }}">
+            </p-grid-incell-editing>
+        </div>
+    </div>
+</div>
+
+<recap-dialog #recapDailog></recap-dialog>

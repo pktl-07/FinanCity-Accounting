@@ -1,0 +1,130 @@
+<p-modal-form [loading]="!formReady.value.ready">
+    <ng-template fcToolbarTemplate>
+        <p-recordstatus [value]="form?.get('RecordStatus')?.value"></p-recordstatus>
+    </ng-template>
+    <ng-template fcModalContentTemplate>
+        <div [formGroup]="form" *ngIf="formReady.value.ready">
+            <input type="hidden" formControlName="R1" />
+            <div class="card-deck mb-3">
+                <div class="card">
+                    <div class="card-header text-white">
+                        Payment Details
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label>Payment No.</label>
+                                <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly
+                                    pInputIcon>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label>Journal Entry No.</label>
+                                <input type="text" kendoTextBox class="form-control" formControlName="JRef" readonly
+                                    pInputIcon>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label>Payment Date</label>
+                                <p-custom-kendo-date-picker formControlName="DatePaid" [readonly]="readonly" pInputIcon
+                                    [iconVisible]="readonly"></p-custom-kendo-date-picker>
+                                <div class="text-danger"
+                                    *ngIf="form?.get('DatePaid')?.hasError('required') && (form?.get('DatePaid')?.touched || form?.get('DatePaid')?.dirty)">
+                                    'Cashbook' is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label>Invoice Reference</label>
+                                <input type="text" kendoTextBox class="form-control" formControlName="CBInvoiceRef">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header text-white">
+                        Payment Option
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label>Cashbook</label>
+                                <kendo-dropdownlist [data]="_cashbookService | async" [valuePrimitive]="true"
+                                    [itemDisabled]="itemDisabled" [filterable]="true" [readonly]="readonly" pInputIcon
+                                    [iconVisible]="readonly" (filterChange)="onCashbookFilterChange($event)"
+                                    [valueField]="'SysKey'" [textField]="'CashbookName'"
+                                    [kendoDropDownFilter]="filterSettings" formControlName="CBSK" class="form-control">
+                                    <ng-template kendoDropDownListNoDataTemplate>
+                                        <div>
+                                            No data found.
+                                            <br />
+                                            <button kendoButton [primary]="true" (click)="addNewCashbook()">Add New
+                                                Cashbook</button>
+                                        </div>
+                                    </ng-template>
+                                </kendo-dropdownlist>
+                                <div class="text-danger"
+                                    *ngIf="form?.get('CBSK')?.hasError('required') && (form?.get('CBSK')?.touched || form?.get('CBSK')?.dirty)">
+                                    'Cashbook' is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label>Currency</label>
+                                <input type="text" kendoTextBox formControlName="CURRCode" class="form-control"
+                                    readonly>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>&nbsp;</label>
+                                <kendo-numerictextbox formControlName="CURRATE" class="form-control" [format]="'n4'"
+                                    [spinners]="false" [readonly]="form?.get('CURRSK')?.value == baseCurr" pInputIcon
+                                    [iconVisible]="form?.get('CURRSK')?.value == baseCurr">
+                                </kendo-numerictextbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label>Cheque No.</label>
+                                <input type="text" kendoTextBox class="form-control" formControlName="ChequeNo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-deck mb-3">
+                <div class="card">
+                    <div class="card-header text-white">
+                        Commission Payable
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Payment Type</label>
+                                <kendo-dropdownlist [data]="_paymentType" [valuePrimitive]="true" [valueField]="'value'"
+                                    [readonly]="readonly" pInputIcon [iconVisible]="readonly" [textField]="'text'"
+                                    formControlName="PaymentType" class="form-control">
+                                </kendo-dropdownlist>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Total Amount Paid</label>
+                                <kendo-numerictextbox formControlName="NetPaid" class="form-control" [spinners]="false"
+                                    [readonly]="readonly || form.get('PaymentType').value == 2" pInputIcon
+                                    (valueChange)="handleNetPaidChange($event)"
+                                    [iconVisible]="readonly || form.get('PaymentType').value == 2" [format]="'c2'">
+                                </kendo-numerictextbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-modal-form>
+
+<recap-dialog #recapDailog></recap-dialog>

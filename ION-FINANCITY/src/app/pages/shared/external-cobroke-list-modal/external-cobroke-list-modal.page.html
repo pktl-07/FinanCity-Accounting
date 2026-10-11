@@ -1,0 +1,50 @@
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title size="small">
+            Co-Broke
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="handleClose()" color="primary">Close</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <fc-searchable-toolbar [connector]="_filterConnectorService">
+        <fc-filter-composite title="Cobroke Filter">
+            <fc-filter-item *ngIf="vendorType" field="VendorType" label="Vendor Type" type="number" default="true"
+                [value_1]="vendorType" logic="and">
+            </fc-filter-item>
+            <fc-filter-item *ngIf="vendorSK" field="VendorSK" label="Name" type="text" [value_1]="vendorSK"
+                default="true" logic="and">
+            </fc-filter-item>
+            <fc-filter-item field="CompanyName" label="Name" type="text"></fc-filter-item>
+            <fc-filter-item field="Name" label="NRIC" type="text"></fc-filter-item>
+        </fc-filter-composite>
+    </fc-searchable-toolbar>
+</ion-header>
+<ion-content>
+    <fc-pager-container [data]="_externalSalespersonService" #pagerContainer [connector]="_filterConnectorService"
+        buttonText="Select">
+        <fc-card (click)="handleSelect($event)">
+            <!-- <fc-card-header field="CompanyName" icon="external-salesperson"></fc-card-header> -->
+            <fc-card-header>
+                <ng-template fcCardHeaderTemplate let-dataItem="dataItem">
+                    <ion-avatar>
+                        <ion-img [src]="(dataItem?.VendorSK | fcImage:10 | async) || 'assets/icon/empty-picture.png'">
+                        </ion-img>
+                    </ion-avatar>
+                    <ion-label>&nbsp;<span style="font-size: .9rem">{{ dataItem?.CompanyName }}</span></ion-label>
+                </ng-template>
+            </fc-card-header>
+            <fc-card-item field="Name"></fc-card-item>
+        </fc-card>
+        <ng-template fcEmptyDataTemplate let-filterText="filterText">
+            <ion-button (click)="handleCreate(filterText)">Create New Salesperson</ion-button>
+        </ng-template>
+    </fc-pager-container>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-text class="text-muted ion-padding" slot="end">
+            {{pagerContainer.recordInfoSubject | async}}
+        </ion-text>
+    </ion-toolbar>
+</ion-footer>

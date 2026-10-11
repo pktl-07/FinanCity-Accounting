@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Salesperson
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="handleClose()" color="primary">
+                Close
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div [formGroup]="form">
+        <ion-list>
+            <fc-modal-select label="Salesperson Name" formControlName="SalespersonName" (click)="handleSelect()">
+                <ng-template fcModalSelectContentTemplate>
+                    <fc-validation-container [control]="form?.get('SalespersonName')" label="Salesperson">
+                        <fc-validation-required></fc-validation-required>
+                    </fc-validation-container>
+                </ng-template>
+            </fc-modal-select>
+            <ion-item>
+                <ion-label position="stacked">Share (%)</ion-label>
+                <ion-input type="number" formControlName="SharePercent" (ionBlur)="handleSharePercent()">
+                </ion-input>
+                <fc-validation-container [control]="form.get('SharePercent')" label="Share (%)">
+                    <fc-validation-required></fc-validation-required>
+                    <fc-validation-min message="should be greater than 0"></fc-validation-min>
+                    <fc-validation-max message="should be less than 100"></fc-validation-max>
+                </fc-validation-container>
+            </ion-item>
+            <ion-item *ngIf="refreshed">
+                <ion-label position="stacked">Commission Type</ion-label>
+                <ion-select formControlName="SchemeDetailSK">
+                    <ion-select-option *ngFor="let p of commissionTypeSubject | async" [disabled]='p.IsActive == false'
+                        [value]='p.SysKey'>
+                        {{ p.Designation }}</ion-select-option>
+                </ion-select>
+                <fc-validation-container [control]="form.get('SchemeDetailSK')" label="Commission Type">
+                    <fc-validation-required></fc-validation-required>
+                </fc-validation-container>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Gross Commission</ion-label>
+                <ion-input fcCurrency formControlName="GrossComm" (ionBlur)="handleGrossComm()"></ion-input>
+                <fc-validation-container [control]="form.get('GrossComm')" label="Gross Commission">
+                    <fc-validation-required></fc-validation-required>
+                    <fc-validation-min message="should be greater than 0"></fc-validation-min>
+                </fc-validation-container>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-button color="success" expand="block" (click)="handleOK()">
+            OK
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

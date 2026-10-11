@@ -1,0 +1,84 @@
+<div id="logreg-forms">
+  <div class="text-danger p-3">
+    {{errorMessage}}
+  </div>
+  <form class="form-signin" [formGroup]="loginFormGroup">
+    <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">
+      <img src="assets/imgs/financity-banner-logo.png" class="mb-5" />
+      <span style="font-weight: 700;font-size: 2rem">
+        <span style="color:var(--fc-primary-text-color);">FINAN</span><span
+          style="color: var(--fc-secondary-text-color);">CITY</span>
+      </span>
+    </h1>
+    <div class="input-group">
+      <div class="input-group-append">
+        <span class="input-group-text" style="width:40px;">
+          <i class="fa fa-user"></i>
+        </span>
+      </div>
+      <input type="email" formControlName="UserName" class="form-control" placeholder="Username or Email" [ngClass]="{'is-invalid':loginFormGroup?.get('UserName')?.errors 
+        && (loginFormGroup?.get('UserName')?.touched || loginFormGroup?.get('UserName')?.dirty)}">
+    </div>
+    <div class="text-danger m-3" *ngIf="loginFormGroup?.get('UserName')?.hasError('required') &&
+         (loginFormGroup?.get('UserName')?.touched || loginFormGroup?.get('UserName')?.dirty)">
+      'Username' is required.
+    </div>
+    <div class="input-group">
+      <div class="input-group-append">
+        <span class="input-group-text" style="width:40px;">
+          <i class="fa fa-key"></i>
+        </span>
+      </div>
+      <input type="password" formControlName="Password" class="form-control" placeholder="Password" [ngClass]="{'is-invalid':loginFormGroup?.get('Password')?.errors 
+      && (loginFormGroup?.get('Password')?.touched || loginFormGroup?.get('Password')?.dirty)}">
+    </div>
+    <div class="text-danger m-3" *ngIf="loginFormGroup?.get('Password')?.hasError('required') &&
+           (loginFormGroup?.get('Password')?.touched || loginFormGroup?.get('Password')?.dirty)">
+      'Password' is required.
+    </div>
+    <div class="text-danger" *ngIf="loginFormGroup?.get('Password')?.hasError('minlength') &&
+           (loginFormGroup?.get('Password')?.touched || loginFormGroup?.get('Password')?.dirty)">
+      'Password' length must be more than 6 characters.
+    </div>
+    <button class="btn btn-primary btn-block mt-3" (click)="onSignInClick()">
+      Sign in
+    </button>
+    <br>
+    <span style="text-align: right;"><a [routerLink]="" class="p-2" (click)="toggleResetPswed()">I forget my
+        password?</a></span>
+    <br>
+    <h6 class="line-decorated"><span class="text-muted">You can login with</span></h6>
+    <div class="d-flex">
+      <div class="p-2 ml-auto">
+        <button class="btn google-btn social-btn btn-circle btn-lg" data-placement="bottom" data-toggle="tooltip"
+          (click)="socialSignIn('google')" title="Login with google" type="button">
+          <span>
+            <i class="fab fa-google-plus-g"></i></span>
+        </button>
+        <button class="btn facebook-btn social-btn btn-circle btn-lg mr-1" data-placement="left" data-toggle="tooltip"
+          (click)="socialSignIn('facebook')" title="Login with facebook" type="button">
+          <span>
+            <i class="fab fa-facebook-f"></i></span>
+        </button>
+      </div>
+    </div>
+  </form>
+  <form class="form-reset" [formGroup]="resetPasswordFormGroup">
+    <input type="email" class="form-control" formControlName="Email" placeholder="Email address" [ngClass]="{'is-invalid':resetPasswordFormGroup?.get('Email')?.errors 
+    && (resetPasswordFormGroup?.get('Email')?.touched || resetPasswordFormGroup?.get('Email')?.dirty)}">
+    <div class="text-danger" *ngIf="resetPasswordFormGroup?.get('Email')?.hasError('required') &&
+           (resetPasswordFormGroup?.get('Email')?.touched || resetPasswordFormGroup?.get('Email')?.dirty)">
+      'Email address' is required.
+    </div>
+    <div class="text-danger" *ngIf="resetPasswordFormGroup?.get('Email')?.hasError('email') &&
+      (resetPasswordFormGroup?.get('Email')?.touched || resetPasswordFormGroup?.get('Email')?.dirty)">
+      'Email address' is invalid format.
+    </div>
+    <button class="btn btn-primary btn-block mt-3" (click)="onResetPasswordClick()">Reset Password</button>
+    <a [routerLink]="" (click)="toggleResetPswed()">
+      <i class="fas fa-angle-left"></i> Back
+    </a>
+  </form>
+  <br>
+</div>
+<confirm-dialog #confirmDialog></confirm-dialog>

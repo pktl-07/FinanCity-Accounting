@@ -1,0 +1,269 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <kendo-tabstrip [keepTabContent]="false" style="height: 100%;">
+      <kendo-tabstrip-tab [title]="'Profile'" [selected]="true">
+        <ng-template kendoTabContent>
+          <div class="card-deck">
+            <div class="card">
+              <div class="card-header text-white">
+                Personal
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <div style="position: relative; width: 100px;height: 100px;">
+                      <p-image-loader [uploadId]="form.get('Person')?.get('SysKey')?.value" [fileType]="1">
+                      </p-image-loader>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group" *ngIf="form?.get('Person')?.get('IsOrganization')">
+                    <label>Client Type</label>
+                    <div class="form-control">
+                      <label class="radio-inline">
+                        <input type="radio" name="IsOrganization" [value]="false"
+                          [formControl]="form?.get('Person')?.get('IsOrganization')">&nbsp;Individual
+                      </label>&nbsp;&nbsp;
+                      <label class="radio-inline">
+                        <input type="radio" name="IsOrganization" [value]="true"
+                          [formControl]="form?.get('Person')?.get('IsOrganization')">
+                        Company
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label>Create Date</label>
+                    <p-custom-kendo-date-picker [formControl]="form?.get('Lead')?.get('CreatedDate')" readonly
+                      pInputIcon>
+                    </p-custom-kendo-date-picker>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>Client No.</label>
+                    <input type="text" kendoTextBox class="form-control" [formControl]="form?.get('Lead')?.get('R1')"
+                      readonly pInputIcon>
+                  </div>
+                  <div class="col-md-6 form-group" *ngIf="form?.get('Person')?.get('IsOrganization')?.value == false">
+                    <label>Salutation</label>
+                    <kendo-dropdownlist class="form-control" [data]="_salutation" [valueField]="'value'"
+                      [textField]="'text'" [valuePrimitive]="true"
+                      [formControl]="form?.get('Person')?.get('Salutation')">
+                    </kendo-dropdownlist>
+                  </div>
+                </div>
+                <div class="row" *ngIf="form?.get('Person')?.get('IsOrganization')?.value == false">
+                  <div class="col-md-6 form-group">
+                    <label>First Name</label>
+                    <input type="text" kendoTextBox class="form-control"
+                      [formControl]="form?.get('Person')?.get('FirstName')">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label>Last Name</label>
+                    <input type="text" kendoTextBox class="form-control"
+                      [formControl]="form?.get('Person')?.get('LastName')">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>
+                      {{ form?.get('Person')?.get('IsOrganization')?.value == true ? 'Company Name' : 'Display Name' }}
+                    </label>
+                    <input type="text" kendoTextBox readonly class="form-control"
+                      [formControl]="form?.get('Person')?.get('Name')"
+                      [attr.readonly]="form?.get('Person')?.get('IsOrganization')?.value == false ? true : null"
+                      pInputIcon [iconVisible]="form?.get('Person')?.get('IsOrganization')?.value == false"
+                      [ngClass]="{'is-invalid': form?.get('Person')?.get('Name')?.errors 
+                                  && (form?.get('Person')?.get('Name')?.touched || form?.get('Person')?.get('Name')?.dirty)}">
+                    <div class="text-danger"
+                      *ngIf="form?.get('Person')?.get('Name')?.hasError('required') &&
+                                   (form?.get('Person')?.get('Name')?.touched || form?.get('Person')?.get('Name')?.dirty)">
+                      'Name' is required.
+                    </div>
+                  </div>
+                  <div class="col-md-6 form-group" *ngIf="form?.get('Person')?.get('IsOrganization')?.value == false">
+                    <label>Name Options</label>
+                    <div class="form-control">
+                      <label class="radio-inline">
+                        <input type="radio" name="IsLastNameFirst" [value]="false"
+                          [formControl]="form?.get('Person')?.get('IsLastNameFirst')">&nbsp;'First Name' First
+                      </label>&nbsp;&nbsp;
+                      <label class="radio-inline">
+                        <input type="radio" name="IsLastNameFirst" [value]="true"
+                          [formControl]="form?.get('Person')?.get('IsLastNameFirst')">&nbsp;'Last Name' First
+                      </label>&nbsp;&nbsp;
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>
+                      {{ form?.get('Person')?.get('IsOrganization')?.value == true ? 'Company Registration/ACRA No.' :
+                      'NRIC No.' }}
+                    </label>
+                    <input type="text" kendoTextBox class="form-control"
+                      [formControl]="form?.get('Person')?.get('NRIC')">
+                  </div>
+                  <div class="col-md-6 form-group" *ngIf="form?.get('Person')?.get('IsOrganization')?.value == false
+                               && form?.get('Person')?.get('TransType')?.value != 25 ">
+                    <label>Date Of Birth</label>
+                    <p-custom-kendo-date-picker [formControl]="form?.get('Person')?.get('DOB')">
+                    </p-custom-kendo-date-picker>
+                  </div>
+                </div>
+                <div class="row" *ngIf="form?.get('Person')?.get('IsOrganization')?.value == false">
+                  <div class="col-md-6 form-group" *ngIf="form?.get('Person')?.get('IsOrganization')?.value == false">
+                    <label>Nationality</label>
+                    <input type="text" kendoTextBox class="form-control"
+                      [formControl]="form?.get('Person')?.get('Nationality')">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label>Gender</label>
+                    <kendo-dropdownlist [data]="_gender" [valueField]="'value'" [textField]="'text'"
+                      [valuePrimitive]="true" class="form-control" [formControl]="form?.get('Person')?.get('Gender')">
+                    </kendo-dropdownlist>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header text-white">
+                Contact
+              </div>
+              <div class="card-body">
+                <app-content-information [formGroup]="form?.get('Contact')" [showWebSite]="false">
+                </app-content-information>
+              </div>
+            </div>
+          </div>
+          <div class="card-deck mt-3">
+            <div class="card">
+              <div class="card-header text-white">
+                Lead Details
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>Source</label>
+                    <kendo-dropdownlist class="form-control" [data]="_source" [valueField]="'value'"
+                      [textField]="'text'" [valuePrimitive]="true" [formControl]="form?.get('Lead')?.get('Source')">
+                    </kendo-dropdownlist>
+                    <div class="text-danger" *ngIf="form?.get('Lead')?.get('Source')?.hasError('required') &&
+                    (form?.get('Lead')?.get('Source')?.touched || form?.get('Lead')?.get('Source')?.dirty)">
+                      'Source' is required.
+                    </div>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label>Property Type</label>
+                    <kendo-dropdownlist class="form-control" [data]="_propertyTypeService | async"
+                      [valueField]="'SysKey'" [textField]="'Description'" [valuePrimitive]="true"
+                      [formControl]="form?.get('Lead')?.get('PropertyTypeSK')">
+                    </kendo-dropdownlist>
+                    <div class="text-danger"
+                      *ngIf="form?.get('Lead')?.get('PropertyTypeSK')?.hasError('required') &&
+                    (form?.get('Lead')?.get('PropertyTypeSK')?.touched || form?.get('Lead')?.get('PropertyTypeSK')?.dirty)">
+                      'Property Type' is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>Sales Activity</label>
+                    <kendo-dropdownlist class="form-control" [data]="_salesActivity" [valueField]="'value'"
+                      [textField]="'text'" [valuePrimitive]="true"
+                      [formControl]="form?.get('Lead')?.get('SalesActivity')">
+                    </kendo-dropdownlist>
+                    <div class="text-danger"
+                      *ngIf="form?.get('Lead')?.get('SalesActivity')?.hasError('required') &&
+                        (form?.get('Lead')?.get('SalesActivity')?.touched || form?.get('Lead')?.get('SalesActivity')?.dirty)">
+                      'Sales Activity' is required.
+                    </div>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label>Lead Close Rate</label>
+                    <kendo-dropdownlist class="form-control" [data]="_leadCloseRate" [valueField]="'value'"
+                      [textField]="'text'" [valuePrimitive]="true"
+                      [formControl]="form?.get('Lead')?.get('LeadCloseRate')">
+                    </kendo-dropdownlist>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>Is Active</label>
+                    <div class="form-group">
+                      <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'"
+                        [formControl]="form?.get('Person')?.get('IsActive')">
+                      </kendo-switch>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header text-white">Follow-Up</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>Follow-Up Date</label>
+                    <p-custom-kendo-date-picker [formControl]="form?.get('FollowUp')?.get('StartDate')">
+                    </p-custom-kendo-date-picker>
+                    <div class="text-danger"
+                      *ngIf="form?.get('FollowUp')?.get('StartDate')?.hasError('required') &&
+                        (form?.get('FollowUp')?.get('StartDate')?.touched || form?.get('FollowUp')?.get('StartDate')?.dirty)">
+                      'Follow-Up Date' is required.
+                    </div>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label>Follow-Up Time</label>
+                    <p-custom-kendo-time-picker [formControl]="form?.get('FollowUp')?.get('StartTime')">
+                    </p-custom-kendo-time-picker>
+                    <div class="text-danger"
+                      *ngIf="form?.get('FollowUp')?.get('StartTime')?.hasError('required') &&
+                        (form?.get('FollowUp')?.get('StartTime')?.touched || form?.get('FollowUp')?.get('StartTime')?.dirty)">
+                      'Follow-Up Time' is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>Notify On</label>
+                    <kendo-dropdownlist class="form-control" [data]="_notifymeBefore" [valueField]="'value'"
+                      [disabled]="form?.get('FollowUp')?.get('Notify')?.value == false" [textField]="'text'"
+                      [valuePrimitive]="true" [formControl]="form?.get('FollowUp')?.get('NotifyMeBeforeStartDate')">
+                    </kendo-dropdownlist>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label>Notify</label>
+                    <div class="form-group">
+                      <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'"
+                        [formControl]="form?.get('FollowUp')?.get('Notify')">
+                      </kendo-switch>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Remarks'" [disabled]="form?.get('Lead')?.get('RecordStatus')?.value == 0">
+        <ng-template kendoTabContent>
+          <app-lead-management-detail-remark [insertedItems]="insertedRemarkSubject"
+            [deletedItems]="deletedRemarkSubject" [key]="form?.get('Person')?.get('SysKey')?.value">
+          </app-lead-management-detail-remark>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Share'" [disabled]="form?.get('Lead')?.get('RecordStatus')?.value == 0">
+        <ng-template kendoTabContent>
+          <app-lead-management-detail-share [keySelection]="shareContentKeySelection"
+            [originKeys]="shareContentOriginKeySelection" [insertedItems]="shareInsertedSubject"
+            [deletedItems]="shareDeletedSubject">
+          </app-lead-management-detail-share>
+        </ng-template>
+      </kendo-tabstrip-tab>
+    </kendo-tabstrip>
+  </ng-template>
+</p-modal-form>

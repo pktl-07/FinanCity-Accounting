@@ -1,0 +1,231 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div *ngIf="formReady.value.ready" style="height: 100%">
+      <form [formGroup]="form">
+        <input type="hidden" formControlName="Description">
+        <div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Cashbook Name</label>
+              <input type="text" kendoTextBox class="form-control" formControlName="CashbookName" [ngClass]="{'is-invalid':form.get('CashbookName').errors 
+                  && (form?.get('CashbookName')?.touched || form.get('CashbookName').dirty)}">
+              <div class="text-danger"
+                *ngIf="form.get('CashbookName').hasError('required') && (form.get('CashbookName').touched || form.get('CashbookName').dirty)">
+                'Cashbook Name' is required.
+              </div>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label>Account Code</label>
+              <kendo-dropdownlist class="form-control" [filterable]="true" formControlName="AccSK"
+                [itemDisabled]="itemDisabled" [readonly]="form.get('RecordStatus').value > 0 ? true : null" pInputIcon
+                [iconVisible]="form.get('RecordStatus').value > 0" [data]="_accountService1 | async"
+                [valuePrimitive]="true" [textField]="'AccCode'" [valueField]="'SysKey'"
+                (filterChange)="handelAccountFilterChange({value:$event,service:_accountService1})">
+                <ng-template kendoDropDownListValueTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-1">
+                      {{dataItem?.AccCode}}
+                    </div>
+                    <div class="col-md-11">
+                      {{dataItem?.AccDescription}}
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template kendoDropDownListItemTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-1">
+                      {{dataItem?.AccCode}}
+                    </div>
+                    <div class="col-md-11">
+                      {{dataItem?.AccDescription}}
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template kendoDropDownListNoDataTemplate>
+                  <div>
+                    Type at least 3 words to start serach.
+                    <br />
+                    <button kendoButton [primary]="true"
+                      (click)="addNewAccount({field:'AccSK', service : _accountService1})">Add New
+                      account</button>
+                  </div>
+                </ng-template>
+              </kendo-dropdownlist>
+              <div class="text-danger"
+                *ngIf="form.get('AccSK').hasError('required') && (form.get('AccSK').touched || form.get('AccSK').dirty)">
+                'Account Code' is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Cashbook Type</label>
+              <kendo-dropdownlist class="form-control" formControlName="CBType" [data]="_cashBookType"
+                [itemDisabled]="itemDisabled" [valuePrimitive]="true" [textField]="'text'" [valueField]="'value'">
+              </kendo-dropdownlist>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label>Exchange Gain Account Code</label>
+              <kendo-dropdownlist class="form-control" [filterable]="true" formControlName="ForeignExchangeGainSK"
+                [itemDisabled]="itemDisabled" [readonly]="form?.get('RecordStatus')?.value > 0 ? true : null" pInputIcon
+                [iconVisible]="form?.get('RecordStatus')?.value > 0" [data]="_accountService2 | async"
+                [valuePrimitive]="true" [textField]="'AccCode'" [valueField]="'SysKey'"
+                (filterChange)="handelAccountFilterChange({value:$event,service:_accountService2})">
+                <ng-template kendoDropDownListValueTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-1">
+                      {{dataItem?.AccCode}}
+                    </div>
+                    <div class="col-md-11">
+                      {{dataItem?.AccDescription}}
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template kendoDropDownListItemTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-1">
+                      {{dataItem?.AccCode}}
+                    </div>
+                    <div class="col-md-11">
+                      {{dataItem?.AccDescription}}
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template kendoDropDownListNoDataTemplate>
+                  <div>
+                    Type at least 3 words to start serach.
+                    <br />
+                    <button kendoButton [primary]="true"
+                      (click)="addNewAccount({field:'ForeignExchangeGainSK', service : _accountService2})">Add New
+                      account</button>
+                  </div>
+                </ng-template>
+              </kendo-dropdownlist>
+                <div class="text-danger"
+                  *ngIf="form.get('ForeignExchangeGainSK').hasError('required') && (form.get('ForeignExchangeGainSK').touched || form.get('ForeignExchangeGainSK').dirty)">
+                  'Exchange Gain Account Code' is required.
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Bank Account Name</label>
+              <input type="text" kendoTextBox class="form-control" formControlName="Description" [ngClass]="{'is-invalid':form.get('Description').errors 
+                      && (form.get('Description').touched || form.get('Description').dirty)}">
+                <div class="text-danger"
+                  *ngIf="form.get('Description').hasError('required') && (form.get('Description').touched || form.get('Description').dirty)">
+                  'Bank Account Name' is required.
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Exchange Loss Account Code</label>
+              <kendo-dropdownlist class="form-control" [filterable]="true" formControlName="ForeignExchangeLossSK"
+                [readonly]="form?.get('RecordStatus')?.value > 0 ? true : null" pInputIcon [itemDisabled]="itemDisabled"
+                [iconVisible]="form?.get('RecordStatus')?.value > 0" [data]="_accountService3 | async"
+                [valuePrimitive]="true" [textField]="'AccCode'" [valueField]="'SysKey'"
+                (filterChange)="handelAccountFilterChange({value:$event,service:_accountService3})">
+                <ng-template kendoDropDownListValueTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-1">
+                      {{dataItem?.AccCode}}
+                    </div>
+                    <div class="col-md-11">
+                      {{dataItem?.AccDescription}}
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template kendoDropDownListItemTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-1">
+                      {{dataItem?.AccCode}}
+                    </div>
+                    <div class="col-md-11">
+                      {{dataItem?.AccDescription}}
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template kendoDropDownListNoDataTemplate>
+                  <div>
+                    Type at least 3 words to start serach.
+                    <br />
+                    <button kendoButton [primary]="true"
+                      (click)="addNewAccount({field:'ForeignExchangeLossSK', service : _accountService3})">Add New
+                      account</button>
+                  </div>
+                </ng-template>
+              </kendo-dropdownlist>
+              <div class="text-danger"
+                *ngIf="form.get('ForeignExchangeLossSK').hasError('required') && (form.get('ForeignExchangeLossSK').touched || form.get('ForeignExchangeLossSK').dirty)">
+                'Exchange Loss Account Code' is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Bank Account Number</label>
+              <input type="text" kendoTextBox class="form-control" formControlName="BankAccountNo">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Base Currency</label>
+              <kendo-dropdownlist class="form-control" [data]="_currencyRateService | async" [valuePrimitive]="true"
+                [itemDisabled]="itemDisabled" formControlName="CURRSK" [kendoDropDownFilter]="filterSettings"
+                [valueField]="'SysKey'" [textField]="'CurrencyCode'">
+                <ng-template kendoDropDownListValueTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-1">
+                      {{dataItem?.CurrencyCode}}
+                    </div>
+                    <div class="col-md-11">
+                      {{dataItem?.Country}}
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template kendoDropDownListItemTemplate let-dataItem>
+                  <div class="row w-100">
+                    <div class="col-md-1">
+                      {{dataItem?.CurrencyCode}}
+                    </div>
+                    <div class="col-md-11">
+                      {{dataItem?.Country}}
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template kendoDropDownListNoDataTemplate>
+                  <div>
+                    <button kendoButton [primary]="true" (click)="addNewCurrency()">Add New
+                      currency</button>
+                  </div>
+                </ng-template>
+              </kendo-dropdownlist>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Description</label>
+              <input type="text" kendoTextBox class="form-control" formControlName="Remark">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Is Active</label>
+              <div class="form-group">
+                <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+                </kendo-switch>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</p-modal-form>

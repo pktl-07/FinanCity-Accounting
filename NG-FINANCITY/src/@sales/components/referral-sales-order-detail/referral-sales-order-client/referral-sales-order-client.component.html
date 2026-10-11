@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label class="control-label">Client Name</label>
+        <kendo-dropdownlist class="form-control" [formControl]="formGroup?.get('Client')?.get('ClientSK')"
+            [data]="_clientService | async" [filterable]="true" [valuePrimitive]="true" [textField]="'Name'"
+            [readonly]="formGroup?.get('PropertyTransaction')?.get('RecordStatus')?.value == 8" pInputIcon
+            [iconVisible]="formGroup?.get('PropertyTransaction')?.get('RecordStatus')?.value == 8"
+            [valueField]="'SysKey'" [itemDisabled]="itemDisabled" (filterChange)="handelClientFilterChange($event)">
+            <ng-template kendoDropDownListNoDataTemplate>
+                <div>
+                    Type at least 3 words to start serach.
+                    <br />
+                    <button kendoButton [primary]="true" (click)="addNewClient()">Add New Client</button>
+                </div>
+            </ng-template>
+        </kendo-dropdownlist>
+        <div class="text-danger" *ngIf="formGroup?.get('Client')?.get('ClientSK')?.hasError('required') 
+                && (formGroup?.get('Client')?.get('ClientSK')?.touched 
+                || formGroup?.get('Client')?.get('ClientSK')?.dirty)">
+            'Client' is required.
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label class="control-label">NRIC No.</label>
+        <input type="text" kendoTextBox class="form-control" [formControl]="formGroup?.get('Client')?.get('ClientNRIC')"
+            readonly pInputIcon>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label class="control-label">Address</label>
+        <input type="text" kendoTextBox class="form-control"
+            [formControl]="formGroup?.get('Client')?.get('ClientAddress')" readonly pInputIcon>
+    </div>
+</div>

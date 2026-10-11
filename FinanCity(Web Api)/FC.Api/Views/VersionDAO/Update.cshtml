@@ -1,0 +1,71 @@
+﻿@model FC.Domain.Version.Entity.VersionEntity
+@{
+    ViewBag.Title = "Update";
+}
+<h1>
+    Version Update
+</h1>
+@(Html.ValidationSummary(true,"",new { @class="text-danger" }))
+@using (Html.BeginForm("Update", "VersionDAO", FormMethod.Post, new
+{
+    @id = "version-form",
+    onsubmit = $"return confirm('Are you sure you want to update version to {TempData["VersionNo"]}');"
+}))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>Current Version</label>
+                @(Html.TextBox("CurrentVersion", (string)TempData["VersionNo"], new { @readonly = true, @class = "form-control" }))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>Prev: Version System Key</label>
+                @(Html.TextBoxFor(x => x.SysKey, new { @readonly = true , @class= "form-control" }))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>Prev: Created Date</label>
+                @(Html.TextBoxFor(x => x.CreatedDate, new { @readonly = true , @class = "form-control" }))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>Prev: Created Time</label>
+                @(Html.TextBoxFor(x => x.CreatedTime, new { @readonly = true, @class = "form-control" }))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>Prev: Created By</label>
+                @(Html.TextBoxFor(x => x.LoginUser, new { @readonly = true, @class = "form-control" }))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>Prev: Version No.</label>
+                @(Html.TextBoxFor(x => x.VersionNo, new { @readonly = true, @class = "form-control" }))
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6 offset-md-6">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+}
+<div style="margin:auto;">
+    <ul>
+        <li><span>The Version DAO will help you to upgarde to reach the latest version SQL.</span></li>
+        <li><span>Partial or downgrade will not be allowed.</span></li>
+    </ul>
+</div>
+@section scripts{
+    <script type="text/javascript">
+    </script>
+}
+
+
+

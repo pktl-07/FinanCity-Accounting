@@ -1,0 +1,109 @@
+<p-modal-form [loading]="!formReady.value.ready" [allowUpdateAfterPost]="'false'">
+    <ng-template fcToolbarTemplate>
+        <p-recordstatus [value]="form?.get('RecordStatus')?.value"></p-recordstatus>
+    </ng-template>
+    <ng-template fcModalContentTemplate>
+        <div [formGroup]="form" *ngIf="formReady.value.ready">
+            <div>
+                <div class="row">
+                    <div class="col-md-6 form-group" *ngIf="form?.get('R1')">
+                        <label>Allocation No.</label>
+                        <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly pInputIcon>
+                    </div>
+                    <div class="col-md-6 form-group" *ngIf="form?.get('AllocationDate')">
+                        <label>Post Date</label>
+                        <p-custom-kendo-date-picker formControlName="AllocationDate" required [readonly]="readonly"
+                            pInputIcon [iconVisible]="readonly">
+                        </p-custom-kendo-date-picker>
+                        <div class="text-danger"
+                            *ngIf="form?.get('AllocationDate')?.hasError('required') && (form?.get('AllocationDate')?.touched || form?.get('AllocationDate')?.dirty)">
+                            'Post Date' is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Salesperson Name</label>
+                        <kendo-dropdownlist [data]="_salespersonManagementService | async" [valuePrimitive]="true"
+                            [valueField]="'SysKey'" [textField]="'Name'" [kendoDropDownFilter]="filterSettings"
+                            (valueChange)="onSalespersonChange($event)" formControlName="SPSK" [readonly]="readonly"
+                            pInputIcon [iconVisible]="readonly" class="form-control">
+                        </kendo-dropdownlist>
+                        <div class="text-danger"
+                            *ngIf="form?.get('SPSK')?.hasError('required') && (form?.get('SPSK')?.touched || form?.get('SPSK')?.dirty)">
+                            'Salesperson Name' is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>SP Gross Commission</label>
+                        <kendo-numerictextbox formControlName="TotalReceivable"
+                            (valueChange)="onSharePercentChange($event)" [format]="'c2'" [readonly]="true"
+                            class="form-control" [spinners]="false" pInputIcon>
+                        </kendo-numerictextbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Share (%)</label>
+                        <kendo-numerictextbox formControlName="SharePercent" [readonly]="readonly" pInputIcon
+                            [iconVisible]="readonly" (valueChange)="onSharePercentChange($event)" min="0" max="100"
+                            class="form-control" [spinners]="false">
+                        </kendo-numerictextbox>
+                        <div class="text-danger"
+                            *ngIf="form?.get('SharePercent')?.hasError('max') && (form?.get('SharePercent')?.touched || form?.get('SharePercent')?.dirty)">
+                            'Share (%)' should not be greater than 100.
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Remarks.</label>
+                        <input type="text" kendoTextBox class="form-control" formControlName="Remarks"
+                            [readonly]="readonly" pInputIcon [iconVisible]="readonly">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Amount Before GST</label>
+                        <kendo-numerictextbox formControlName="AmountBeforeGST" class="form-control" [spinners]="false"
+                            [readonly]="readonly" pInputIcon [iconVisible]="readonly"
+                            (valueChange)="onAmountBeforeGSTChange($event)" [format]="'c2'">
+                        </kendo-numerictextbox>
+                        <div class="text-danger"
+                            *ngIf="form?.get('AmountBeforeGST')?.hasError('required') && (form?.get('AmountBeforeGST')?.touched || form?.get('AmountBeforeGST')?.dirty)">
+                            'Amount Before GST' is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label>GST (%)</label>
+                        <kendo-numerictextbox formControlName="GSTPercent" class="form-control" [readonly]="true"
+                            [spinners]="false">
+                        </kendo-numerictextbox>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>GST ($)</label>
+                        <kendo-numerictextbox formControlName="GSTValue" class="form-control" [spinners]="false"
+                            pInputIcon [readonly]="true" [format]="'c2'">
+                        </kendo-numerictextbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Total Amount Allocated</label>
+                        <kendo-numerictextbox formControlName="AllocateAmount" class="form-control" [spinners]="false"
+                            [readonly]="readonly" pInputIcon [iconVisible]="readonly"
+                            (valueChange)="onAllocateAmountChange($event)" [format]="'c2'">
+                        </kendo-numerictextbox>
+                        <div class="text-danger"
+                            *ngIf="form?.get('AllocateAmount')?.hasError('required') && (form?.get('AllocateAmount')?.touched || form?.get('AllocateAmount')?.dirty)">
+                            'Total Amount Allocated' is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-modal-form>
+<recap-dialog #recapDailog></recap-dialog>

@@ -1,0 +1,64 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='ID Index Reference' type='4'></p-toolbar>
+  </div>
+  <div class="fc-content">
+
+    <kendo-grid [data]="_indexerService | async" [loading]="_indexerService.loading" [rowClass]="rowCallback"
+      [navigable]="true" kendoGridFocusable>
+
+      <kendo-grid-column title="" media="sm" width="60">
+        <ng-template kendoGridCellTemplate let-dataItem>
+
+          <ng-container *ngIf="dataItem['IsHeader'] != 1;else falseTemplate">
+            <a media="sm" (click)="createNew({SysKey : dataItem?.SysKey})" style="cursor: pointer">
+              <i style="color:var(--primary)" class="fa fa-th"></i>
+            </a>
+          </ng-container>
+          <ng-template #falseTemplate>
+            <span style="font-weight: bold">
+              {{dataItem?.ModuleName}}
+            </span>
+          </ng-template>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="Type">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem?.FormType}}
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="Prefix" width="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem?.Prefix}}
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="Postfix" width="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem?.Postfix}}
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="Start Value" width="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem?.StartValue}}
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="End Value" width="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem?.EndValue}}
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="Format" width="120">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem?.Format}}
+        </ng-template>
+      </kendo-grid-column>
+    </kendo-grid>
+
+  </div>
+</div>

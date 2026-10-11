@@ -1,0 +1,149 @@
+$border-radius : 0;
+$menu-text:white;
+// $menu-expanded-text:white;
+$accent:rgb(67, 113, 196); //main selection color1
+$primary:rgb(67, 113, 196);
+$switch-on-bg: $success;
+
+$tabstrip-bg:var(--light);
+$tabstrip-item-text:var(--dark);
+$tabstrip-border:var(--solid-brown);
+$tabstrip-wrapper-border:var(--solid-brown);
+$tabstrip-item-selected-border:var(--solid-brown);
+$header-bg:#DDD;
+
+$font-size: 13px !default;
+$font-size-xs: 8px !default;
+$font-size-sm: 10px !default;
+$font-size-lg: 17px !default;
+$font-family:'Segoe UI',Arial,Helvetica,Arial,sans-serif;
+$form-line-height:$line-height-base;
+$input-focused-shadow:null;
+$input-focused-bg:var(--light-orange);
+$input-focused-border: 1px;
+$base-border: rgba(black, .25 );
+$grid-header-bg: $accent;
+
+@import '../../node_modules/@progress/kendo-theme-default/scss/all'; 
+
+//reference from ../common/_form
+//to make smaller size of input components
+// .k-textbox,
+// .k-autocomplete,
+// .k-dateinput-wrap,
+// .k-dropdown-wrap,
+// .k-picker-wrap,
+// .k-multiselect-wrap,
+// .k-numeric-wrap {
+//     .k-input {
+//             height: add-two($input-padding-y, $input-line-height * 1em);
+//         }
+//     }
+// to make smaller size of input components
+
+.k-widget.form-control .k-input{
+    height: 1.5rem;
+    padding: 0.5rem 0.5rem;
+}
+.k-textbox.form-control{
+    height: 1.67rem;
+    padding: 0.5rem 0.5rem;
+}
+//to make smaller size of datagrid filter cell..
+.k-textbox, 
+.k-input.k-textbox{
+    height: add-two($input-padding-y, $input-line-height * 1em);
+}
+.k-tabstrip-items .k-item{
+    border-bottom-color: var(--solid-brown);
+}
+.k-tabstrip-top > .k-tabstrip-items .k-item.k-state-active {
+    
+    // border-top-color: var(--solid-brown);
+    // border-top-width: medium;;
+    font-weight: bold;    
+}
+.k-tabstrip-items .k-link{
+    font-size: $font-size-base;   
+}
+.k-grid-content tr:last-child td, 
+.k-grid-content-locked tr:last-child td{
+    border-bottom-width: 1px;
+}
+.k-grid td {
+    border-width: 1px;
+    vertical-align: middle;
+}
+.k-grid th{
+    font-weight: bold;
+    color: white;
+}
+.k-grid-toolbar {
+    background-color:$base-bg;
+}
+.k-grid-add-row{
+    background-color:$header-bg;
+}
+.k-grid tbody tr:hover {
+    background-color: transparent !important;
+}
+/*
+.k-window-content, .k-prompt-container{
+    overflow: hidden;
+}*/
+.k-window .k-overlay{
+    background-color:#000;
+    opacity: 0.3;
+}
+// .k-loading-mask, .k-loading-image, .k-loading-color {
+//     color: var(--kendo-primary);
+// }
+.k-i-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 30px;
+    background-color: rgba(255,255,255,.3);
+    color: var(--kendo-primary);
+}
+.k-switch {
+    margin-left: 1px;;
+    margin-top: 0px;
+}
+// .k-menu .k-item > .k-link {
+//     line-height: 2;
+// }
+:not(.k-context-menu).k-menu > .k-item:hover, 
+:not(.k-context-menu).k-menu > .k-item.k-state-hover,
+:not(.k-context-menu).k-menu > .k-item > .k-state-active{
+    background-color: $hovered-bg;
+}
+.k-notification-group{
+    z-index: 2147483647;
+}
+.k-panelbar .k-group > .k-item > .k-link {
+    padding-left: 20px;
+}
+.k-menu:not(.k-context-menu) > .k-item {
+    color: #DDD;
+}
+.k-upload .k-upload-files .k-upload-status .k-icon {
+    vertical-align: middle;
+    visibility: hidden;
+}
+
+
+ 
+
+
+
+  
+
+
+   
+
+
+ 
+    

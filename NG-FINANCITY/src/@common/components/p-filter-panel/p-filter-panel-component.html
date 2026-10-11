@@ -1,0 +1,256 @@
+<div class="card fc-modal-app" style="min-width: 400px;" *ngIf="type == 1">
+  <div class="card-body fc-modal-content">
+    <div *ngFor="let item of form?.get('formItems')?.controls; let i=index">
+      <div class="form-group">
+        <ng-container
+          *ngTemplateOutlet="filterLabel; context: { title:item?.value?.title,isHidden:item?.value?.control == 'hidden' }">
+        </ng-container>
+        <div class="input-group mb-3">
+          <ng-container [ngSwitch]="item?.value?.control">
+            <ng-container *ngSwitchCase="'textbox'" [ngTemplateOutlet]="filterTextBox"
+              [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+            </ng-container>
+            <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="filterDatePicker"
+              [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+            </ng-container>
+            <ng-container *ngSwitchCase="'currency'" [ngTemplateOutlet]="filterCurrency"
+              [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+            </ng-container>
+            <ng-container *ngSwitchCase="'number'" [ngTemplateOutlet]="filterNumeric"
+              [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+            </ng-container>
+            <ng-container *ngSwitchCase="'record_status'" [ngTemplateOutlet]="filterMultiSelect"
+              [ngTemplateOutletContext]='{form:item}'>
+            </ng-container>
+            <ng-container *ngSwitchCase="'multi-select'" [ngTemplateOutlet]="filterMultiSelect"
+              [ngTemplateOutletContext]='{form:item}'>
+            </ng-container>
+            <ng-container *ngSwitchCase="'dropdown'" [ngTemplateOutlet]="filterDropDown"
+              [ngTemplateOutletContext]='{form:item}'>
+            </ng-container>
+            <ng-container *ngSwitchCase="'date-period'" [ngTemplateOutlet]="filterDatePeriod"
+              [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="item?.value?.operator?.text =='Between'">
+            <ng-container [ngSwitch]="item?.value?.control">
+              <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="filterDatePicker"
+                [ngTemplateOutletContext]='{form:item?.value?.value_2}'>
+              </ng-container>
+              <ng-container *ngSwitchCase="'currency'" [ngTemplateOutlet]="filterCurrency"
+                [ngTemplateOutletContext]='{form:item?.value?.value_2}'>
+              </ng-container>
+              <ng-container *ngSwitchCase="'number'" [ngTemplateOutlet]="filterNumeric"
+                [ngTemplateOutletContext]='{form:item?.value?.value_2}'>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <div class="input-group-append">
+            <ng-template #filterTemplate>
+              <div id="div-popup">
+                <a *ngFor="let f of item?.value?.operators"
+                  [ngClass]="{'operator-select' : f.text == item?.value?.operator?.text}"
+                  (click)="onPopupItemClick({ bindItem : item , selectedItem : f })" class="dropdown-item">{{ f.text
+                  }}</a>
+              </div>
+            </ng-template>
+            <ng-container>
+              <button *ngIf="item?.value?.operators && item?.value?.control != 'hidden'" class="btn btn-primary"
+                type="button" #anchor (click)="togglePopup(anchor, filterTemplate)">
+                {{ item?.value?.operator?.symbol }}
+              </button>
+            </ng-container>
+            <div #container>
+              <!-- the popup will be appended after this element-->
+            </div>
+            <ng-container *ngIf="(item?.value?.control == 'textbox' 
+              || item?.value?.control == 'date' 
+              || item?.value?.control == 'dropdown'
+              || item?.value?.control == 'currency' 
+              || item?.value?.control == 'number')
+              && ((item?.value?.value_1.value != null && item?.value?.value_1.value != '')
+              || (item?.value?.operator?.value == 'isempty' || item?.value?.operator?.value == 'isnull' 
+              || item?.value?.operator?.value == 'isnotempty' || item?.value?.operator?.value == 'isnotnull' ))">
+              <button class="btn btn-outline-danger" type="button" (click)="onClearClick(item)">
+                <i class="k-icon k-i-filter-clear"></i>
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-center fc-modal-footer">
+    <button type="button" class="btn btn-success btn-circle btn-lg" (click)="handleClose()">
+      <i class="fal fa-check"></i>
+    </button>
+  </div>
+</div>
+<div *ngIf="type == 2" style="min-height: 98%;overflow: auto;">
+  <div *ngFor="let item of form?.get('formItems')?.controls; let i=index">
+    <div class="form-group">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <ng-container
+              *ngTemplateOutlet="filterLabel; context: { title:item?.value?.title,isHidden:item?.value?.control == 'hidden' }">
+            </ng-container>
+            <div class="input-group mb-3">
+              <ng-container [ngSwitch]="item?.value?.control">
+                <ng-container *ngSwitchCase="'textbox'" [ngTemplateOutlet]="filterTextBox"
+                  [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+                </ng-container>
+                <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="filterDatePicker"
+                  [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+                </ng-container>
+                <ng-container *ngSwitchCase="'currency'" [ngTemplateOutlet]="filterCurrency"
+                  [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+                </ng-container>
+                <ng-container *ngSwitchCase="'number'" [ngTemplateOutlet]="filterWholeNumber"
+                  [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+                </ng-container>
+                <ng-container *ngSwitchCase="'record_status'" [ngTemplateOutlet]="filterMultiSelect"
+                  [ngTemplateOutletContext]='{form:item}'>
+                </ng-container>
+                <ng-container *ngSwitchCase="'multi-select'" [ngTemplateOutlet]="filterMultiSelect"
+                  [ngTemplateOutletContext]='{form:item}'>
+                </ng-container>
+                <ng-container *ngSwitchCase="'date-period'" [ngTemplateOutlet]="filterDatePeriod"
+                  [ngTemplateOutletContext]='{form:item?.value?.value_1}'>
+                </ng-container>
+                <ng-container *ngSwitchCase="'dropdown'" [ngTemplateOutlet]="filterDropDown"
+                  [ngTemplateOutletContext]='{form:item}'>
+                </ng-container>
+                <ng-container *ngIf="item?.value?.operator?.text =='Between'">
+                  <ng-container [ngSwitch]="item?.value?.control">
+                    <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="filterDatePicker"
+                      [ngTemplateOutletContext]='{form:item?.value?.value_2}'>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'currency'" [ngTemplateOutlet]="filterCurrency"
+                      [ngTemplateOutletContext]='{form:item?.value?.value_2}'>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'number'" [ngTemplateOutlet]="filterNumeric"
+                      [ngTemplateOutletContext]='{form:item?.value?.value_2}'>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <div class="input-group-append ml-1">
+                <ng-container *ngIf="(item?.value?.control == 'textbox' 
+                || item?.value?.control == 'dropdown')
+                && ((item?.value?.value_1.value != null && item?.value?.value_1.value != '')
+                || (item?.value?.operator?.value == 'isempty' || item?.value?.operator?.value == 'isnull' 
+                || item?.value?.operator?.value == 'isnotempty' || item?.value?.operator?.value == 'isnotnull' ))">
+                  <button class="btn btn-outline-danger form-group" type="button" (click)="onClearClick(item)">
+                    <i class="k-icon k-i-filter-clear"></i>
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+            <div class="invalid-message">
+              <div class="text-danger" *ngIf="item?.value?.value_1?.hasError('required') 
+              && (item?.value?.value_1?.touched ||item?.value?.value_1?.dirty)">
+                '{{item?.value?.title}}' is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #filterLabel let-title="title" let-isHidden="isHidden">
+  <label *ngIf="!isHidden">{{ title }}</label>
+</ng-template>
+<ng-template #filterTextBox let-form="form">
+  <input type="text" kendoTextBox class="form-control" [formControl]="form">
+</ng-template>
+<ng-template #filterDatePicker let-form="form">
+  <p-custom-kendo-date-picker [formControl]="form">
+  </p-custom-kendo-date-picker>
+</ng-template>
+<ng-template #filterCurrency let-form="form">
+  <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [format]="'c2'" [formControl]="form"
+    (valueChange)="handleValueChange({ method: form?.value?.valueChange , value:$event})">
+  </kendo-numerictextbox>
+</ng-template>
+<ng-template #filterWholeNumber let-form="form">
+  <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [format]="'n0'" [formControl]="form"
+    (valueChange)="handleValueChange({ method: form?.value?.valueChange , value:$event})">
+  </kendo-numerictextbox>
+</ng-template>
+<ng-template #filterNumeric let-form="form">
+  <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" [formControl]="form"
+    (valueChange)="handleValueChange({ method: form?.value?.valueChange , value:$event})">
+  </kendo-numerictextbox>
+</ng-template>
+<ng-template #filterDatePeriod let-form="form">
+  <div class="pt-4">
+    <p-date-period [formControl]="form"></p-date-period>
+  </div>
+</ng-template>
+<ng-template #filterMultiSelect let-form="form">
+  <ng-container *ngIf="isBaseApi(form?.value?.multiControl?.source); else defaultMultiSelectTemplate">
+    <kendo-multiselect [data]="form?.value?.multiControl?.source | async" [textField]="form?.value?.field"
+      (filterChange)="handleFilterChange({ method:form?.value?.multiControl?.filterChange , text:$event})"
+      (valueChange)="handleValueChange({ method: form?.value?.valueChange , value:$event})"
+      [valueField]="form?.value?.field" [formControl]="form?.value?.value_1" [valuePrimitive]="true"
+      [kendoDropDownFilter]="filterSettings">
+    </kendo-multiselect>
+  </ng-container>
+  <ng-template #defaultMultiSelectTemplate>
+    <kendo-multiselect [data]="form?.value?.multiControl?.source.value" [textField]="'text'" [valueField]="'value'"
+      (valueChange)="handleValueChange({ method: form?.value?.valueChange , value:$event})" [valuePrimitive]="true"
+      [formControl]="form?.value?.value_1">
+    </kendo-multiselect>
+  </ng-template>
+</ng-template>
+<ng-template #filterDropDown let-form="form">
+  <ng-container *ngIf="isBaseApi(form?.value?.multiControl?.source); else defaultDrodownTemplate">
+    <kendo-dropdownlist [data]="form?.value?.multiControl?.source | async" [defaultItem]="dropDownDefaultItem(form)"
+      [textField]="form?.value?.multiControl?.textField" [valueField]="form?.value?.multiControl?.valueField"
+      (valueChange)="handleValueChange({ method: form?.value?.valueChange , value:$event})"
+      [formControl]="form?.value?.value_1" [valuePrimitive]="true" [kendoDropDownFilter]="filterSettings"
+      (filterChange)="handleFilterChange({source:form?.value?.multiControl?.source,method:form?.value?.multiControl?.filterChange , text:$event})"
+      class="form-control">
+      <ng-template kendoDropDownListNoDataTemplate>
+        <div>
+          <p> TYPE 3 WORDS TO START SEARCH.</p>
+          <p>NO DATA FOUND.</p>
+        </div>
+      </ng-template>
+      <ng-container *ngIf="form?.value?.multiControl?.itemTemplateField">
+        <ng-template kendoDropDownListItemTemplate let-dataItem>
+          <div class="row w-100">
+            <div class="col-md-2">
+              <span style="font-weight: bold;">{{dataItem[form?.value?.multiControl?.itemTemplateField?.field1]}}</span>
+            </div>
+            <div class="col-md-10">
+              <span class="ml-1">{{dataItem[form?.value?.multiControl?.itemTemplateField?.field2]}}</span>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </kendo-dropdownlist>
+  </ng-container>
+  <ng-template #defaultDrodownTemplate>
+    <kendo-dropdownlist [data]="form?.value?.multiControl?.source.value" [valuePrimitive]="true" [filterable]="true"
+      [defaultItem]="dropDownDefaultItem(form)" [valueField]="form?.value?.multiControl?.valueField"
+      (valueChange)="handleValueChange({ method: form?.value?.valueChange , value:$event})"
+      [textField]="form?.value?.multiControl?.textField" [kendoDropDownFilter]="filterSettings"
+      [formControl]="form?.value?.value_1" class="form-control">
+      <ng-container *ngIf="form?.value?.multiControl?.itemTemplateField">
+        <ng-template kendoDropDownListItemTemplate let-dataItem>
+          <div class="row w-100">
+            <div class="col-md-2">
+              <span style="font-weight: bold;">{{dataItem[form?.value?.multiControl?.itemTemplateField?.field1]}}</span>
+            </div>
+            <div class="col-md-10">
+              <span class="ml-1">{{dataItem[form?.value?.multiControl?.itemTemplateField?.field2]}}</span>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </kendo-dropdownlist>
+  </ng-template>
+</ng-template>

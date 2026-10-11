@@ -1,0 +1,23 @@
+.p-nav-wrapper{
+    background-color: var(--secondary);
+    display: flex;
+}
+.p-nav-brand{
+    font-weight: 700;
+    line-height: 2;
+    // background-color: var(--white-smoke);
+    text-decoration: unset;
+    font-size: 1rem;
+    padding: 0 20px 0 40px;
+}
+.p-nav-item{
+    line-height: 2.5;
+    color:var(--white);
+    font-size: 0.8rem;
+}
+
+.img-thumbnail{
+    width: 40px;
+    height: 40px;
+}
+

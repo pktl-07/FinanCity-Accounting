@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8ED501F1-C2E9-444C-9238-95866456AA71}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FC.Api.SalesAreas</RootNamespace>
+    <AssemblyName>FC.Api.SalesAreas</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44366</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.6.1\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.ValidatorAttribute, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.ValidatorAttribute.8.6.1\lib\net45\FluentValidation.ValidatorAttribute.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.WebApi, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.WebApi.8.6.1\lib\net45\FluentValidation.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Mvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc2Futures.2.0.50217.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Sales\Controllers\BankBestRateController.cs" />
+    <Compile Include="Areas\Sales\Controllers\BranchOutController.cs" />
+    <Compile Include="Areas\Sales\Controllers\ChangeOfStatusController.cs" />
+    <Compile Include="Areas\Sales\Controllers\ChattingRemarkController.cs" />
+    <Compile Include="Areas\Sales\Controllers\ClientSalesController.cs" />
+    <Compile Include="Areas\Sales\Controllers\ClientSetupController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CommissionPaymentController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CommissionReceivedAllocationController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CommissionReceivedController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CommissionStructureBaseController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CommissionStructureController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CommissionStructureDetailController.cs" />
+    <Compile Include="Areas\Sales\Controllers\ContactController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CountryController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CurrencyController.cs" />
+    <Compile Include="Areas\Sales\Controllers\CurrencyRateController.cs" />
+    <Compile Include="Areas\Sales\Controllers\EmploymentHistoryController.cs" />
+    <Compile Include="Areas\Sales\Controllers\ExternalSalespersonController.cs" />
+    <Compile Include="Areas\Sales\Controllers\IDReferenceIndexController.cs" />
+    <Compile Include="Areas\Sales\Controllers\IndustryExamController.cs" />
+    <Compile Include="Areas\Sales\Controllers\LeadController.cs" />
+    <Compile Include="Areas\Sales\Controllers\LoggerController.cs" />
+    <Compile Include="Areas\Sales\Controllers\MarketingExpenseAllocationController.cs" />
+    <Compile Include="Areas\Sales\Controllers\MarketingExpenseController.cs" />
+    <Compile Include="Areas\Sales\Controllers\MarketingItemController.cs" />
+    <Compile Include="Areas\Sales\Controllers\MyCompanyController.cs" />
+    <Compile Include="Areas\Sales\Controllers\PayableSchemeController.cs" />
+    <Compile Include="Areas\Sales\Controllers\PaymentTermController.cs" />
+    <Compile Include="Areas\Sales\Controllers\PayNowController.cs" />
+    <Compile Include="Areas\Sales\Controllers\PhotoController.cs" />
+    <Compile Include="Areas\Sales\Controllers\PostalCodeController.cs" />
+    <Compile Include="Areas\Sales\Controllers\PropertyTransactionController.cs" />
+    <Compile Include="Areas\Sales\Controllers\PropertyTransactionDetailController.cs" />
+    <Compile Include="Areas\Sales\Controllers\PTOClientController.cs" />
+    <Compile Include="Areas\Sales\Controllers\QualificationController.cs" />
+    <Compile Include="Areas\Sales\Controllers\ReferralSalesOrderController.cs" />
+    <Compile Include="Areas\Sales\Controllers\SalesInvoiceController.cs" />
+    <Compile Include="Areas\Sales\Controllers\SalesOrderTypeController.cs" />
+    <Compile Include="Areas\Sales\Controllers\SalespersonManagementController.cs" />
+    <Compile Include="Areas\Sales\Controllers\TNC_DurationController.cs" />
+    <Compile Include="Areas\Sales\Controllers\TNC_InterestRateTypeController.cs" />
+    <Compile Include="Areas\Sales\Controllers\TNC_PropertyPurposeController.cs" />
+    <Compile Include="Areas\Sales\Controllers\TNC_PropertyTypeController.cs" />
+    <Compile Include="Areas\Sales\Controllers\TNC_RateTypeController.cs" />
+    <Compile Include="Areas\Sales\Controllers\TNC_TimeFrameController.cs" />
+    <Compile Include="Areas\Sales\Controllers\TNC_TransactionTypeController.cs" />
+    <Compile Include="Areas\Sales\Controllers\VendorController.cs" />
+    <Compile Include="Areas\Sales\Models\CompanyAndContactModel.cs" />
+    <Compile Include="Areas\Sales\Models\CurrencyRateModel.cs" />
+    <Compile Include="Areas\Sales\Models\IndexReferenceModel.cs" />
+    <Compile Include="Areas\Sales\Models\KeyValueModel.cs" />
+    <Compile Include="Areas\Sales\Models\LeadModel.cs" />
+    <Compile Include="Areas\Sales\Models\PersonAndContactModel.cs" />
+    <Compile Include="Areas\Sales\Models\PromotionSchemeModel.cs" />
+    <Compile Include="Areas\Sales\Models\PropertyTransactionCreateOrUpdateModel.cs" />
+    <Compile Include="Areas\Sales\Models\PropertyTransactionModel.cs" />
+    <Compile Include="Areas\Sales\Models\ReferralSalesOrderModel.cs" />
+    <Compile Include="Areas\Sales\Models\SalesInvoiceModel.cs" />
+    <Compile Include="Areas\Sales\Models\SalespersonManagementModel.cs" />
+    <Compile Include="Areas\Sales\Validators\BankBestRateValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\CareerManagementValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\ClientSetupValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\CommissionPayableValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\CommissionReceivableValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\CommissionReceivedAllocationValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\CommissionSchemeDeleteValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\CommissionSchemeValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\CurrencyRateValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\ExternalSalespersonValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\IndustryExamValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\LeadValidation.cs" />
+    <Compile Include="Areas\Sales\Validators\MarketingPromotionAllocationValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\MyCompanyValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\PromotionItemValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\PropertyTransactionValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\QualificationValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\ReferralSalesOrderValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\SalesInvoiceValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\SalesOrderTypeValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\SalespersonManagementValidator.cs" />
+    <Compile Include="Areas\Sales\Validators\VendorSetupValidator.cs" />
+    <Compile Include="DependencyContainer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FC.Core.Common\FC.Core.Common.csproj">
+      <Project>{4310952a-70d2-41f9-85a0-6765dedc527f}</Project>
+      <Name>FC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core.Data\FC.Core.Data.csproj">
+      <Project>{638430aa-6095-4324-a849-f0d8ca45f01d}</Project>
+      <Name>FC.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core\FC.Core.csproj">
+      <Project>{af7c6f02-8d8a-4dfe-b3ff-eb2d6ff3b11f}</Project>
+      <Name>FC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Domain.Accounts\FC.Domain.Accounts.csproj">
+      <Project>{2e3513fa-769e-48df-89d7-b55ddecb3b97}</Project>
+      <Name>FC.Domain.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Domain.Sales\FC.Domain.Sales.csproj">
+      <Project>{907dfa5b-b184-4d7f-be05-446a31f7583d}</Project>
+      <Name>FC.Domain.Sales</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53283</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44366/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

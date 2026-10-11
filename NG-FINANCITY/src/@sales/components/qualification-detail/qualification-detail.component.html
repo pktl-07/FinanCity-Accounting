@@ -1,0 +1,26 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <form [formGroup]="form" *ngIf="formReady.value.ready">
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Academic Qualification</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Description" [ngClass]="{'is-invalid':form?.get('Description')?.errors 
+                && (form?.get('Description')?.touched || form?.get('Description')?.dirty)}">
+          <div class="text-danger"
+            *ngIf="form?.get('Description')?.hasError('required') && (form?.get('Description')?.touched || form?.get('Description')?.dirty)">
+            'Academic Qualification' is required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Is Active</label>
+          <div class="form-group">
+            <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+            </kendo-switch>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-modal-form>

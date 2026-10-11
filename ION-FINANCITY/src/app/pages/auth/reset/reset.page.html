@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title><h6>Rest My Password</h6></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <form [formGroup]="resetFormGroup" method="post" (ngSubmit)="onResetClick()">
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div padding>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" formControlName="Email"></ion-input>
+            </ion-item>
+            <fc-validation-container [control]="resetFormGroup.get('Email')" label="Email">
+              <fc-validation-required></fc-validation-required>
+              <fc-validation-email></fc-validation-email>
+            </fc-validation-container>
+          </div>
+          <div padding>
+            <ion-button type="submit" [disabled]="!resetFormGroup.valid" expand="full" color="primary">Submit
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

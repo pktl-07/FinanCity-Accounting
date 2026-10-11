@@ -1,0 +1,24 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Journal Ledger' type='1'></p-toolbar>
+  </div>
+  <div class="fc-content">
+    <kendo-tabstrip style="height: 100%;">
+      <kendo-tabstrip-tab [title]="'ALL'" [selected]="true">
+        <ng-template kendoTabContent>
+          <app-journal-ledger-grid [accountingYear]="currentAccountingYear">
+          </app-journal-ledger-grid>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <ng-container *ngFor="let a of modules">
+        <kendo-tabstrip-tab [title]="a.text">
+          <ng-template kendoTabContent>
+            <app-journal-ledger-grid [canDetail]='a.value == "GLC"' [moduleCode]="a.value"
+              [accountingYear]="currentAccountingYear">
+            </app-journal-ledger-grid>
+          </ng-template>
+        </kendo-tabstrip-tab>
+      </ng-container>
+    </kendo-tabstrip>
+  </div>
+</div>

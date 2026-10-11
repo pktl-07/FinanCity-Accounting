@@ -1,0 +1,22 @@
+<ion-card *ngFor="let dataItem of _bankBestRateService | async">
+  <ion-item lines="none">
+    <ion-avatar>
+      <ion-img [src]="(dataItem?.SysKey | fcImage:4 | async) || 'assets/icon/empty-picture.png'">
+      </ion-img>
+    </ion-avatar>
+    <ion-text class="ion-padding">{{dataItem?.Description}} </ion-text>
+  </ion-item>
+  <ion-card-content>
+    <ion-item lines="none">
+      <ion-label position="stacked">Effective Date</ion-label>
+      {{ dataItem?.EffectiveDate | fcDateFormat }}
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="stacked">Interest Rate</ion-label>
+      {{ dataItem?.Rate | number : '1.2-2'}}&nbsp;%
+    </ion-item>
+    <ion-item lines="none">
+      <fc-file-opener [uploadId]="dataItem?.SysKey" [fileType]="5"></fc-file-opener>
+    </ion-item>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,212 @@
+@import './bootstrap.main';
+@import './kendo.main';
+
+//fix width
+.fw-1 {
+    width: 90px !important;
+}
+
+.loader-hidden {
+    display: none;
+}
+
+.loader-show {
+    display: block;
+}
+
+.overlay {
+    position: relative;
+    overflow:hidden;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+.info{
+    color : var(--info) 
+}
+.warning{
+    color : var(--warning)
+}
+.success{
+    color : var(--success)
+}
+.error{
+    color : var(--danger)
+}
+.fc-app-main-wrapper{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: var(--light); 
+}
+.fc-app-banner {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+}
+.fc-app-content {
+    position: relative;
+    height:  92%;
+    overflow: auto;
+    background-color: var(--light); 
+}
+.fc-app-footer {
+    position: relative;
+    left: 0;
+    width: 100%;
+    height: 3%;
+    background-color: #DDD;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.fc-app-footer div.fc-app-footer-logo {
+    min-width: 10px;
+}
+.fc-app-footer div.fc-app-footer-description {
+    width: 100%;
+}
+.fc-app-footer div.fc-app-footer-power {
+    padding-right: 10px;
+    min-width: 10px;
+}
+.fc-app-footer div a {
+    text-decoration: none;
+    color:var(--secondary);
+}
+// .fc-app-footer div.fc-app-footer-power {
+//     padding-right: 10px;
+//     min-width: 10px;
+// }
+.fc-app-footer div {
+    display: table-cell;
+    line-height: 30px;
+    white-space: nowrap;
+    font-size: 10px;
+}
+.fc-app{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: var(--light); 
+}
+.fc-header {
+    position:relative;
+    width: 100%;
+    height: 7%;
+    overflow: inherit;
+    background-color:var(--light);
+    border-bottom : 1px solid var(--primary);
+  }
+.fc-content {
+    position:relative;
+    width:100%;
+    height:93%;
+    overflow: auto;
+    padding:10px;
+    background-color: var(--light); 
+  }
+.fc-modal-app{
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+.fc-app-report {
+    width: 95%;
+    height: 95%;
+    position: absolute;
+    background-color: var(--light); 
+}
+
+.fc-content-report {
+    position:relative;
+    width:100%;
+    height:90%;
+    overflow: auto;
+    padding:10px;
+    background-color: var(--light); 
+}
+  
+.fc-modal-content{
+    position: relative;
+    width: 100%;
+    height:  100%;
+    overflow: auto;
+}
+  
+.fc-grid {
+    height:100%;
+    position: relative;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+input[type=text],
+  textarea {
+    text-transform: uppercase;
+}
+
+.k-textbox:not(:-webkit-autofill){
+    text-transform: uppercase;
+}
+
+.fc-rounded-photo {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-size: 50px 50px;
+    background-position: center center;
+    vertical-align: middle;
+    line-height: 50px;
+    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+    margin-left: 5px;
+}
+
+/* headlines with lines */
+.line-decorated{
+    overflow: hidden;
+    text-align: left;
+}
+.line-decorated > span{
+   position: relative;
+   display: inline-block;
+}
+.line-decorated > span:before, .line-decorated > span:after{
+   content: '';
+   position: absolute;
+   top: 50%;
+   border-bottom: 0.5px solid #6c757d;
+   width: 100vw;
+   margin: 0 3px;
+}
+.line-decorated > span:before{
+   right: 100%;
+}
+.line-decorated > span:after{
+   left: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    line-height: 1.3 !important;
+}
+
+.szie-1{
+    font-size: 1rem;
+}
+
+.size-2{
+    font-size: 2rem;
+}
+
+.size-3{
+    font-size: 3rem;
+}
+

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Lead Contacts
+    </ion-title>
+    <ion-buttons slot="end">
+      <fc-notification-summary></fc-notification-summary>
+    </ion-buttons>
+  </ion-toolbar>
+  <fc-filter-toolbar [connector]="_filterConnectorService" addable="true" (add)="createNew()">
+    <fc-filter-composite title="Client Filter">
+      <fc-filter-item field="Name" label="Name" type="text"></fc-filter-item>
+      <fc-filter-item field="NRIC" label="NRIC" type="text"></fc-filter-item>
+      <fc-filter-item field="Address" label="Address" type="text"></fc-filter-item>
+      <fc-filter-item field="Email" label="Email" type="text"></fc-filter-item>
+      <fc-filter-item field="IsActive" label="Is Active" [items]="activeItems" value="value" text="text"
+        type="dropdown">
+      </fc-filter-item>
+    </fc-filter-composite>
+  </fc-filter-toolbar>
+</ion-header>
+<ion-content>
+  <fc-pager-container [data]="_leadService" #pagerContainer [connector]="_filterConnectorService">
+    <fc-card (click)="handelViewDetail($event)">
+      <fc-card-header>
+        <ng-template fcCardHeaderTemplate let-dataItem="dataItem">
+          <ion-avatar>
+            <ion-img [src]="(dataItem?.SysKey | fcImage:1 | async) || 'assets/icon/empty-picture.png'">
+            </ion-img>
+          </ion-avatar>
+          <ion-label>&nbsp;<span style="font-size: .9rem">{{ dataItem?.Name }}</span></ion-label>
+        </ng-template>
+      </fc-card-header>
+      <fc-card-item field="Address"></fc-card-item>
+    </fc-card>
+  </fc-pager-container>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-text class="text-muted ion-padding" slot="end">
+      {{pagerContainer.recordInfoSubject | async}}
+    </ion-text>
+  </ion-toolbar>
+</ion-footer>

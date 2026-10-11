@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B9F59B9F-A7FC-48B8-B85F-FA7E3968C6EA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FC.Domain.Version</RootNamespace>
+    <AssemblyName>FC.Domain.Version</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\Versions.cs" />
+    <Compile Include="DAO\VersionsDAO.cs" />
+    <Compile Include="DAO\V_1_1_0_10_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_1_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_2_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_3_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_4_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_5_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_6_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_7_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_8_DAO.cs" />
+    <Compile Include="DAO\V_1_0_0_9_DAO.cs" />
+    <Compile Include="DAO\V_1_1_0_11_DAO.cs" />
+    <Compile Include="DAO\V_1_1_0_12_DAO.cs" />
+    <Compile Include="DAO\V_1_1_0_13_DAO.cs" />
+    <Compile Include="DAO\V_1_1_0_14_DAO.cs" />
+    <Compile Include="DAO\V_1_1_0_15_DAO.cs" />
+    <Compile Include="DAO\V_1_1_0_16_DAO.cs" />
+    <Compile Include="DependencyContainer.cs" />
+    <Compile Include="Entity\VersionEntity.cs" />
+    <Compile Include="Infrastructure\IEssVersion.cs" />
+    <Compile Include="Infrastructure\ESSVersionAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FC.Core.Common\FC.Core.Common.csproj">
+      <Project>{4310952a-70d2-41f9-85a0-6765dedc527f}</Project>
+      <Name>FC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core.Data\FC.Core.Data.csproj">
+      <Project>{638430aa-6095-4324-a849-f0d8ca45f01d}</Project>
+      <Name>FC.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core\FC.Core.csproj">
+      <Project>{af7c6f02-8d8a-4dfe-b3ff-eb2d6ff3b11f}</Project>
+      <Name>FC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Domain.Accounts\FC.Domain.Accounts.csproj">
+      <Project>{2e3513fa-769e-48df-89d7-b55ddecb3b97}</Project>
+      <Name>FC.Domain.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Domain.Sales\FC.Domain.Sales.csproj">
+      <Project>{907dfa5b-b184-4d7f-be05-446a31f7583d}</Project>
+      <Name>FC.Domain.Sales</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,140 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Cashbook Transaction' type='2'>
+      <ng-template fcToolbarTemplate>
+        <p-recordstatus [value]="form?.get('RecordStatus')?.value"></p-recordstatus>
+      </ng-template>
+    </p-toolbar>
+  </div>
+  <div class="fc-content">
+    <div [formGroup]='form'>
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-header text-white">
+            Cashbook Information
+          </div>
+          <div class="card-body">
+            <div class="card-deck">
+              <div class="form-group col-md-6">
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label>Transaction Type</label>
+                    <div class="form-control" pInputIcon [iconVisible]="readonly"
+                      [ngClass]="{'pointer-none':readonly }">
+                      <label class="radio-inline">
+                        <input type="radio" name="TransType" [value]="205" formControlName="TransType">&nbsp;Receipt
+                      </label>&nbsp;&nbsp;
+                      <label class="radio-inline">
+                        <input type="radio" name="TransType" [value]="210" formControlName="TransType">
+                        Payment
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label>Cashbook No.</label>
+                    <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly pInputIcon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label>Date</label>
+                    <p-custom-kendo-date-picker formControlName="TransactionDate" [readonly]="readonly" pInputIcon
+                      [iconVisible]="readonly"></p-custom-kendo-date-picker>
+                    <div class="text-danger" *ngIf="form?.get('TransactionDate')?.hasError('required') 
+                      && (form?.get('TransactionDate')?.touched ||
+                      form?.get('TransactionDate')?.dirty)">
+                      'Date' is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label>Received By/Issued By</label>
+                    <input type="text" kendoTextBox class="form-control" formControlName="PaidPerson">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label>Second Ref.</label>
+                    <input type="text" kendoTextBox class="form-control" formControlName="SecondRef">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label>GL Ref.</label>
+                    <input type="text" kendoTextBox class="form-control" formControlName="JRef" readonly pInputIcon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label>Description</label>
+                    <textarea type="text" kendoTextBox class="form-control" formControlName="Description"
+                      rows="5"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header text-white">
+            Cashbook Details
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>Cashbook</label>
+                <kendo-dropdownlist [data]="_cashbookService | async" [valuePrimitive]="true" [valueField]="'SysKey'"
+                  [itemDisabled]="itemDisabled" [textField]="'CashbookName'" formControlName="CBSK"
+                  [readonly]="readonly" pInputIcon [iconVisible]="readonly" class="form-control">
+                </kendo-dropdownlist>
+                <div class="text-danger" *ngIf="form?.get('CBSK')?.hasError('required') 
+                  && (form?.get('CBSK')?.touched ||
+                  form?.get('CBSK')?.dirty)">
+                  'Cashbook' is required.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 form-group">
+                <label>Currency</label>
+                <input type="text" kendoTextBox class="form-control" formControlName="CashbookCode"
+                  [readonly]="readonly">
+              </div>
+              <div class="col-md-4 form-group">
+                <label>&nbsp;</label>
+                <kendo-numerictextbox formControlName="CURRATE" class="form-control" [spinners]="false" [format]="'n4'"
+                  [readonly]="form.get('CURRSK').value == baseCurr" pInputIcon
+                  [iconVisible]="form.get('CURRSK').value == baseCurr">
+                </kendo-numerictextbox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>Payee Bank Name</label>
+                <input type="text" kendoTextBox class="form-control" formControlName="BankInfo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>Cheque No.</label>
+                <input type="text" kendoTextBox class="form-control" formControlName="ChequeNo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 100%;" class="mt-3">
+      <p-grid-incell-editing #cashbooktransaction title="Total Amount= {{ totalAmount | async | currency }}"
+        [lock]="readonly">
+      </p-grid-incell-editing>
+    </div>
+  </div>
+</div>
+
+<recap-dialog #recapDailog></recap-dialog>

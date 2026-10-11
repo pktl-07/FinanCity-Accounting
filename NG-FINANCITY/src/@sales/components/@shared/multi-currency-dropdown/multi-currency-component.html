@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-12 form-group">
+    <label>Currency Code</label>
+    <kendo-dropdownlist class="form-control" [data]="_currencyRateService | async" [valuePrimitive]="true"
+      [itemDisabled]="itemDisabled" [formControl]="currencyCodeFromControl" [kendoDropDownFilter]="filterSettings"
+      [valueField]="'SysKey'" [readonly]="readonly" pInputIcon [iconVisible]="readonly"
+      (filterChange)="handelCurrencyCodeFilterChange($event)" (valueChange)="onChangeCurrencyCode($event)"
+      [textField]="'CurrencyCode'">
+
+      <ng-template kendoDropDownListValueTemplate let-dataItem>
+        <div class="row w-100">
+          <div class="col-md-1">
+            <span style="font-weight: bold;">{{dataItem?.CurrencyCode}}</span>
+          </div>
+          <div class="col-md-11">
+            <span class="ml-5">{{dataItem?.Country}}</span>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template kendoDropDownListItemTemplate let-dataItem>
+        <div class="row w-100">
+          <div class="col-md-1">
+            <span style="font-weight: bold;">{{dataItem?.CurrencyCode}}</span>
+          </div>
+          <div class="col-md-11">
+            <span class="ml-5">{{dataItem?.Country}}</span>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template kendoDropDownListNoDataTemplate>
+        <div>
+          <button kendoButton [primary]="true" (click)="addNewCurrency()">Add new
+            currency</button>
+        </div>
+      </ng-template>
+    </kendo-dropdownlist>
+    <div class="invalid-message">
+      <div class="text-danger" *ngIf="currencyCodeFromControl?.hasError('required') 
+          && (currencyCodeFromControl?.touched || currencyCodeFromControl?.dirty)">
+        'Currency Code' is required.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 form-group">
+    <label>Currency Rate</label>
+    <kendo-numerictextbox class="form-control" [formControl]="currencyRateFormControl" [spinners]="false" required
+      [format]="'n4'" [readonly]="readonly" pInputIcon [iconVisible]="readonly">
+    </kendo-numerictextbox>
+    <div class="invalid-message">
+      <div class="text-danger" *ngIf="currencyRateFormControl.hasError('required')
+                   && (currencyRateFormControl.touched || currencyRateFormControl.dirty)">
+        'Rate' is required.
+      </div>
+    </div>
+  </div>
+</div>

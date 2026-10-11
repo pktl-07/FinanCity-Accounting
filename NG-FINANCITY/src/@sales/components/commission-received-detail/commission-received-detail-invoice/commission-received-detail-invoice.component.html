@@ -1,0 +1,80 @@
+<div [formGroup]='formGroup'>
+    <input type="hidden" formControlName="InvoiceNo">
+    <input type="hidden" formControlName="TransactionNo">
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header text-white">
+                Invoice Details
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Invoice No.</label>
+                        <input type="text" kendoTextBox class="form-control" formControlName="InvoiceNo" readonly="true"
+                            pInputIcon>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Transaction No.</label>
+                        <input type="text" kendoTextBox class="form-control" formControlName="TransactionNo"
+                            readonly="true" pInputIcon>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Invoice Date</label>
+                        <p-custom-kendo-date-picker formControlName="InvoiceDate" readonly="true" pInputIcon>
+                        </p-custom-kendo-date-picker>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Salesperson Reference</label>
+                        <input type="text" kendoTextBox class="form-control" formControlName="MainSalesperson" readonly
+                            pInputIcon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header text-white">
+                Commission Receivable Details
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Invoice Amount</label>
+                        <kendo-numerictextbox formControlName="InvoiceAmt" class="form-control" readonly="true"
+                            [format]="'c2'" [spinners]="false" pInputIcon>
+                        </kendo-numerictextbox>
+                    </div>
+                    <!-- <div class="col-md-6 form-group">
+                        <label>Debit Amount</label>
+                        <kendo-numerictextbox formControlName="Debit" class="form-control" readonly="true"
+                            [format]="'c2'" [spinners]="false" pInputIcon>
+                        </kendo-numerictextbox>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Total Amount Received</label>
+                        <kendo-numerictextbox formControlName="TotalReceived" class="form-control" readonly="true"
+                            [format]="'c2'" [spinners]="false" pInputIcon>
+                        </kendo-numerictextbox>
+                    </div>
+                    <!-- <div class="col-md-6 form-group">
+                        <label>Credit Amount</label>
+                        <kendo-numerictextbox formControlName="Credit" class="form-control" readonly="true"
+                            [format]="'c2'" [spinners]="false" pInputIcon>
+                        </kendo-numerictextbox>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Balance Commission Receivable</label>
+                        <kendo-numerictextbox formControlName="Balance" class="form-control" readonly="true"
+                            [format]="'c2'" [spinners]="false" pInputIcon>
+                        </kendo-numerictextbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

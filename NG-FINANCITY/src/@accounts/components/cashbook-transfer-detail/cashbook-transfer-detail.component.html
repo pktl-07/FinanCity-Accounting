@@ -1,0 +1,133 @@
+<p-modal-form [loading]="!formReady.value.ready">
+    <ng-template fcToolbarTemplate>
+        <p-recordstatus [value]="form?.get('RecordStatus')?.value"></p-recordstatus>
+    </ng-template>
+    <ng-template fcModalContentTemplate>
+        <div *ngIf="formReady.value.ready" style="height: 100%">
+            <form [formGroup]="form">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Transaction No.</label>
+                        <input type="text" kendoTextBox formControlName="R1" class="form-control" readonly pInputIcon />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Second Reference</label>
+                        <input type="text" kendoTextBox formControlName="SecondRef" class="form-control"
+                            [readonly]="readonly" pInputIcon [iconVisible]="readonly" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>GL Reference</label>
+                        <input type="text" kendoTextBox formControlName="JRef" class="form-control" readonly
+                            pInputIcon />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>From Cashbook</label>
+                        <kendo-dropdownlist [data]="_fromCashBookSetupService | async" [valuePrimitive]="true"
+                            [valueField]="'SysKey'" [textField]="'CashbookName'" formControlName="FromCBSysKey"
+                            [readonly]="readonly" pInputIcon [iconVisible]="readonly" [itemDisabled]="itemDisabled"
+                            class="form-control">
+                        </kendo-dropdownlist>
+                        <div class="text-danger"
+                            *ngIf="form?.get('FromCBSysKey')?.hasError('required') && (form?.get('FromCBSysKey')?.touched || form?.get('FromCBSysKey')?.dirty)">
+                            'From Cashbook' is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>To Cashbook</label>
+                        <kendo-dropdownlist [data]="_fromCashBookSetupService | async" [valuePrimitive]="true"
+                            [readonly]="readonly" pInputIcon [iconVisible]="readonly" [itemDisabled]="itemDisabled"
+                            [valueField]="'SysKey'" [textField]="'CashbookName'" formControlName="ToCBSysKey"
+                            class="form-control">
+                        </kendo-dropdownlist>
+                        <div class="text-danger"
+                            *ngIf="form?.get('ToCBSysKey')?.hasError('required') && (form?.get('ToCBSysKey')?.touched || form?.get('ToCBSysKey')?.dirty)">
+                            'To Cashbook' is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label>Currency</label>
+                        <input type="text" kendoTextBox formControlName="FromCurrCode" class="form-control" readonly />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>&nbsp;</label>
+                        <kendo-numerictextbox formControlName="FROMCURRATE" class="form-control" [spinners]="false"
+                            [format]="'n4'" [readonly]="form?.get('FROMCURRSK')?.value == baseCurr" pInputIcon
+                            [iconVisible]="form?.get('FROMCURRSK')?.value == baseCurr">
+                        </kendo-numerictextbox>
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        <label>Currency</label>
+                        <input type="text" kendoTextBox formControlName="ToCurrCode" class="form-control" readonly />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>&nbsp;</label>
+                        <kendo-numerictextbox formControlName="TOCURRATE" class="form-control" [spinners]="false"
+                            [format]="'n4'" [readonly]="form?.get('TOCURRSK')?.value == baseCurr" pInputIcon
+                            [iconVisible]="form?.get('TOCURRSK')?.value == baseCurr">
+                        </kendo-numerictextbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Cheque No.</label>
+                        <input type="text" kendoTextBox formControlName="ChequeNo" class="form-control"
+                            [readonly]="readonly" pInputIcon [iconVisible]="readonly" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Transfer Date</label>
+                        <p-custom-kendo-date-picker formControlName="TransactionDate" [readonly]="readonly" pInputIcon
+                            [iconVisible]="readonly"></p-custom-kendo-date-picker>
+                        <div class="text-danger"
+                            *ngIf="form?.get('TransactionDate')?.hasError('required') && (form?.get('TransactionDate')?.touched || form?.get('TransactionDate')?.dirty)">
+                            'Transfer Date' is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Transaction Amount</label>
+                        <kendo-numerictextbox formControlName="FromTransactionAmount" class="form-control"
+                            [format]="'c2'" [spinners]="false" [readonly]="readonly" pInputIcon
+                            [iconVisible]="readonly">
+                        </kendo-numerictextbox>
+                        <div class="text-danger"
+                            *ngIf="form?.get('FromTransactionAmount')?.hasError('required') && (form?.get('FromTransactionAmount')?.touched || form?.get('FromTransactionAmount')?.dirty)">
+                            'Transaction Amount' is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Transaction Amount</label>
+                        <kendo-numerictextbox formControlName="ToTransactionAmount" class="form-control" [format]="'c2'"
+                            [readonly]="readonly" pInputIcon [iconVisible]="readonly" [spinners]="false">
+                        </kendo-numerictextbox>
+                        <div class="text-danger"
+                            *ngIf="form?.get('ToTransactionAmount')?.hasError('required') && (form?.get('ToTransactionAmount')?.touched || form?.get('ToTransactionAmount')?.dirty)">
+                            'Transaction Amount' is required.
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label>Description</label>
+                        <textarea type="text" kendoTextBox class="form-control" rows="5" [readonly]="readonly"
+                            pInputIcon [iconVisible]="readonly"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+</p-modal-form>
+
+<recap-dialog #recapDailog></recap-dialog>

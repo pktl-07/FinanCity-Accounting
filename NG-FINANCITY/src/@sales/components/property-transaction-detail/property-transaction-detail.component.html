@@ -1,0 +1,67 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Mortgage Sales Transaction' type='2'>
+      <ng-template fcToolbarTemplate>
+        <p-recordstatus [value]="form?.get('PropertyTransaction')?.get('RecordStatus')?.value"></p-recordstatus>
+      </ng-template>
+    </p-toolbar>
+  </div>
+  <div class="fc-content">
+    <kendo-tabstrip [keepTabContent]="true" style="height: 100%;">
+      <kendo-tabstrip-tab [title]="'Transaction'" [selected]="true">
+        <ng-template kendoTabContent>
+          <app-property-transaction-transaction [formGroup]="form?.get('PropertyTransaction')"
+            [contactFormGroup]="form?.get('Contact')">
+          </app-property-transaction-transaction>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'TNC'">
+        <ng-template kendoTabContent>
+          <app-property-transaction-tnc #tnc [formGroup]="form?.get('TNC')">
+          </app-property-transaction-tnc>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Client/Vendor'">
+        <ng-template kendoTabContent>
+          <div style="height: 50%;">
+            <app-property-transaction-clients #clientComponent>
+            </app-property-transaction-clients>
+          </div>
+          <div class="card mt-3">
+            <div class="card-header text-white">
+              Vendor Details
+            </div>
+            <div class="card-body">
+              <app-property-transaction-billtocobroke [formGroup]="form?.get('PropertyTransaction')">
+              </app-property-transaction-billtocobroke>
+            </div>
+          </div>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Commission'">
+        <ng-template kendoTabContent>
+          <div style="height: 35%;">
+            <app-property-transaction-commission [formGroup]="form?.get('PropertyTransaction')"
+              (taxChange)="onTaxChange()">
+            </app-property-transaction-commission>
+          </div>
+          <div style="height: 30%;">
+            <app-property-transaction-internals #internalComponent [formGroup]="form?.get('PropertyTransaction')">
+            </app-property-transaction-internals>
+          </div>
+          <div style="height: 30%;" class="mt-3">
+            <app-property-transaction-externals #externalComponent [formGroup]="form?.get('PropertyTransaction')">
+            </app-property-transaction-externals>
+          </div>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Transaction Activity'">
+        <ng-template kendoTabContent>
+          <app-property-transaction-activity #transactionActivity
+            [PropertySK]="form?.get('PropertyTransaction')?.get('SysKey')?.value">
+          </app-property-transaction-activity>
+        </ng-template>
+      </kendo-tabstrip-tab>
+    </kendo-tabstrip>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<form [formGroup]="formGroup">
+    <div class="row" *ngIf="formGroup?.get('SalespersonType')?.value == 20">
+        <div class="col-md-6 form-group">
+            <label>Salesperson Payable</label>
+            <kendo-numerictextbox formControlName="GrossCommissionPayableToSalesperson" class="form-control" [min]="0"
+                [format]="'c2'" readonly="true" [spinners]="false" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+    </div>
+    <div class="row" *ngIf="formGroup?.get('SalespersonType')?.value == 20">
+        <div class="col-md-6 form-group">
+            <label>Add: GST ($)</label>
+            <kendo-numerictextbox formControlName="AddGST" class="form-control" [min]="0" [format]="'c2'"
+                readonly="true" [spinners]="false" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Commission Payable to Salesperson</label>
+            <kendo-numerictextbox formControlName="CommissionPayableToSalesperson" class="form-control" [format]="'c2'"
+                readonly="true" [spinners]="false" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Commission Paid</label>
+            <kendo-numerictextbox formControlName="CommissionPaid" class="form-control" readonly="true" [format]="'c2'"
+                [spinners]="false" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Balance Commission Payable</label>
+            <kendo-numerictextbox formControlName="Balance" class="form-control" [format]="'c2'" [spinners]="false"
+                readonly="true" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+    </div>
+</form>

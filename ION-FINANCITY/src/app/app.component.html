@@ -1,0 +1,43 @@
+<ion-app>
+  <ion-split-pane contentId="fc-content">
+    <ion-menu type="overlay" contentId="fc-content" *ngIf="config.auth.isAuthenticate | async">
+      <ion-header>
+        <ion-toolbar>
+          <ion-item lines="none">
+            <ion-avatar>
+              <ion-img [src]="(config?.general?.profilePhoto | async) || 'assets/icon/empty-picture.png'">
+              </ion-img>
+            </ion-avatar>
+            <ion-label>&nbsp;<span style="text-overflow: ellipsis;">{{config?.auth?.profileName | async}}</span>
+            </ion-label>
+          </ion-item>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content *ngIf="config.auth.isAuthenticate | async">
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="p.path"
+              [class.active-item]="selectedPath?.startsWith(p.path)">
+              <ion-avatar>
+                <img [src]="getPicture(p.icon)">
+              </ion-avatar>
+              <ion-label>
+                &nbsp;{{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-item tappable routerLink="" routerDirection="root" (click)="onLogoutClick()">
+            <ion-avatar>
+              <img [src]="getPicture('log-out')">
+            </ion-avatar>
+            <ion-label>
+              &nbsp;Logout
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="fc-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
+<ion-progress-bar *ngIf="loadingState | async" color="warning" type="indeterminate"></ion-progress-bar>

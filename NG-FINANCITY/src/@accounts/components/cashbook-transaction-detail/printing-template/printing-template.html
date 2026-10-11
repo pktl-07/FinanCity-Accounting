@@ -1,0 +1,26 @@
+<p-modal-form [loading]="!formReady.value.ready">
+    <ng-template fcModalContentTemplate>
+        <div [formGroup]="form">
+            <div class="row">
+                <div class="col-md form-group">
+                    <label>Salesperson</label>
+                    <kendo-dropdownlist [data]="_salespersonManagementService | async" [valuePrimitive]="true"
+                        [valueField]="'SysKey'" [textField]="'Name'" [kendoDropDownFilter]="filterSettings"
+                        formControlName="SPSK" class="form-control">
+                    </kendo-dropdownlist>
+                    <div class="text-danger"
+                        *ngIf="form?.get('SPSK')?.hasError('required') && (form?.get('SPSK')?.touched || form?.get('SPSK')?.dirty)">
+                        'Salesperson' is required.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md form-group">
+                    <label>NRIC</label>
+                    <input type="text" kendoTextBox class="form-control" formControlName="NRIC" [readonly]="true"
+                        pInputIcon>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-modal-form>

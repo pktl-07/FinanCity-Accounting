@@ -1,0 +1,22 @@
+﻿namespace FC.Api.SalesAreas.Areas.Sales.Models
+{
+    using System.Collections.Generic;
+    using FC.Domain.Sales.Entity;
+  
+    public class PropertyTransactionModel
+    {
+        public PropertyTransactionEntity PropertyTransaction { get; set; }
+     
+        public ContactEntity Contact { get; set; }
+        
+        public IEnumerable<PTOClientEntity> Clients { get; set; }
+        
+        public IEnumerable<PropertyTransactionDetailEntity> Internals { get; set; }
+        
+        public IEnumerable<PropertyTransactionDetailEntity> Externals { get; set; }
+        
+        public TNC_Entity TNC { get; set; }
+        
+        public IEnumerable<MarketingExpenseEntity> PromotionExpense { get; set; }
+    }
+}

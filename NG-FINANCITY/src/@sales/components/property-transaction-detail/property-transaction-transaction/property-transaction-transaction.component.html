@@ -1,0 +1,68 @@
+<div [formGroup]='formGroup'>
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header text-white">
+                Transaction Information
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label>Transaction No.</label>
+                        <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly pInputIcon>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label>Second Reference</label>
+                        <input kendoTextBox type="text" class="form-control" formControlName="SecondRef"
+                            [readonly]="readonly" pInputIcon
+                            [iconVisible]="readonly">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label>Submission Date</label>
+                        <p-custom-kendo-date-picker formControlName="SPDate"
+                            [readonly]="readonly" pInputIcon
+                            [iconVisible]="readonly"></p-custom-kendo-date-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label>Transaction Date</label>
+                        <p-custom-kendo-date-picker formControlName="TransactionDate"
+                            [readonly]="readonly" pInputIcon
+                            [iconVisible]="readonly"></p-custom-kendo-date-picker>
+                        <div class="text-danger" *ngIf="formGroup?.get('TransactionDate')?.hasError('required') 
+                            && (formGroup?.get('TransactionDate')?.touched ||
+                            formGroup?.get('TransactionDate')?.dirty)">
+                            'Transaction Date' is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header text-white">
+                Currency
+            </div>
+            <div class="card-body">
+                <app-multi-currency-component [currencyCodeFromControl]="formGroup?.get('CURRSK')"
+                    [currencyRateFormControl]="formGroup?.get('CURRATE')"
+                    [readonly]="readonly"
+                    [currencyOpFormControl]="formGroup?.get('CURROP')">
+                </app-multi-currency-component>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header text-white">
+                Property Address
+            </div>
+            <div class="card-body">
+                <app-content-information [formGroup]="contactFormGroup" [showTelephoneNumber]="false" [width]="12"
+                    [showMobileNumber]="false" [showEmailAddress]="false" [showWebSite]="false">
+                </app-content-information>
+            </div>
+        </div>
+    </div>
+</div>

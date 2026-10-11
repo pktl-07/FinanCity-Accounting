@@ -1,0 +1,74 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div [formGroup]="form" *ngIf="formReady.value.ready">
+      <div formGroupName="Indexer">
+        <h5>{{transTypeDescription}}</h5>
+        <br>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Prefix</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="Prefix" [ngClass]="{'is-invalid':form.get('Indexer').get('Prefix').errors 
+            && (form.get('Indexer').get('Prefix').touched || form.get('Indexer').get('Prefix').dirty)}">
+            <div class="text-danger" *ngIf="form.get('Indexer').get('Prefix').hasError('required')
+                   && (form.get('Indexer').get('Prefix').touched || form.get('Indexer').get('Prefix').dirty)">
+              'Prefix' is required.
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Postfix</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="Postfix">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Start Value</label>
+            <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" format="null"
+              formControlName="StartValue">
+            </kendo-numerictextbox>
+            <div class="text-danger" *ngIf="form.get('Indexer').get('StartValue').hasError('required')
+                 && (form.get('Indexer').get('StartValue').touched || form.get('Indexer').get('StartValue').dirty)">
+              'Start Value' is required.
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label>End Value</label>
+            <kendo-numerictextbox class="form-control" [spinners]="false" [min]="0" step="0" format="null"
+              formControlName="EndValue">
+            </kendo-numerictextbox>
+            <div class="text-danger" *ngIf="form.get('Indexer').get('EndValue').hasError('required') 
+                && (form.get('Indexer').get('EndValue').touched || form.get('Indexer').get('EndValue').dirty)">
+              'End Value' is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label>Format</label>
+            <kendo-dropdownlist class="form-control" [data]="indexingFormat" [valueField]="'value'" [textField]="'text'"
+              [valuePrimitive]="true" formControlName="Format">
+            </kendo-dropdownlist>
+          </div>
+        </div>
+
+        <hr>
+        <p>The selected date will only be effected on yy:mm:#### Format</p>
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label></label>
+            <div class="form-control">
+              <ng-container *ngFor="let c of baseDate">
+                <label class="radio-inline">
+                  <input type="radio" [attr.disabled]="form.get('Indexer').get('Format')?.value == 20 ? null : true"
+                    name="BaseDate" ngDisabled="true" [value]="c?.PhysicalFieldName?.toUpperCase()"
+                    formControlName="BaseDate">
+                  {{c?.LogicalFieldName}}
+                </label>&nbsp;&nbsp;
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

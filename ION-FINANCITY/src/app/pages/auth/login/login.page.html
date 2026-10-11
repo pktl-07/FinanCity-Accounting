@@ -1,0 +1,84 @@
+<ion-content fullscreen="true">
+  <div [formGroup]="loginFormGroup">
+    <div class="decorate-panel">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center" size-md="6" size-lg="5" size-xs="12">
+          <ion-col class="ion-align-self-center">
+            <div class="ion-text-center">
+              <img src="assets/icon/financity-banner-logo.png" width="100" height="100" />
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="login-panel">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col class="ion-align-self-center">
+            <div class="ion-text-center">
+              <h3>
+                <span style="font-weight: 700;font-size: 2rem">
+                  <span style="color:#FF0000;">FINAN</span><span style="color: white;">CITY</span>
+                </span>
+              </h3>
+            </div>
+            <div>
+              <ion-item>
+                <ion-icon name="person" slot="start"></ion-icon>
+                <ion-label position="floating">User Name or Email</ion-label>
+                <ion-input formControlName="UserName"></ion-input>
+              </ion-item>
+              <fc-validation-container [control]="loginFormGroup.get('UserName')" label="User Name">
+                <fc-validation-required></fc-validation-required>
+              </fc-validation-container>
+              <ion-item>
+                <ion-icon name="key" slot="start"></ion-icon>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" formControlName="Password"></ion-input>
+              </ion-item>
+              <fc-validation-container [control]="loginFormGroup.get('Password')" label="Password">
+                <fc-validation-required></fc-validation-required>
+                <fc-validation-minlength message="length must be more than 6."></fc-validation-minlength>
+              </fc-validation-container>
+            </div>
+            <div class="ion-padding">
+              <ion-button expand="block" [disabled]="!loginFormGroup.valid" expand="full" color="primary"
+                (click)="handlePasswordLogin()">Login
+              </ion-button>
+            </div>
+            <div class="ion-padding" class="ion-text-right">
+              I <a routerLink="/reset">forget</a> my password!
+            </div>
+          </ion-col>
+        </ion-row>
+        <h6 class="line-decorated" style="padding-left: 8px;"><span class="text-muted">You can login with</span></h6>
+        <ion-row>
+          <ion-col>
+            <ion-button [disabled]="!(config.dbReady | async)" expand="block" size="large" color="google"
+              (click)="handleGoogleLogin()">
+              <ion-icon name="logo-google"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" size="large" color="facebook" (click)="handleFacebookLogin()">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" size="large" color="dark" (click)="handleAppleLogin()">
+              <ion-icon name="logo-apple"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="decorate-panel"></div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title class="text-muted">
+      App Version: {{versionNumberSubject | async}}
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,107 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div [formGroup]="form" *ngIf="formReady.value.ready">
+      <input type="hidden" formControlName="AccountType">
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Account Type</label>
+          <div class="form-control">
+            <label class="radio-inline">
+              <input type="radio" name="AccountType" [value]="1" formControlName="AccountType">&nbsp;Admin
+            </label>&nbsp;&nbsp;
+            <label class="radio-inline">
+              <input type="radio" name="AccountType" [value]="2" formControlName="AccountType">
+              Salesperson
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Salesperson</label>
+          <kendo-dropdownlist class="form-control" [filterable]="true" formControlName="SPSK"
+            [disabled]="form?.get('AccountType')?.value == 1" pInputIcon
+            [iconVisible]="form?.get('AccountType')?.value == 1" [data]="_salespersonService | async"
+            [valuePrimitive]="true" (selectionChange)="handleSalespersonChange($event)" [textField]="'Name'"
+            [valueField]="'SysKey'" (filterChange)="handelSalespersonFilterChange($event)">
+            <ng-template kendoDropDownListNoDataTemplate>
+              <div>
+                Type at least 3 words to start serach.
+                <br />
+              </div>
+            </ng-template>
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>User Account Name</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="PasswordLoginUserName" [ngClass]="{'is-invalid':form.get('PasswordLoginUserName').errors 
+           && (form.get('PasswordLoginUserName').touched || form.get('PasswordLoginUserName').dirty)}">
+          <div class="text-danger"
+            *ngIf="form.get('PasswordLoginUserName').hasError('required') && (form.get('PasswordLoginUserName').touched || form.get('PasswordLoginUserName').dirty)">
+            'User Account Name' is required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>First Name</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="FirstName" [ngClass]="{'is-invalid':form.get('FirstName').errors 
+            && (form.get('FirstName').touched || form.get('FirstName').dirty)}">
+          <div class="text-danger"
+            *ngIf="form.get('FirstName').hasError('required') && (form.get('FirstName').touched || form.get('FirstName').dirty)">
+            'First Name' is required.
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Last Name</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="LastName" [ngClass]="{'is-invalid':form.get('LastName').errors 
+              && (form.get('LastName').touched || form.get('LastName').dirty)}">
+          <div class="text-danger"
+            *ngIf="form.get('LastName').hasError('required') && (form.get('LastName').touched || form.get('LastName').dirty)">
+            'Last Name' is required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Google</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Google" [ngClass]="{'is-invalid':form.get('Google').errors 
+              && (form.get('Google').touched || form.get('Google').dirty)}">
+          <div class="text-danger"
+            *ngIf="form.get('Google').hasError('required') && (form.get('Google').touched || form.get('Google').dirty)">
+            'G-Mail' is required.
+          </div>
+          <div class="text-danger"
+            *ngIf="form.get('Google').hasError('email') && (form.get('Google').touched || form.get('Google').dirty)">
+            'G-Mail' is invalid email format.
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Facebook</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Facebook">
+          <div class="text-danger"
+            *ngIf="form.get('Facebook').hasError('email') && (form.get('Facebook').touched || form.get('Facebook').dirty)">
+            'Facebook' is invalid email format.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>iOS</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Apple">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Is Active</label>
+          <div class="form-group">
+            <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+            </kendo-switch>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

@@ -1,0 +1,17 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Chart of Account' type='1'></p-toolbar>
+  </div>
+  <div class="fc-content">
+    <kendo-tabstrip style="height: 100%;" (tabSelect)='handleSelect($event)'>
+      <ng-container *ngFor="let a of accounts">
+        <kendo-tabstrip-tab [title]="a.text" [selected]="a.value == '1'">
+          <ng-template kendoTabContent>
+            <app-chart-of-accounts-grid [id]='a.value' [accountPrefix]='a.value' (clickDetail)='handleDetail($event)'>
+            </app-chart-of-accounts-grid>
+          </ng-template>
+        </kendo-tabstrip-tab>
+      </ng-container>
+    </kendo-tabstrip>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div [formGroup]='formGroup'>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Level 1</label>
+            <kendo-dropdownlist class="form-control" [data]="_salespersonService | async" [valueField]="'SysKey'"
+                [iconVisible]="formGroup?.get('RecordStatus')?.value > 1" pInputIcon
+                [readonly]="formGroup?.get('RecordStatus')?.value > 1" [kendoDropDownFilter]="filterSettings"
+                [textField]="'Name'" [valuePrimitive]="true" [itemDisabled]="itemDisabled" [defaultItem]="defaultItem"
+                (valueChange)="onChangeT1($event)" formControlName="L1">
+            </kendo-dropdownlist>
+        </div>
+    </div>
+    <kendo-treeview [nodes]="_upTree" [hasChildren]="hasChildren" [children]="fetchChildren" kendoTreeViewExpandable
+        [expandBy]="'Depth'" [(expandedKeys)]="expandedKeys">
+        <ng-template kendoTreeViewNodeTemplate let-dataItem>
+            <div class="p-3" [ngClass]="{
+                'btn-pupple' : dataItem?.SPSK == formGroup?.get('SysKey')?.value,
+                'btn-gray' : dataItem?.Rank == 1 ,
+                'btn-success' : dataItem?.Rank == 5 ,
+                'btn-primary' : dataItem?.Rank == 10 }">
+                <img class="fc-rounded-photo float-left" style="vertical-align:middle" [src]="dataItem?.PhotoPath"
+                    onerror="this.src='assets/imgs/empty-picture.png'">
+                <div class="float-right pl-5" [ngClass]="{'pt-5': dataItem?.Desingation == null,
+                    'pt-3': dataItem?.Desingation != null,
+                    'text-danger' : dataItem?.IsActive == false }">
+                    <p style="text-align: left">
+                        {{ dataItem?.Name }}&nbsp;({{ dataItem?.IsActive ? "Active" : "In Active" }})
+                        <span *ngIf="maxMB - (nodeLength - dataItem?.Depth) >= 0"
+                            class="badge badge-pill badge-danger">{{ nodeLength - dataItem?.Depth  }}</span>
+                        <br>
+                        <small class="card-text">{{ getRankType(dataItem?.Rank) }}</small>
+                    </p>
+                </div>
+            </div>
+        </ng-template>
+    </kendo-treeview>
+</div>

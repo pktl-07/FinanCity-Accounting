@@ -1,0 +1,68 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <form [formGroup]="form" *ngIf="formReady.value.ready">
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Sales Order Type</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Description" [ngClass]="{'is-invalid':form?.get('Description')?.errors 
+                && (form?.get('Description')?.touched || form?.get('Description')?.dirty)}">
+          <div class="text-danger"
+            *ngIf="form?.get('Description')?.hasError('required') && (form?.get('Description')?.touched || form?.get('Description')?.dirty)">
+            'Sales Order Type' is required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Income Account Code</label>
+          <kendo-dropdownlist class="form-control" [filterable]="true" formControlName="IncomeAccountSK"
+            [itemDisabled]="itemDisabled" [data]="_accountService | async" [valuePrimitive]="true"
+            [textField]="'AccCode'" [valueField]="'SysKey'" (filterChange)="handelAccountFilterChange({value:$event})">
+            <ng-template kendoDropDownListValueTemplate let-dataItem>
+              <div class="row w-100">
+                <div class="col-md-1">
+                  {{dataItem?.AccCode}}
+                </div>
+                <div class="col-md-11">
+                  {{dataItem?.AccDescription}}
+                </div>
+              </div>
+            </ng-template>
+            <ng-template kendoDropDownListItemTemplate let-dataItem>
+              <div class="row w-100">
+                <div class="col-md-1">
+                  {{dataItem?.AccCode}}
+                </div>
+                <div class="col-md-11">
+                  {{dataItem?.AccDescription}}
+                </div>
+              </div>
+            </ng-template>
+            <ng-template kendoDropDownListNoDataTemplate>
+              <div>
+                Type at least 3 words to start serach.
+                <br />
+                <button kendoButton [primary]="true" (click)="addNewAccount({field:'IncomeAccountSK'})">Add New
+                  account</button>
+              </div>
+            </ng-template>
+          </kendo-dropdownlist>
+          <div class="text-danger"
+            *ngIf="form.get('IncomeAccountSK').hasError('required') && (form.get('IncomeAccountSK').touched || form.get('IncomeAccountSK').dirty)">
+            'Income Account Code' is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Is Active</label>
+          <div class="form-group">
+            <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+            </kendo-switch>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-modal-form>

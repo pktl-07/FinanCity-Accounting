@@ -1,0 +1,37 @@
+<div [formGroup]="form">
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Blk/House No.</ion-label>
+      <ion-input formControlName="BuildingHouseNo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Address 1</ion-label>
+      <ion-input formControlName="Address1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Address 2</ion-label>
+      <ion-input formControlName="Address2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Floor-Unit</ion-label>
+      <ion-input formControlName="FloorUnit"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Postal Code</ion-label>
+      <ion-input formControlName="PostalCode" debounce="2000" (ionChange)="handlePostalCodeChange($event)"></ion-input>
+    </ion-item>
+    <fc-modal-select label="Country" formControlName="Country" (click)="handleCountryClick()"></fc-modal-select>
+    <ion-item *ngIf="visibleTelephone">
+      <ion-label position="stacked">Telephone Number</ion-label>
+      <ion-input formControlName="HomeTelephone"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="visibleMobileNumber">
+      <ion-label position="stacked">Mobile Number</ion-label>
+      <ion-input formControlName="MobilePhone"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="visibleEmailAddress">
+      <ion-label position="stacked">Email Address</ion-label>
+      <ion-input formControlName="Email"></ion-input>
+    </ion-item>
+  </ion-list>
+</div>

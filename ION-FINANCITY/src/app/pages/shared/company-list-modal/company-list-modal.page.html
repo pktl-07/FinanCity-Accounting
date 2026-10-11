@@ -1,0 +1,46 @@
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title size="small">Vendor</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="handleClose()" color="primary">
+                Close
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <fc-searchable-toolbar [connector]="_filterConnectorService">
+        <fc-filter-composite title="Venodr Filter">
+            <fc-filter-item *ngIf="transType" field="TransType" label="TransType" type="number" [value_1]="transType"
+                default="true">
+            </fc-filter-item>
+            <fc-filter-item field="CompanyName" label="Company Name" type="text"></fc-filter-item>
+            <fc-filter-item field="Address" label="Address" type="text"></fc-filter-item>
+        </fc-filter-composite>
+    </fc-searchable-toolbar>
+</ion-header>
+<ion-content>
+    <fc-pager-container [data]="_vendorService" #pagerContainer [connector]="_filterConnectorService"
+        buttonText="Select">
+        <fc-card (click)="handleSelect($event)">
+            <fc-card-header>
+                <ng-template fcCardHeaderTemplate let-dataItem="dataItem">
+                    <ion-avatar>
+                        <ion-img [src]="(dataItem?.SysKey | fcImage:10 | async) || 'assets/icon/empty-picture.png'">
+                        </ion-img>
+                    </ion-avatar>
+                    <ion-label>&nbsp;<span style="font-size: .9rem">{{ dataItem?.CompanyName }}</span></ion-label>
+                </ng-template>
+            </fc-card-header>
+            <fc-card-item field="Address"></fc-card-item>
+        </fc-card>
+        <ng-template fcEmptyDataTemplate let-filterText="filterText">
+            <ion-button (click)="handleCreate(filterText)">Create New Company</ion-button>
+        </ng-template>
+    </fc-pager-container>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-text class="text-muted ion-padding" slot="end">
+            {{pagerContainer.recordInfoSubject | async}}
+        </ion-text>
+    </ion-toolbar>
+</ion-footer>

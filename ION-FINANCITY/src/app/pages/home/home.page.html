@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Home
+    </ion-title>
+    <ion-buttons slot="end">
+      <fc-notification-summary></fc-notification-summary>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let t of source">
+      <ion-col *ngFor="let a of t">
+        <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{
+          icon:a.icon,
+          title:a.title, 
+          dataItem:a }">
+        </ng-template>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ng-template #template let-color="color" let-title="title" let-dataItem="dataItem" let-icon="icon">
+  <ion-button expand="full" expand="block" color="light" style="min-width: 100% !important;height: 100px !important;"
+    (click)="handleNav(dataItem)">
+    <div>
+      <ion-avatar>
+        <img [src]="getPicture(icon)">
+      </ion-avatar>
+      <span style="color: black;margin-top:5px">{{ title }}</span>
+    </div>
+  </ion-button>
+</ng-template>

@@ -1,0 +1,32 @@
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title size="small">
+            Salesperson
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="handleClose()" color="primary">Close</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <fc-searchable-toolbar [connector]="_filterConnectorService">
+        <fc-filter-composite title="Client Filter">
+            <fc-filter-item field="Name" label="Name" type="text"></fc-filter-item>
+            <fc-filter-item field="NRIC" label="NRIC" type="text"></fc-filter-item>
+        </fc-filter-composite>
+    </fc-searchable-toolbar>
+</ion-header>
+<ion-content>
+    <fc-pager-container [data]="_salespersonManagementService" #pagerContainer [connector]="_filterConnectorService"
+        buttonText="Select">
+        <fc-card (click)="handleSelect($event)">
+            <fc-card-header field="Name" icon="internal-salesperson"></fc-card-header>
+            <fc-card-item field="NRIC"></fc-card-item>
+        </fc-card>
+    </fc-pager-container>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-text class="text-muted ion-padding" slot="end">
+            {{pagerContainer.recordInfoSubject | async}}
+        </ion-text>
+    </ion-toolbar>
+</ion-footer>

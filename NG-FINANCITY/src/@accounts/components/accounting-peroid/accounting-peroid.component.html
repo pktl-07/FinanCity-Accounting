@@ -1,0 +1,88 @@
+<div class="fc-app">
+    <div class="fc-header">
+        <p-toolbar title='Accounting Period' type='4'>
+            <ng-template fcToolbarTemplate>
+                <button type="button" (click)="createAccountingYear()" class="btn btn-primary">
+                    Create Accounting Year
+                </button>
+            </ng-template>
+        </p-toolbar>
+    </div>
+    <div class="fc-content" [formGroup]="form">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label>Accounting Year</label>
+                <kendo-dropdownlist class="form-control" [data]="accountingPeriod" [valueField]="'value'"
+                    formControlName="AccountingPeriod" [textField]="'text'" [valuePrimitive]="true">
+                </kendo-dropdownlist>
+            </div>
+            <div class="col-md-9 form-group">
+                <label>&nbsp;</label>
+                <span style="font-weight: 700;" class="form-control text-center">
+                    {{ currentAccountingYear | async }} is the Current Financial Accounting Year.
+                </span>
+            </div>
+        </div>
+        <kendo-grid #kendoDataGridViewComponent [data]="_accountingPeriod | async" [resizable]="true"
+            [loading]="_accountingPeriod?.loading">
+            <kendo-grid-column title="Period" width="100px" class="text-center" headerClass="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    {{ dataItem.PC }}
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title="Start Date" width="150px" class="text-center" headerClass="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    {{ dataItem.Date1 | pDateformat }}
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title="End Date" width="150px" class="text-center" headerClass="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    {{ dataItem.Date2 | pDateformat }}
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title="General Ledger" class="text-center" headerClass="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <ng-template [ngTemplateOutlet]="moduleTemplate"
+                        [ngTemplateOutletContext]="{ status : dataItem?.GLC_Status , moduleType : 'GLC' , period : dataItem?.PC }">
+                    </ng-template>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title="Cashbook Payment" class="text-center" headerClass="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <ng-template [ngTemplateOutlet]="moduleTemplate"
+                        [ngTemplateOutletContext]="{ status : dataItem?.CBP_Status , moduleType : 'CBP' , period : dataItem?.PC }">
+                    </ng-template>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title="Cashbook Receipt" class="text-center" headerClass="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <ng-template [ngTemplateOutlet]="moduleTemplate"
+                        [ngTemplateOutletContext]="{ status : dataItem?.CBR_Status , moduleType : 'CBR' , period : dataItem?.PC }">
+                    </ng-template>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title="Sales (AR)" class="text-center" headerClass="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <ng-template [ngTemplateOutlet]="moduleTemplate"
+                        [ngTemplateOutletContext]="{ status : dataItem?.SOP_Status , moduleType : 'SOP' , period : dataItem?.PC }">
+                    </ng-template>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title="Purchase (AP)" class="text-center" headerClass="text-center">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <ng-template [ngTemplateOutlet]="moduleTemplate"
+                        [ngTemplateOutletContext]="{ status : dataItem?.POP_Status , moduleType : 'POP' , period : dataItem?.PC }">
+                    </ng-template>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+    </div>
+</div>
+<ng-template #moduleTemplate let-status="status" let-moduleType="moduleType" let-period="period">
+    <button style="width: 90px" [ngClass]="{'btn-orange': status == 1,
+    'btn-success' : status == 0 || status == 4 }" [attr.disabled]="_pageLoaderService?.loading == true ? true : null"
+        (click)="handleUpdate({ status : status , module:moduleType , pc:period , yc:form?.get('AccountingPeriod')?.value })">
+        {{ status == 1 ? 'Open' : 'Close' }}
+    </button>
+</ng-template>
+<confirm-dialog #confirmDialog></confirm-dialog>

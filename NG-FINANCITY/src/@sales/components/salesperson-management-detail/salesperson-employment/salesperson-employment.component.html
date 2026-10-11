@@ -1,0 +1,58 @@
+<div [formGroup]='formGroup'>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Current or Previous Company</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="PreviousAgency">
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Years of Experience</label>
+            <kendo-numerictextbox class="form-control" formControlName="YearsOfExperience" [spinners]="false"
+                [format]="'n0'">
+            </kendo-numerictextbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Date Joined</label>
+            <p-custom-kendo-date-picker formControlName="DateJoin" [readonly]="readonly" pInputIcon
+                [iconVisible]="readonly" [ngClass]="{'is-invalid':formGroup?.get('DateJoin')?.errors 
+            && (formGroup?.get('DateJoin')?.touched || formGroup?.get('DateJoin')?.dirty)}">
+            </p-custom-kendo-date-picker>
+            <div class="text-danger"
+                *ngIf="formGroup?.get('DateJoin')?.hasError('required') && (formGroup?.get('DateJoin')?.touched || formGroup?.get('DateJoin')?.dirty)">
+                'Date Joined' is required.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Academic Qualification</label>
+            <kendo-multiselect [data]="_qulificationList" [textField]="'Description'" [valueField]="'SysKey'"
+                [itemDisabled]="itemDisabled" [formControl]="qualification" [filterable]="true"
+                (filterChange)="handleFilterChange($event)" [kendoDropDownFilter]="filterSettings">
+                <ng-template kendoDropDownListNoDataTemplate>
+                    <div>
+                        <button kendoButton [primary]="true" (click)="addNewEducation()">Add
+                            New
+                            Academic Qualification</button>
+                    </div>
+                </ng-template>
+            </kendo-multiselect>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Professional Experience</label>
+            <kendo-multiselect [data]="_industryList" [textField]="'Description'" [valueField]="'SysKey'"
+                [itemDisabled]="itemDisabled" [filterable]="true" [formControl]="industry"
+                (filterChange)="handleFilterChange($event)" [kendoDropDownFilter]="filterSettings">
+                <ng-template kendoDropDownListNoDataTemplate>
+                    <div>
+                        <button kendoButton [primary]="true" (click)="addNewIndustry()">Add
+                            New
+                            Professional
+                            Experience</button>
+                    </div>
+                </ng-template>
+            </kendo-multiselect>
+        </div>
+    </div>
+</div>

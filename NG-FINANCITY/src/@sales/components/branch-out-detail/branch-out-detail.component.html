@@ -1,0 +1,164 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Branch Out' type='2'>
+      <ng-template fcToolbarTemplate>
+        <!-- <p-recordstatus [value]="form?.get('RecordStatus')?.value"></p-recordstatus> -->
+      </ng-template>
+    </p-toolbar>
+  </div>
+  <div class="fc-content" [formGroup]='form'>
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-header text-white">
+          Salesperson Hierarchy Chart
+        </div>
+        <div class="card-body">
+          <kendo-treeview [nodes]="_downTree | async" [hasChildren]="hasChildren" [children]="fetchChildren"
+            kendoTreeViewExpandable [expandBy]="'Depth'" [(expandedKeys)]="expandedKeys">
+            <ng-template kendoTreeViewNodeTemplate let-dataItem>
+              <div class="p-3" [ngClass]="{
+                'btn-pupple' : dataItem?.SPSK == form?.get('SPSK')?.value,
+                'btn-gray' : dataItem?.Rank == 1 ,
+                'btn-success' : dataItem?.Rank == 5 ,
+                'btn-primary' : dataItem?.Rank == 10 }">
+                <img class="fc-rounded-photo float-left" style="vertical-align:middle" [src]="dataItem?.PhotoPath"
+                  onerror="this.src='assets/imgs/empty-picture.png'">
+                <div class="float-right pl-5" [ngClass]="{'pt-5': dataItem?.Desingation == null,
+                    'pt-3': dataItem?.Desingation != null,
+                    'text-danger' : dataItem?.IsActive == false }">
+
+                  <p style="text-align: left">
+                    {{ dataItem?.Name }}&nbsp;({{ dataItem?.IsActive ? "Active" : "In Active" }})
+
+                    <span *ngIf="maxMB - (nodeLength - dataItem?.Depth) >= 0"
+                      class="badge badge-pill badge-danger">{{ nodeLength - dataItem?.Depth  }}</span>
+                    <br>
+                    <small class="card-text">{{ getRankType(dataItem?.Rank) }}</small>
+                  </p>
+                </div>
+              </div>
+              <!-- <mute>{{ dataItem.Desingation }}</mute> -->
+            </ng-template>
+          </kendo-treeview>
+        </div>
+      </div>
+      <div class="card" style="border-width: 0;">
+        <div class="card-body p-0">
+          <div class="card m-0">
+            <div class="card-header text-white">
+              Salesperson Details
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Salesperson Name</label>
+                  <kendo-dropdownlist [data]="_salespersonManagementService1 | async" [valuePrimitive]="true"
+                    [itemDisabled]="itemDisabled" [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+                    [readonly]="form?.get('RecordStatus')?.value > 1" [valueField]="'SysKey'" [textField]="'Name'"
+                    [kendoDropDownFilter]="filterSettings" formControlName="SPSK" class="form-control">
+                  </kendo-dropdownlist>
+                  <div class="text-danger"
+                    *ngIf="form?.get('SPSK')?.hasError('required') && (form?.get('SPSK')?.touched || form?.get('SPSK')?.dirty)">
+                    'Salesperson Name' is required.
+                  </div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Create Date</label>
+                  <p-custom-kendo-date-picker formControlName="CreateDate"
+                    [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+                    [readonly]="form?.get('RecordStatus')?.value > 1"></p-custom-kendo-date-picker>
+                  <div class="text-danger"
+                    *ngIf="form?.get('CreateDate')?.hasError('required') && (form?.get('CreateDate')?.touched || form?.get('CreateDate')?.dirty)">
+                    'Create Date' is required.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>NRIC/ACRA No.</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="NRIC" readonly pInputIcon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mt-3 ml-0 mr-0 mb-0">
+            <div class="card-header text-white">
+              Salesperson Profile
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Designation</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="Designation" readonly
+                    pInputIcon>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Rank</label>
+                  <kendo-dropdownlist [data]="_rank | async" [valuePrimitive]="true" pInputIcon [readonly]="true"
+                    [valueField]="'value'" [textField]="'text'" [kendoDropDownFilter]="filterSettings"
+                    formControlName="Rank" class="form-control">
+                  </kendo-dropdownlist>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Recuriter</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="RecuriterSK" readonly
+                    pInputIcon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mt-3 ml-0 mr-0 mb-0">
+            <div class="card-header text-white">
+              Branch Out
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Level 1</label>
+                  <kendo-dropdownlist [data]="_salespersonManagementService2 | async" [valuePrimitive]="true"
+                    [defaultItem]="salespersonDefaultItem" [itemDisabled]="itemDisabled"
+                    [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+                    [readonly]="form?.get('RecordStatus')?.value > 1" [valueField]="'SysKey'" [textField]="'Name'"
+                    [kendoDropDownFilter]="filterSettings" formControlName="T1" class="form-control">
+                  </kendo-dropdownlist>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Effective Date</label>
+                  <p-custom-kendo-date-picker formControlName="EffectiveDate"
+                    [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+                    [readonly]="form?.get('RecordStatus')?.value > 1"></p-custom-kendo-date-picker>
+                  <div class="text-danger"
+                    *ngIf="form?.get('EffectiveDate')?.hasError('required') && (form?.get('EffectiveDate')?.touched || form?.get('EffectiveDate')?.dirty)">
+                    'Effective Date' is required.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Approved By</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="ApprovedBy"
+                    [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+                    [readonly]="form?.get('RecordStatus')?.value > 1">
+                  <div class="text-danger"
+                    *ngIf="form?.get('ApprovedBy')?.hasError('required') && (form?.get('ApprovedBy')?.touched || form?.get('ApprovedBy')?.dirty)">
+                    'Approved By' is required.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Remarks</label>
+                  <textarea type="text" kendoTextBox class="form-control" formControlName="Remarks" rows="5"
+                    [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+                    [readonly]="form?.get('RecordStatus')?.value > 1"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

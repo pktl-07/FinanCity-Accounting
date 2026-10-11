@@ -1,0 +1,143 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Change of Status' type='2'>
+      <ng-template fcToolbarTemplate>
+        <!-- <p-recordstatus [value]="form?.get('RecordStatus')?.value"></p-recordstatus> -->
+      </ng-template>
+    </p-toolbar>
+  </div>
+  <div class="fc-content" [formGroup]='form'>
+    <div class="card">
+      <div class="card-header text-white">
+        Salesperson Details
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <label>Salesperson Name</label>
+            <kendo-dropdownlist [data]="_salespersonManagementService1 | async" [valuePrimitive]="true" pInputIcon
+              [itemDisabled]="itemDisabled" [iconVisible]="form?.get('RecordStatus')?.value > 1"
+              [readonly]="form?.get('RecordStatus')?.value > 1" [valueField]="'SysKey'" [textField]="'Name'"
+              [kendoDropDownFilter]="filterSettings" formControlName="SPSK" class="form-control">
+            </kendo-dropdownlist>
+            <div class="text-danger"
+              *ngIf="form?.get('SPSK')?.hasError('required') && (form?.get('SPSK')?.touched || form?.get('SPSK')?.dirty)">
+              'Salesperson Name' is required.
+            </div>
+          </div>
+          <div class="col-md-3 form-group">
+            <label>Create Date</label>
+            <p-custom-kendo-date-picker formControlName="CreateDate"
+              [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+              [readonly]="form?.get('RecordStatus')?.value > 1"></p-custom-kendo-date-picker>
+            <div class="text-danger"
+              *ngIf="form?.get('CreateDate')?.hasError('required') && (form?.get('CreateDate')?.touched || form?.get('CreateDate')?.dirty)">
+              'Create Date' is required.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <label>NRIC/ACRA No.</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="NRIC" readonly pInputIcon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-3">
+      <div class="card-header text-white">
+        Salesperson Profile
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <label>Designation</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="Designation" readonly pInputIcon>
+          </div>
+          <div class="col-md-3 form-group">
+            <label>Level 1</label>
+            <kendo-dropdownlist [data]="_salespersonManagementService2 | async" [valuePrimitive]="true" readonly
+              pInputIcon [readonly]="true" [valueField]="'SysKey'" [textField]="'Name'"
+              [kendoDropDownFilter]="filterSettings" formControlName="T1" class="form-control">
+            </kendo-dropdownlist>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <label>Rank</label>
+            <kendo-dropdownlist [data]="_rank | async" [valuePrimitive]="true"
+              [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+              [readonly]="form?.get('RecordStatus')?.value > 1" [valueField]="'value'" [textField]="'text'"
+              [kendoDropDownFilter]="filterSettings" formControlName="Rank" class="form-control">
+            </kendo-dropdownlist>
+          </div>
+          <div class="col-md-3 form-group">
+            <label>Override Payout (%)</label>
+            <kendo-numerictextbox formControlName="BonusPercent" class="form-control" min="0" max="100"
+              [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+              [readonly]="form?.get('RecordStatus')?.value > 1" [spinners]="false">
+            </kendo-numerictextbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-3">
+      <div class="card-header text-white">
+        Change Status
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-1 form-group">
+            <label>Active</label>
+            <kendo-dropdownlist [data]="_isActive | async" [valuePrimitive]="true" [valueField]="'value'"
+              [readonly]="form?.get('RecordStatus')?.value > 1" [textField]="'text'"
+              [kendoDropDownFilter]="filterSettings" formControlName="IsActive" class="form-control">
+            </kendo-dropdownlist>
+          </div>
+          <div class="col-md-2 form-group">
+            <label>&nbsp;</label>
+            <kendo-dropdownlist [data]="_reasonToTerminate | async" [valuePrimitive]="true" [valueField]="'value'"
+              [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+              [readonly]="form?.get('RecordStatus')?.value > 1" [textField]="'text'"
+              [kendoDropDownFilter]="filterSettings" formControlName="ReasonToTerminate" class="form-control">
+            </kendo-dropdownlist>
+            <div class="text-danger"
+              *ngIf="form?.get('ReasonToTerminate')?.hasError('required') && (form?.get('ReasonToTerminate')?.touched || form?.get('ReasonToTerminate')?.dirty)">
+              'Active Status' is required.
+            </div>
+          </div>
+          <div class="col-md-3 form-group">
+            <label>Effective Date</label>
+            <p-custom-kendo-date-picker formControlName="EffectiveDate"
+              [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+              [readonly]="form?.get('RecordStatus')?.value > 1"></p-custom-kendo-date-picker>
+            <div class="text-danger"
+              *ngIf="form?.get('EffectiveDate')?.hasError('required') && (form?.get('EffectiveDate')?.touched || form?.get('EffectiveDate')?.dirty)">
+              'Effective Date' is required.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <label>Approved By</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="ApprovedBy"
+              [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+              [readonly]="form?.get('RecordStatus')?.value > 1">
+            <div class="text-danger"
+              *ngIf="form?.get('ApprovedBy')?.hasError('required') && (form?.get('ApprovedBy')?.touched || form?.get('ApprovedBy')?.dirty)">
+              'Approved By' is required.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <label>Remarks</label>
+            <textarea type="text" kendoTextBox class="form-control" formControlName="Remarks" rows="5"
+              [iconVisible]="form?.get('RecordStatus')?.value > 1" pInputIcon
+              [readonly]="form?.get('RecordStatus')?.value > 1"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

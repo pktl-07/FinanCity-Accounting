@@ -1,0 +1,38 @@
+<form [formGroup]="formGroup">
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Invoice No.</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="InvoiceNo" readonly pInputIcon>
+        </div>
+        <div class="col-md-6 form-group">
+            <label></label>
+            <p class="float-right" style="color: var(--dark);font-weight: 700;font-size:1.3rem">
+                [{{ formGroup?.get('CommissionType')?.value | pCommissionStructurePipe }}]
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Gross Commission Received</label>
+            <kendo-numerictextbox formControlName="CommissionDueToSP" class="form-control" [min]="0" [format]="'c2'"
+                [spinners]="false" readonly="true" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Less: Marketing Promotion Value</label>
+            <kendo-numerictextbox formControlName="MarketingPromotion" class="form-control" [min]="0" [format]="'c2'"
+                readonly="true" [spinners]="false" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Salesperson Gross Commission</label>
+            <kendo-numerictextbox formControlName="SalespersonGrossCommission" class="form-control" [min]="0"
+                [format]="'c2'" [spinners]="false" readonly="true" pInputIcon>
+            </kendo-numerictextbox>
+        </div>
+    </div>
+</form>

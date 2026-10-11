@@ -1,0 +1,79 @@
+<div [formGroup]='formGroup'>
+  <!-- <div *ngIf="loading" class="k-i-loading"></div> -->
+  <div class="row">
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }">
+      <label>Blk/House No.</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="BuildingHouseNo" [attr.readonly]="readonly"
+        pInputIcon [iconVisible]="readonly">
+    </div>
+    <div class="col-md-6 form-group" *ngIf="showTelephoneNumber == true">
+      <label>Telephone Number</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="HomeTelephone" [attr.readonly]="readonly"
+        pInputIcon [iconVisible]="readonly">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }">
+      <label>Address 1</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="Address1" [attr.readonly]="readonly"
+        pInputIcon [iconVisible]="readonly">
+    </div>
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }"
+      *ngIf="showMobileNumber == true">
+      <label>Mobile Number</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="MobilePhone" [attr.readonly]="readonly"
+        pInputIcon [iconVisible]="readonly">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }">
+      <label>Address 2</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="Address2" [attr.readonly]="readonly"
+        pInputIcon [iconVisible]="readonly">
+    </div>
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }"
+      *ngIf="showEmailAddress == true">
+      <label>Email Address</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="Email" [attr.readonly]="readonly" pInputIcon
+        [iconVisible]="readonly">
+    </div>
+    <!-- <div class="col-md-6 form-group">
+      <label for="">Fax Number</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="Fax">
+    </div> -->
+  </div>
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }">
+      <label>Floor-Unit</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="FloorUnit" [attr.readonly]="readonly"
+        pInputIcon [iconVisible]="readonly">
+    </div>
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }" *ngIf="showWebSite == true">
+      <label for="">Website</label>
+      <input type="text" kendoTextBox class="form-control" formControlName="WebSite" [attr.readonly]="readonly"
+        pInputIcon [iconVisible]="readonly">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }">
+      <label for="">Postal Code</label>
+      <input type="text" kendoTextBox class="form-control" #postalCode aria-describedby="button-addon2"
+        formControlName="PostalCode" [attr.readonly]="readonly" (input)="onChangePostalCode(postalCode.value)"
+        pInputIcon [iconVisible]="readonly">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'col-md-12': width == 12, 'col-md-6': width == 6 }">
+      <label>Country</label>
+      <kendo-dropdownlist class="form-control" [data]="_country | async" [valueField]="'SysKey'" [readonly]="readonly"
+        pInputIcon [iconVisible]="readonly" [kendoDropDownFilter]="filterSettings" [textField]="'Description'"
+        [valuePrimitive]="true" formControlName="Country">
+      </kendo-dropdownlist>
+    </div>
+  </div>
+</div>

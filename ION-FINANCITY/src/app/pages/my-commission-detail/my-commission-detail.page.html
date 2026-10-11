@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">
+      My Commission
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list [formGroup]="form">
+    <ion-item>
+      <ion-label>Status</ion-label>
+      <fc-payable-status [value]="form?.get('Status')?.value"></fc-payable-status>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Transaction No.</ion-label>
+      <ion-input formControlName="TransactionNo" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Transaction Date</ion-label>
+      <ion-datetime fcDate formControlName="TransactionDate" readonly></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Client Name</ion-label>
+      <ion-input formControlName="ClientName" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Property Address</ion-label>
+      <ion-input formControlName="PropertyAddress" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Loan Amount</ion-label>
+      <ion-input fcCurrency formControlName="LoanAmount" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Bank</ion-label>
+      <ion-input formControlName="Bank" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Gross Commission</ion-label>
+      <ion-input fcCurrency formControlName="GrossComm" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Less: Marketing Promotion Value</ion-label>
+      <ion-input fcCurrency formControlName="MarketingExpense" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Less: Company Fee</ion-label>
+      <ion-input fcCurrency formControlName="AgencyAmount" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Salesperson Gross Commission</ion-label>
+      <ion-input fcCurrency formControlName="PayableAmount" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Amount Paid</ion-label>
+      <ion-input fcCurrency formControlName="AmountPaid" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Balance</ion-label>
+      <ion-input fcCurrency formControlName="Balance" readonly></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

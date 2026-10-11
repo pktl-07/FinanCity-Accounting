@@ -1,0 +1,12 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Lead Management' type='1'></p-toolbar>
+  </div>
+  <div class="fc-content">
+    <p-grid-view>
+      <ng-template let-dataItem="dataItem">
+        <app-lead-management-salesperson-list [dataItem]="dataItem"></app-lead-management-salesperson-list>
+      </ng-template>
+    </p-grid-view>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Lead Contact
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="action()">
+        <ion-icon slot="icon-only" name="flash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<super-tabs>
+  <super-tabs-toolbar color="tab-light" slot="bottom" scrollablePadding="false">
+    <super-tab-button>
+      <ion-label>Personal</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Contact</ion-label>
+    </super-tab-button>
+    <super-tab-button [disabled]="form?.get('Lead')?.get('RecordStatus')?.value == 0">
+      <ion-label>Remarks</ion-label>
+    </super-tab-button>
+  </super-tabs-toolbar>
+  <super-tabs-container>
+    <super-tab>
+      <ion-content>
+        <fc-lead [person]="form?.get('Person')" [followup]="form?.get('FollowUp')" [lead]="form?.get('Lead')"></fc-lead>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content>
+        <fc-contact [form]="form?.get('Contact')"></fc-contact>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <fc-lead-remarks [key]="form?.get('Person')?.get('SysKey')?.value" [InsertedItems]="remarkInsertedSubject"
+        [DeleteItems]="remarkDeleteSubject">
+      </fc-lead-remarks>
+    </super-tab>
+    <super-tab>
+      <fc-share-contacts #shareContact [keySelection]="shareKeySelection">
+      </fc-share-contacts>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>

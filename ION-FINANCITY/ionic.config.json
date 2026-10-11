@@ -1,0 +1,7 @@
+{
+  "name": "ION-FINANCITY",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

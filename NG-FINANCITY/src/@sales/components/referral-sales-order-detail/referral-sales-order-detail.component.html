@@ -1,0 +1,69 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Referral Sales Transaction' type='2'>
+      <ng-template fcToolbarTemplate>
+        <p-recordstatus [value]="form?.get('PropertyTransaction')?.get('RecordStatus')?.value"></p-recordstatus>
+      </ng-template>
+    </p-toolbar>
+  </div>
+  <div class="fc-content">
+    <kendo-tabstrip [keepTabContent]="true" style="height: 100%;">
+      <kendo-tabstrip-tab [title]="'Transaction'" [selected]="true">
+        <ng-template kendoTabContent>
+          <app-property-transaction-transaction [formGroup]="form?.get('PropertyTransaction')"
+            [contactFormGroup]="form?.get('Contact')">
+          </app-property-transaction-transaction>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Client/Vendor'">
+        <ng-template kendoTabContent>
+          <div class="card mb-3">
+            <div class="card-header text-white">
+              Client Details
+            </div>
+            <div class="card-body">
+              <app-referral-sales-order-client [formGroup]="form"></app-referral-sales-order-client>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header text-white">
+              Vendor Details
+            </div>
+            <div class="card-body">
+              <app-property-transaction-billtocobroke [formGroup]="form?.get('PropertyTransaction')">
+              </app-property-transaction-billtocobroke>
+            </div>
+          </div>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Commission'">
+        <ng-template kendoTabContent>
+          <div class="card mb-3">
+            <div class="card-header text-white">
+              Salesperson
+            </div>
+            <div class="card-body">
+              <app-referral-sales-order-salesperson [formGroup]="form"></app-referral-sales-order-salesperson>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header text-white">
+              Sales Commission
+            </div>
+            <div class="card-body">
+              <app-refferral-sales-order-commission [formGroup]="form?.get('PropertyTransaction')">
+              </app-refferral-sales-order-commission>
+            </div>
+          </div>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Transaction Activity'">
+        <ng-template kendoTabContent>
+          <app-property-transaction-activity #transactionActivity
+            [PropertySK]="form?.get('PropertyTransaction')?.get('SysKey')?.value">
+          </app-property-transaction-activity>
+        </ng-template>
+      </kendo-tabstrip-tab>
+    </kendo-tabstrip>
+  </div>
+</div>

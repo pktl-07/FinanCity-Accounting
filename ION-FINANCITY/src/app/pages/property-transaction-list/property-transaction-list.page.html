@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Transaction
+    </ion-title>
+    <ion-buttons slot="end">
+      <fc-notification-summary></fc-notification-summary>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-segment [formControl]="form?.get('activeSegment')">
+    <ion-segment-button [value]="1">
+      <ion-label>Mortgage Sales</ion-label>
+    </ion-segment-button>
+    <ion-segment-button [value]="2">
+      <ion-label>Referral Sales</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ng-container *ngIf="form?.get('activeSegment').value == 1;else referralFilter">
+    <fc-mortgage-sales-filter [connector]="morgageConnector"></fc-mortgage-sales-filter>
+  </ng-container>
+  <ng-template #referralFilter>
+    <fc-referral-sales-filter [connector]="referralConnector"></fc-referral-sales-filter>
+  </ng-template>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="form?.get('activeSegment').value == 1;else referralList">
+    <fc-mortgage-sales-transaction-list [connector]="morgageConnector" [recordInfo]="recordInfo">
+    </fc-mortgage-sales-transaction-list>
+  </ng-container>
+  <ng-template #referralList>
+    <fc-referral-sales-transaction-list [connector]="referralConnector" [recordInfo]="recordInfo">
+    </fc-referral-sales-transaction-list>
+  </ng-template>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-text class="text-muted ion-padding" slot="end">
+      {{ recordInfo | async }}
+    </ion-text>
+  </ion-toolbar>
+</ion-footer>

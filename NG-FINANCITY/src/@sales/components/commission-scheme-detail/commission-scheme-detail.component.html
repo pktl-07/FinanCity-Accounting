@@ -1,0 +1,59 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div *ngIf="formReady.value.ready" style="height: 100%;">
+      <div [formGroup]="form" style="height: auto;">
+        <div formGroupName="CommissionScheme">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Commission Type</label>
+              <div class="form-control" pInputIcon
+                [iconVisible]="form?.get('CommissionScheme')?.get('RecordStatus')?.value > 0"
+                [ngClass]="{'pointer-none':form?.get('CommissionScheme')?.get('RecordStatus')?.value > 0}">
+                <ng-container *ngFor="let t of _commissionStructureBaseService | async">
+                  <label class="radio-inline" style="font-weight: normal">
+                    <input type="radio" name="BaseHeaderSK" [value]="t.SysKey"
+                      formControlName="BaseHeaderSK">&nbsp;{{t.Description}}
+                  </label>&nbsp;&nbsp;
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Commission Scheme Name</label>
+              <input formControlName="SchemeName" kendoTextBox type="text" class="form-control"
+                [ngClass]="{'is-invalid':form?.get('CommissionScheme')?.get('SchemeName').errors 
+                  && (form?.get('CommissionScheme')?.get('SchemeName')?.touched || form?.get('CommissionScheme')?.get('SchemeName')?.dirty)}">
+              <div class="text-danger"
+                *ngIf="form?.get('CommissionScheme')?.get('SchemeName')?.hasError('required') && (form?.get('CommissionScheme')?.get('SchemeName')?.touched || form?.get('CommissionScheme')?.get('SchemeName')?.dirty)">
+                'Commission Scheme Name' is required.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Number of Over-Riding Levels</label>
+              <kendo-dropdownlist class="form-control" formControlName="MaxMB" [data]="_overridingLevles"
+                [valuePrimitive]="true">
+              </kendo-dropdownlist>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 form-group">
+              <label>Is Active</label>
+              <div class="form-group">
+                <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsActive">
+                </kendo-switch>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pt-8 row" style="height: 65%;">
+        <div class="col-md-12 form-group" style="height: 100%;">
+          <p-grid-incell-editing #commissionGrid [config]="gridConfig"></p-grid-incell-editing>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

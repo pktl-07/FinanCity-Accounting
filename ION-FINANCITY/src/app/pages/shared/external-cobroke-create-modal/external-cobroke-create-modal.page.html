@@ -1,0 +1,27 @@
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title size="small">
+            Co-Broke Information
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="handleClose()" color="primary">
+                Close
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <fc-external-cobroke [form]="form?.get('Person')" [disabledCompanyOption]="disabledCompanyOption">
+    </fc-external-cobroke>
+    <ion-item-divider color="primary">
+        <ion-label>
+            Contact Information
+        </ion-label>
+    </ion-item-divider>
+    <fc-contact [form]="form?.get('Contact')"></fc-contact>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-button [disabled]="!form.valid" expand="block" color="success" (click)="handleOk()">OK</ion-button>
+    </ion-toolbar>
+</ion-footer>

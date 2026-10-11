@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4310952A-70D2-41F9-85A0-6765DEDC527F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FC.Core.Common</RootNamespace>
+    <AssemblyName>FC.Core.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractConverter.cs" />
+    <Compile Include="AreaHttpControllerSelector.cs" />
+    <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="GenericTree.cs" />
+    <Compile Include="Infrastructure\Attributes\MultiCurrencyAttribute.cs" />
+    <Compile Include="BaseApiController.cs" />
+    <Compile Include="CommonConstant.cs" />
+    <Compile Include="CommonEnum.cs" />
+    <Compile Include="DependencyContainer.cs" />
+    <Compile Include="Exceptions\DBUniqueFieldsException.cs" />
+    <Compile Include="Exceptions\VoucherNumberExceedException.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\DecimalExtension.cs" />
+    <Compile Include="Extensions\EntityExtension.cs" />
+    <Compile Include="Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtension.cs" />
+    <Compile Include="Extensions\ObjectExtension.cs" />
+    <Compile Include="Extensions\AreaRegistrationContextExtensions.cs" />
+    <Compile Include="Extensions\StreamExtension.cs" />
+    <Compile Include="Extensions\TransTypeEnumExtension.cs" />
+    <Compile Include="DownloadResult.cs" />
+    <Compile Include="Infrastructure\Attributes\ModuleTypeAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\RecordIndexerAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\TaxDescriptionAttribute.cs" />
+    <Compile Include="Infrastructure\ConfigurationManager\DefaultAccountConfigSection.cs" />
+    <Compile Include="Infrastructure\ConfigurationManager\GeneralConfigSection.cs" />
+    <Compile Include="Infrastructure\ConfigurationManager\RegisterFinanCityConfig.cs" />
+    <Compile Include="Infrastructure\CrystalDocument\Attachment.cs" />
+    <Compile Include="Infrastructure\CrystalDocument\ICrystalReporter.cs" />
+    <Compile Include="Infrastructure\CrystalDocument\ReportConfigurator.cs" />
+    <Compile Include="Infrastructure\CrystalDocument\FinanCityReportDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Implements\CustomizeDeleteBuilder.cs" />
+    <Compile Include="Infrastructure\Implements\CustomizeInsertBuilder.cs" />
+    <Compile Include="Infrastructure\Implements\CustomizeUpdateBuilder.cs" />
+    <Compile Include="Infrastructure\Implements\DataKeyConfigurator.cs" />
+    <Compile Include="Infrastructure\Implements\EntityAnalyzer.cs" />
+    <Compile Include="Infrastructure\Implements\EntityAnalyzerBuilder.cs" />
+    <Compile Include="Infrastructure\Implements\EntityConstraint\RelationConstraintResult.cs" />
+    <Compile Include="Infrastructure\Implements\ExpressionAnalyzer.cs" />
+    <Compile Include="Infrastructure\Implements\MultiCurrencyConverter.cs" />
+    <Compile Include="Infrastructure\Implements\RecordIndexer\DefaultDataStore.cs" />
+    <Compile Include="Infrastructure\Implements\RecordIndexer\JournalLedgerStore.cs" />
+    <Compile Include="Infrastructure\Implements\RecordIndexer\ManualSource.cs" />
+    <Compile Include="Infrastructure\Implements\RecordIndexer\RecordIndexerBaseStore.cs" />
+    <Compile Include="Infrastructure\Implements\RecordIndexer\RecordIndexerEntity.cs" />
+    <Compile Include="Infrastructure\Implements\RecordIndexer\RecordIndexerFactory.cs" />
+    <Compile Include="Infrastructure\Implements\RecordIndexer\RecordIndexrContext.cs" />
+    <Compile Include="Infrastructure\Implements\RecordIndexer\YearMonthSource.cs" />
+    <Compile Include="Infrastructure\Implements\EntityConstraint\RelationConstaint.cs" />
+    <Compile Include="Infrastructure\Implements\EntityConstraint\UniqueConstraint.cs" />
+    <Compile Include="Infrastructure\IMultiCurrency.cs" />
+    <Compile Include="Infrastructure\Interfaces\IDataKeyConfigurator.cs" />
+    <Compile Include="Infrastructure\Interfaces\IEntityAnalyzer.cs" />
+    <Compile Include="Infrastructure\Interfaces\IEntityAnalyzerBuilder.cs" />
+    <Compile Include="Infrastructure\Interfaces\IFinanCityIdentity.cs" />
+    <Compile Include="Infrastructure\Interfaces\IModelConverter.cs" />
+    <Compile Include="Infrastructure\Interfaces\EntityConstraint\IReferenceFieldAnalyzer.cs" />
+    <Compile Include="Infrastructure\Interfaces\EntityConstraint\IReferencesConstraint.cs" />
+    <Compile Include="Infrastructure\Interfaces\EntityConstraint\IUniqueFieldAnalyzer.cs" />
+    <Compile Include="Infrastructure\Interfaces\EntityConstraint\IUniqueFieldConstraint.cs" />
+    <Compile Include="Infrastructure\Interfaces\IMultiCurrencyConverter.cs" />
+    <Compile Include="Infrastructure\KendoGridDataCollector\DataGridKeyFactory.cs" />
+    <Compile Include="Infrastructure\KendoGridDataCollector\KendoGridDataCollector.cs" />
+    <Compile Include="Infrastructure\KendoGridFilter\KendoGridFilterModel.cs" />
+    <Compile Include="Infrastructure\KendoGridFilter\KendoGridFilterTransalator.cs" />
+    <Compile Include="Infrastructure\OpeningAndClosingBalanceCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SignalR\SignalRHub.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FC.Core.Data\FC.Core.Data.csproj">
+      <Project>{638430aa-6095-4324-a849-f0d8ca45f01d}</Project>
+      <Name>FC.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FC.Core\FC.Core.csproj">
+      <Project>{af7c6f02-8d8a-4dfe-b3ff-eb2d6ff3b11f}</Project>
+      <Name>FC.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

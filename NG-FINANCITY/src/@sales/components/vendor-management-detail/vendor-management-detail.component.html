@@ -1,0 +1,95 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-header text-white">
+          Vendor Information
+        </div>
+        <div class="card-body">
+          <div [formGroup]="form" style="min-height: 300px;">
+            <div formGroupName="Vendor">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <div style="position: relative; width: 100px;height: 100px;">
+                    <p-image-loader [uploadId]="form?.get('Vendor')?.get('SysKey')?.value" [fileType]="10">
+                    </p-image-loader>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6" *ngIf="form?.get('Vendor').get('R1')">
+                  <label>Vendor No.</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly pInputIcon>
+                </div>
+                <div class="form-group col-md-6" *ngIf="form?.get('Vendor').get('ContactPerson')">
+                  <label>Contact Person</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="ContactPerson">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>Company Name</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="CompanyName"
+                    [ngClass]="{'is-invalid':form.get('Vendor').get('CompanyName').errors 
+                    && (form.get('Vendor').get('CompanyName').touched || form.get('Vendor').get('CompanyName').dirty)}">
+                  <div class="text-danger"
+                    *ngIf="form.get('Vendor').get('CompanyName').hasError('required')
+                             && (form.get('Vendor').get('CompanyName').touched || form.get('Vendor').get('CompanyName').dirty)">
+                    'Company Name' is required.
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Open Date</label>
+                  <p-custom-kendo-date-picker formControlName="OpenDate"></p-custom-kendo-date-picker>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>ACRA No.</label>
+                  <input type="text" kendoTextBox class="form-control" formControlName="CompanyReg" [ngClass]="{'is-invalid':form.get('Vendor').get('CompanyReg').errors 
+                    && (form.get('Vendor').get('CompanyReg').touched || form.get('Vendor').get('CompanyReg').dirty)}">
+                  <div class="text-danger"
+                    *ngIf="form.get('Vendor').get('CompanyReg').hasError('required')
+                             && (form.get('Vendor').get('CompanyReg').touched || form.get('Vendor').get('CompanyReg').dirty)">
+                    'ACRA No.' is required.
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Vendor Type</label>
+                  <kendo-dropdownlist class="form-control" [data]="_vendorType" [valuePrimitive]="true"
+                    formControlName="TransType" [valueField]="'value'" [textField]="'text'">
+                  </kendo-dropdownlist>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Is GST Registered?</label>
+                  <div class="form-group">
+                    <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'" formControlName="IsGST">
+                    </kendo-switch>
+                  </div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Is Active</label>
+                  <div class="form-group">
+                    <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'"
+                      formControlName="IsActive">
+                    </kendo-switch>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header text-white">
+          Contact Information
+        </div>
+        <div class="card-body">
+          <app-content-information [formGroup]="form?.get('Contact')"></app-content-information>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-modal-form>

@@ -1,0 +1,54 @@
+<p-modal-form [loading]="!formReady.value.ready">
+  <ng-template fcModalContentTemplate>
+    <form [formGroup]="form" *ngIf="formReady.value.ready">
+      <div class="row">
+        <div class="col-md-12 form-group d-flex justify-content-center">
+          <div style="position: relative; width: 100px;height: 100px;">
+            <p-image-loader #imageUploader [uploadId]="form?.get('SysKey')?.value" [fileType]="4"></p-image-loader>
+          </div>
+        </div>
+        <div class="col-md-12 form-group">
+          <label>Description</label>
+          <input type="text" kendoTextBox class="form-control" formControlName="Description" [ngClass]="{'is-invalid':form?.get('Description')?.errors 
+                && (form?.get('Description')?.touched || form?.get('Description')?.dirty)}">
+          <div class="text-danger"
+            *ngIf="form?.get('Description')?.hasError('required') && (form?.get('Description')?.touched || form?.get('Description')?.dirty)">
+            'Description' is required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Effective Date</label>
+          <p-custom-kendo-date-picker formControlName="EffectiveDate"></p-custom-kendo-date-picker>
+          <div class="text-danger"
+            *ngIf="form?.get('EffectiveDate')?.hasError('required') && (form?.get('EffectiveDate')?.touched || form?.get('EffectiveDate')?.dirty)">
+            'EffectiveDate' is required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Rate (%)</label>
+          <kendo-numerictextbox formControlName="Rate" class="form-control" min="0" max="100" [spinners]="false"
+            [format]="'N4'" pInputIcon>
+          </kendo-numerictextbox>
+          <div class="text-danger" *ngIf="form?.get('Rate')?.hasError('required') 
+                && (form?.get('Rate')?.touched || form?.get('Rate')?.dirty)">
+            'Rate' is required.
+          </div>
+          <div class="text-danger"
+            *ngIf="form?.get('Rate')?.hasError('min') && (form?.get('Rate')?.touched || form?.get('Rate')?.dirty)">
+            'Commission Rate' should be greater than 0.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Attachment</label>
+          <p-file-loader fileType="5" [uploadId]="form?.get('SysKey')?.value" #fileUploader></p-file-loader>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-modal-form>

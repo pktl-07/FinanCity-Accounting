@@ -1,0 +1,21 @@
+<kendo-dialog title="Accounting Year Closing" (close)="handleClose()" [minWidth]="400">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-5">Close accounting period for year {{ currentYearSubject | async }}.</h1>
+      <hr class="my-2">
+      <ul>
+        <li>After closing an Accounting Year, this regarding year cannot be re-opend again.</li>
+        <li>Any transactions cannot be created for the <b>{{ currentYearSubject | async }}</b> year.</li>
+        <li>Retained Earning will be carried to <b>3-1100</b> Default Retained Earning Account.</li>
+        <li>The next year will be automatically assigned for the next Financial Year.</li>
+      </ul>
+    </div>
+  </div>
+  <kendo-dialog-actions>
+    <button kendoButton primary="true" [disabled]="_pageLoaderService.loading"
+      (click)='handleCloseAccoountingYear()'>OK</button>
+    <button kendoButton [disabled]="_pageLoaderService.loading" (click)='handleClose()'>Cancel</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<confirm-dialog #confirmDialog></confirm-dialog>

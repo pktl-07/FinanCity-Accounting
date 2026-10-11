@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Transaction
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="action()">
+        <ion-icon slot="icon-only" name="flash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<super-tabs activeTabIndex="0">
+  <super-tabs-toolbar color="tab-light" slot="bottom" scrollablePadding="false" scrollable="true">
+    <super-tab-button>
+      <ion-label>Property</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Terms</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Client</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Commission</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Salesperson</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Co-Broke</ion-label>
+    </super-tab-button>
+  </super-tabs-toolbar>
+  <super-tabs-container>
+    <super-tab>
+      <ion-content>
+        <fc-property [form]="form.get('PropertyTransaction')"></fc-property>
+        <ion-item-divider color="primary">
+          <ion-label>
+            Bill to Vendor
+          </ion-label>
+        </ion-item-divider>
+        <fc-bill-to-cobroke [form]="form.get('PropertyTransaction')"></fc-bill-to-cobroke>
+        <ion-item-divider color="primary">
+          <ion-label>
+            Property Address
+          </ion-label>
+        </ion-item-divider>
+        <fc-contact [form]="form.get('Contact')" [visibleTelephone]="false" [visibleMobileNumber]="false"
+          [visibleEmailAddress]="false"></fc-contact>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content>
+        <fc-tnc [form]="form.get('TNC')"></fc-tnc>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <fc-property-transaction-client></fc-property-transaction-client>
+    </super-tab>
+    <super-tab>
+      <ion-content>
+        <fc-commission [form]="form.get('PropertyTransaction')"
+          (onChangeTransactionPrice)="handleTransactionPriceChange($event)"></fc-commission>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <fc-property-transaction-salesperson-sales></fc-property-transaction-salesperson-sales>
+    </super-tab>
+    <super-tab>
+      <fc-property-transaction-external-sales></fc-property-transaction-external-sales>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>

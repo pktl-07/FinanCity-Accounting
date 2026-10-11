@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title size="small">
+      My Profile
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="action()">
+        <ion-icon slot="icon-only" name="flash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<super-tabs>
+  <super-tabs-toolbar color="tab-light" slot="bottom" scrollablePadding="false" scrollable="true">
+    <super-tab-button>
+      <ion-label>Personal</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Contact</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Bank</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Employment</ion-label>
+    </super-tab-button>
+  </super-tabs-toolbar>
+  <super-tabs-container>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <fc-my-profile-personal [form]="form?.get('Person')"></fc-my-profile-personal>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <fc-contact [form]="form?.get('Contact')"></fc-contact>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <ion-item-divider color="primary">
+          <ion-label>
+            Bank
+          </ion-label>
+        </ion-item-divider>
+        <fc-my-profile-bank [form]="form?.get('Person')"></fc-my-profile-bank>
+        <ion-item-divider color="primary">
+          <ion-label>
+            PayNow
+          </ion-label>
+        </ion-item-divider>
+        <fc-paynow [form]="form?.get('PayNow')"></fc-paynow>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content class="ion-padding">
+        <fc-my-profile-employment [historyForm]="form?.get('EmploymentHistory')" [form]="form?.get('Employment')">
+        </fc-my-profile-employment>
+      </ion-content>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>

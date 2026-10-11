@@ -1,0 +1,77 @@
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let dataItem of InsertedItems | async">
+      <ng-container *ngIf="(dataItem?.SenderSK == config?.auth?.SPSK)">
+        <ng-template [ngTemplateOutlet]="senderTemplate" [ngTemplateOutletContext]="{dataItem : dataItem}">
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="(dataItem?.SenderSK != config?.auth?.SPSK)">
+        <ng-template [ngTemplateOutlet]="receivableTemplate" [ngTemplateOutletContext]="{dataItem: dataItem}">
+        </ng-template>
+      </ng-container>
+    </ion-row>
+  </ion-grid>
+  <ion-footer>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-input #inputMessage placeholder="Type any remarks" (input)="handleInputRemark($event)"></ion-input>
+        <ion-button *ngIf="(messageTemplate | async) == true" fill="clear" slot="end"
+          (click)="handleAddMessage(inputMessage)">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="(messageTemplate | async) == false" fill="clear" slot="end" (click)="handleAttachment()">
+          <ion-icon name="attach"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-footer>
+</ion-content>
+<ng-template #senderTemplate let-dataItem="dataItem">
+  <ion-col size="9" offset="3" (click)="downlaod(dataItem)">
+    <ion-item [lines]="'none'">
+      <ion-text slot="end" class="text-muted">you has posted on:&nbsp;{{ dataItem?.CreatedDate | fcDateFormat }}
+      </ion-text>
+    </ion-item>
+    <ion-card>
+      <ion-item [lines]="'none'">
+        <ion-text slot="end">{{ dataItem?.Message }}</ion-text>
+      </ion-item>
+      <ion-card-content *ngIf="(dataItem?.Type == 2)">
+        <ion-item [lines]="'none'">
+          <fa-icon [icon]="icon(dataItem?.Message)" slot="end" size="2x"></fa-icon>
+        </ion-item>
+        <ion-item [lines]="'none'">
+          <ion-text slot="end" class="text-muted">{{ dataItem?.Size | fcFileSize }}</ion-text>
+        </ion-item>
+      </ion-card-content>
+      <ion-progress-bar *ngIf="dataItem?.Loading == true" type="indeterminate" color="primary"></ion-progress-bar>
+    </ion-card>
+  </ion-col>
+</ng-template>
+
+<ng-template #receivableTemplate let-dataItem="dataItem">
+  <ion-col size="9" (click)="downlaod(dataItem)">
+    <ion-item [lines]="'none'">
+      <ion-avatar>
+        <ion-img [src]="(dataItem?.SenderSK | fcImage | async) || 'assets/icon/empty-picture.png'">
+        </ion-img>
+      </ion-avatar>
+      &nbsp;<ion-text class="text-muted"><b>{{ dataItem?.SenderSK | fcName | async }}</b> has posted
+        on:&nbsp;{{ dataItem?.CreatedDate | fcDateFormat }}</ion-text>
+    </ion-item>
+    <ion-card>
+      <ion-item [lines]="'none'">
+        <ion-text> {{ dataItem?.Message }} </ion-text>
+      </ion-item>
+      <ion-card-content *ngIf="(dataItem?.Type == 2)">
+        <ion-item [lines]="'none'">
+          <fa-icon [icon]="icon(dataItem?.Message)" size="2x"></fa-icon>
+        </ion-item>
+        <ion-item [lines]="'none'">
+          <ion-text class="text-muted">{{ dataItem?.Size | fcFileSize }}</ion-text>
+        </ion-item>
+      </ion-card-content>
+      <ion-progress-bar *ngIf="dataItem?.Loading == true" type="indeterminate" color="primary"></ion-progress-bar>
+    </ion-card>
+  </ion-col>
+</ng-template>

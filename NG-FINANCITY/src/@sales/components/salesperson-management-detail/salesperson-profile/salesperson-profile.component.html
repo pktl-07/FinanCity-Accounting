@@ -1,0 +1,124 @@
+<div [formGroup]='formGroup'>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <div style="position: relative; width: 100px;height: 100px;">
+                <p-image-loader [uploadId]="formGroup.get('SysKey').value" [fileType]="1"></p-image-loader>
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label></label>
+            <p class="float-right" style="color: var(--dark);font-weight: 700;font-size:1.3rem">
+                [{{ rankDescription() }}]
+            </p>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6 form-group">
+            <label>Salesperson No.</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="R1" readonly pInputIcon>
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="">Salutation</label>
+            <kendo-dropdownlist class="form-control" [data]="_salutation" [valueField]="'value'" [textField]="'text'"
+                [valuePrimitive]="true" formControlName="Salutation"></kendo-dropdownlist>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>First Name</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="FirstName">
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Last Name</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="LastName">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Display Name</label>
+            <input type="text" kendoTextBox readonly pInputIcon class="form-control" formControlName="Name" [ngClass]="{'is-invalid':formGroup?.get('Name')?.errors 
+            && (formGroup?.get('Name')?.touched || formGroup?.get('Name')?.dirty)}">
+            <div class="text-danger"
+                *ngIf="formGroup?.get('Name')?.hasError('required') && (formGroup?.get('Name')?.touched || formGroup?.get('Name')?.dirty)">
+                'Display Name' is required.
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Name options</label>
+            <div class="form-control">
+                <label class="radio-inline">
+                    <input type="radio" name="IsLastNameFirst" [value]="false"
+                        formControlName="IsLastNameFirst">&nbsp;'First Name' First
+                </label>&nbsp;&nbsp;
+                <label class="radio-inline">
+                    <input type="radio" name="IsLastNameFirst" [value]="true"
+                        formControlName="IsLastNameFirst">&nbsp;'Last Name' First
+                </label>&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>NRIC No.</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="NRIC" [ngClass]="{'is-invalid':formGroup?.get('NRIC')?.errors 
+                            && (formGroup?.get('NRIC')?.touched || formGroup?.get('NRIC')?.dirty)}">
+            <div class="text-danger"
+                *ngIf="formGroup?.get('NRIC')?.hasError('required') && (formGroup?.get('NRIC')?.touched || formGroup?.get('NRIC')?.dirty)">
+                'NRIC' is required.
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="">Date of Birth</label>
+            <p-custom-kendo-date-picker formControlName="DOB"></p-custom-kendo-date-picker>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Nationality</label>
+            <input type="text" kendoTextBox class="form-control" formControlName="Nationality">
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Gender</label>
+            <kendo-dropdownlist [data]="_gender" [valueField]="'value'" [textField]="'text'" [valuePrimitive]="true"
+                class="form-control" formControlName="Gender"></kendo-dropdownlist>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Franchisee</label>
+            <kendo-dropdownlist class="form-control" [data]="_vendorService | async" [valueField]="'SysKey'"
+                (filterChange)="onHandleFranchiseeFilterChange($event)" [kendoDropDownFilter]="filterSettings"
+                [textField]="'CompanyName'" [valuePrimitive]="true" formControlName="FranchiseeSK">
+                <ng-template kendoDropDownListNoDataTemplate>
+                    <div>
+                        <button kendoButton [primary]="true" (click)="addNewFranchisee()">Add New
+                            Franchisee</button>
+                    </div>
+                </ng-template>
+            </kendo-dropdownlist>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Division</label>
+            <kendo-dropdownlist class="form-control" [data]="_departmentService | async" [valueField]="'SysKey'"
+                (filterChange)="onDivisionFilterChange($event)" [kendoDropDownFilter]="filterSettings"
+                [textField]="'Description'" [valuePrimitive]="true" formControlName="DepartmentSK">
+                <ng-template kendoDropDownListNoDataTemplate>
+                    <div>
+                        <button kendoButton [primary]="true" (click)="addNewDepartment()">Add New
+                            Division</button>
+                    </div>
+                </ng-template>
+            </kendo-dropdownlist>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Participate in Top Sales Chart</label>
+            <div class="form-group">
+                <kendo-switch class="form-check-input" [onLabel]="'Yes'" [offLabel]="'No'"
+                    formControlName="IncludeTopSalesReport">
+                </kendo-switch>
+            </div>
+        </div>
+    </div>
+</div>

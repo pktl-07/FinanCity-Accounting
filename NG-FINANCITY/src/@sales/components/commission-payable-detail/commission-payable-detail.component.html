@@ -1,0 +1,52 @@
+<div class="fc-app">
+  <div class="fc-header">
+    <p-toolbar title='Commission Payable' type='2'></p-toolbar>
+  </div>
+  <div class="fc-content">
+    <div class="card-deck mb-3">
+      <div class="card">
+        <div class="card-header text-white">
+          Salesperson Details
+        </div>
+        <div class="card-body">
+          <app-commission-payable-detail-salesperson [formGroup]="form">
+          </app-commission-payable-detail-salesperson>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header text-white">
+          Salesperson Gross Commission
+        </div>
+        <div class="card-body">
+          <app-commission-payable-detail-detail [formGroup]="form">
+          </app-commission-payable-detail-detail>
+        </div>
+      </div>
+    </div>
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-body">
+          <app-commission-payable-detail-payment [InvoiceSK]="form?.get('InvoiceSK')?.value"
+            [SPSK]="form?.get('SPSK')?.value" [ALOSK]="form?.get('ALOSK')?.value"
+            [DetailSK]="form?.get('DetailSK').value"
+            [CommissionPayable]="form?.get('CommissionPayableToSalesperson')?.value"
+            [MarketingPromotion]="form?.get('MarketingPromotion')?.value">
+          </app-commission-payable-detail-payment>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <app-commission-payable-detail-scheme [InvoiceSK]="form?.get('InvoiceSK')?.value"
+              [SPSK]="form?.get('SPSK')?.value" [ALOSK]="form?.get('ALOSK')?.value">
+            </app-commission-payable-detail-scheme>
+          </div>
+          <div class="pt-5">
+            <app-commission-payable-detail-balance [formGroup]="form">
+            </app-commission-payable-detail-balance>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

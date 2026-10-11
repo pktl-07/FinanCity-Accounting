@@ -1,0 +1,72 @@
+<div class="fx-formObject">
+  <div class="fx-main-menu">
+    <div class="fx-menu-wrap">
+      <div class="fx-menu-group">
+        <div class="fx-menu-title">Business</div>
+        <div class="fx-menu-item-wrap">
+          <ng-container *ngFor="let item of business">
+            <ng-template [ngTemplateOutlet]='navigationItem' [ngTemplateOutletContext]='{item:item}'>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+      <div class="fx-menu-group">
+        <div class="fx-menu-title">Accounting</div>
+        <div class="fx-menu-item-wrap">
+          <ng-container *ngFor="let item of accounting">
+            <ng-template [ngTemplateOutlet]='navigationItem' [ngTemplateOutletContext]='{item:item}'>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+      <div class="fx-menu-group">
+        <div class="fx-menu-title">Cashbook</div>
+        <div class="fx-menu-item-wrap">
+          <ng-container *ngFor="let item of cashbook">
+            <ng-template [ngTemplateOutlet]='navigationItem' [ngTemplateOutletContext]='{item:item}'>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+      <div class="fx-menu-group">
+        <div class="fx-menu-title">Management</div>
+        <div class="fx-menu-item-wrap">
+          <ng-container *ngFor="let item of management">
+            <ng-template [ngTemplateOutlet]='navigationItem' [ngTemplateOutletContext]='{item:item}'>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+      <div class="fx-menu-group">
+        <div class="fx-menu-title">Setup</div>
+        <div class="fx-menu-item-wrap">
+          <ng-container *ngFor="let item of configuration">
+            <ng-template [ngTemplateOutlet]='navigationItem' [ngTemplateOutletContext]='{item:item}'>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+      <div class="fx-menu-group">
+        <div class="fx-menu-title">Users</div>
+        <div class="fx-menu-item-wrap">
+          <ng-container *ngFor="let item of users">
+            <ng-template [ngTemplateOutlet]='navigationItem' [ngTemplateOutletContext]='{item:item}'>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #navigationItem let-item="item">
+  <a class="fx-menu-item" [ngClass]="{'half': maxLength(item.text)}" [ngStyle]="item.color"
+    (click)="handleNavigate(item.path)" (mouseover)="onTagMouseOver($event.target,item)"
+    (mouseout)="onTagMouseOut($event.target,item)">
+    <span class="title">{{item.text}}</span>
+    <span class="icon">
+      <span>
+        <i [ngClass]="item.icon"></i>
+      </span>
+    </span>
+  </a>
+</ng-template>

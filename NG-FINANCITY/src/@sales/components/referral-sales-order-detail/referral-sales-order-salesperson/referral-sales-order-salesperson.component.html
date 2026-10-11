@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label class="control-label">Referral Sales Order Type</label>
+        <kendo-dropdownlist class="form-control"
+            [formControl]="formGroup?.get('PropertyTransaction')?.get('SaleOrderTypeSK')"
+            [readonly]="formGroup?.get('PropertyTransaction')?.get('RecordStatus')?.value == 8" pInputIcon
+            [iconVisible]="formGroup?.get('PropertyTransaction')?.get('RecordStatus')?.value == 8"
+            [data]="_referralSalesOrderType | async" [filterable]="true" [valuePrimitive]="true"
+            [textField]="'Description'" [valueField]="'SysKey'" [itemDisabled]="itemDisabled"
+            (filterChange)="handelSalesOrderFilterChange($event)">
+            <ng-template kendoDropDownListNoDataTemplate>
+                <div>
+                    Type at least 3 words to start serach.
+                    <br />
+                    <button kendoButton [primary]="true" (click)="addNewSalesOrderType()">Add New Referral Sales Order
+                        Type</button>
+                </div>
+            </ng-template>
+        </kendo-dropdownlist>
+        <div class="text-danger" *ngIf="formGroup?.get('PropertyTransaction')?.get('SaleOrderTypeSK')?.hasError('required') 
+                && (formGroup?.get('PropertyTransaction')?.get('SaleOrderTypeSK')?.touched 
+                || formGroup?.get('PropertyTransaction')?.get('SaleOrderTypeSK')?.dirty)">
+            'Referral Sales Order Type' is required.
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label class="control-label">Salesperson Name</label>
+        <kendo-dropdownlist class="form-control" [formControl]="formGroup?.get('Internal')?.get('SPSK')"
+            [data]="_salespersonManagementService | async" [filterable]="true" [valuePrimitive]="true"
+            [readonly]="formGroup?.get('PropertyTransaction')?.get('RecordStatus')?.value == 8" pInputIcon
+            [iconVisible]="formGroup?.get('PropertyTransaction')?.get('RecordStatus')?.value == 8" [textField]="'Name'"
+            [valueField]="'SysKey'" [itemDisabled]="itemDisabled"
+            (filterChange)="handelSalespersonFilterChange($event)">
+            <ng-template kendoDropDownListNoDataTemplate>
+                <div>
+                    Type at least 3 words to start serach.
+                    <br />
+                    <button kendoButton [primary]="true" (click)="addNewSalesperson()">Add New Salesperson
+                        Type</button>
+                </div>
+            </ng-template>
+        </kendo-dropdownlist>
+        <div class="text-danger" *ngIf="formGroup?.get('Internal')?.get('SPSK')?.hasError('required') 
+                        && (formGroup?.get('Internal')?.get('SPSK')?.touched 
+                        || formGroup?.get('Internal')?.get('SPSK')?.dirty)">
+            'Salesperson' is required.
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2 form-group">
+        <label>Salesperson Commission Payout (%)</label>
+        <kendo-numerictextbox [formControl]="formGroup?.get('Internal')?.get('CurrentCommission')" class="form-control"
+            min="0" max="100" [spinners]="false"
+            [readonly]="formGroup?.get('PropertyTransaction')?.get('RecordStatus')?.value == 8" pInputIcon
+            [iconVisible]="formGroup?.get('PropertyTransaction')?.get('RecordStatus')?.value == 8" [format]="'N2'">
+        </kendo-numerictextbox>
+        <div class="text-danger"
+            *ngIf="formGroup?.get('Internal')?.get('CurrentCommission')?.hasError('required') 
+            && (formGroup?.get('Internal')?.get('CurrentCommission')?.touched || formGroup?.get('Internal')?.get('CurrentCommission')?.dirty)">
+            'Salesperson Commission Payout' is required.
+        </div>
+        <div class="text-danger"
+            *ngIf="formGroup?.get('Internal')?.get('CurrentCommission')?.hasError('min') 
+            && (formGroup?.get('Internal')?.get('CurrentCommission')?.touched ||formGroup?.get('Internal')?.get('CurrentCommission')?.dirty)">
+            'Salesperson Commission Payout' should be greater than 0.
+        </div>
+        <div class="text-danger"
+            *ngIf="formGroup?.get('Internal')?.get('CurrentCommission')?.hasError('max') 
+            && (formGroup?.get('Internal')?.get('CurrentCommission')?.touched ||formGroup?.get('Internal')?.get('CurrentCommission')?.dirty)">
+            'Salesperson Commission Payout' should be greater than 100.
+        </div>
+    </div>
+</div>

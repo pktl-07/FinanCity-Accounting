@@ -1,0 +1,125 @@
+<ng-template #template let-anchor>
+  <span>{{ anchor.nativeElement.innerText }}</span>
+</ng-template>
+<div class="fc-grid" kendoTooltip showOn="none" [tooltipTemplate]="template" filter=".k-grid td"
+  (mouseover)="showTooltip($event)">
+
+  <div *ngIf="lock" style="position: absolute;right:0;top: -10px; z-index: 9999;">
+    <i class="fa fa-lock"></i>
+  </div>
+
+  <kendo-grid #kendoDataGridViewComponent [style.height.%]="100" [data]="view | async" [resizable]="true"
+    [loading]="view?.loading" [pageSize]="state.take" [skip]="state.skip" (dataStateChange)="dataStateChange($event)"
+    [filter]="state.filter" filterable="config?.filterable" [rowClass]="recordStatus"
+    (filterChange)="filterChange($event)">
+    <ng-template *ngIf="title || config?.filterable !='none' || config?.insertable" kendoGridToolbarTemplate
+      position='top'>
+      <b>{{title}}</b>
+      <button *ngIf="config?.filterable !='none'" style="float: right;width: 100px" class="form-control btn-outline"
+        (click)='handleItemFilter()'>
+        <i class="fas fa-filter"></i>
+      </button>
+      <button *ngIf="config?.insertable" style="float: right;width: 100px" class="form-control btn-outline"
+        (click)='onInsertClick(config) '>
+        <i class="far fa-plus"></i>
+      </button>
+    </ng-template>
+    <ng-container *ngFor="let c of config?.columns">
+      <ng-container *ngIf="c?.dataType == 'button'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" media="sm" [width]="defaultWidth(40,c?.width)">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <a style="cursor: pointer" (click)="c?.viewDetail(dataItem[config?.key],dataItem)">
+              <i style="color:var(--primary)" class="fa fa-th"></i>
+            </a>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+      <ng-container *ngIf="c?.dataType == 'checkbox'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [headerClass]="{'text-center':true}"
+          [class]="{'text-center':true}" media="sm" [width]="defaultWidth(80,c?.width)">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <ng-container *ngIf="dataItem[c?.field] == true;else falseTemplate">
+              <span class="text-success">
+                <i class="fas fa-check"></i>
+              </span>
+            </ng-container>
+            <ng-template #falseTemplate>
+              <span class="text-danger">
+                <i class="fas fa-times"></i>
+              </span>
+            </ng-template>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+      <ng-container *ngIf="c?.dataType == 'string'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [width]="c?.width"
+          [headerClass]="{'text-center':c?.align == 'center'}" [class]="{'text-center':c?.align == 'center'}"
+          media="sm">
+          <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+            let-filterItemService="filterItemService">
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+      <ng-container *ngIf="c?.dataType == 'currcode'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [headerClass]="{'text-center':true}"
+          [class]="{'text-center':true}" media="sm" [width]="defaultWidth(30,c?.width)">
+        </kendo-grid-column>
+      </ng-container>
+      <ng-container *ngIf="c?.dataType == 'date'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" media="sm" [headerClass]="{'text-center':true}"
+          [class]="{'text-center':true}" [width]="defaultWidth(100,c?.width)">
+          <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+            let-filterItemService="filterItemService">
+          </ng-template>
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <span style="text-align: center"> {{dataItem[c?.field] | pDateformat }}</span>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+      <ng-container *ngIf="c?.dataType == 'number'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [headerClass]="{'text-right':true}"
+          [class]="{'text-right':true}" media="sm" [width]="defaultWidth(120,c?.width)">
+          <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+            let-filterItemService="filterItemService">
+          </ng-template>
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <span> {{dataItem[c?.field]}}</span>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+      <ng-container *ngIf="c?.dataType == 'currency'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [headerClass]="{'text-right':true}"
+          [class]="{'text-right':true}" media="sm" [width]="defaultWidth(120,c?.width)">
+          <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+            let-filterItemService="filterItemService">
+          </ng-template>
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <span> {{dataItem[c?.field] | currency }}</span>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+      <ng-container *ngIf="c?.dataType == 'record_status'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [headerClass]="{'text-center':true}" media="sm"
+          [width]="defaultWidth(120,c?.width)" [class]="{'color-column':true}">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <span> {{statusText(dataItem[c?.field])}}</span>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+      <ng-container *ngIf="c?.dataType == 'sales-status'">
+        <kendo-grid-column [field]="c?.field" [title]="c?.title" [headerClass]="{'text-center':true}" media="sm"
+          [width]="defaultWidth(120,c?.width)" [class]="{'color-column':true}">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <span> {{salesStatusText(dataItem[c?.field])}}</span>
+          </ng-template>
+        </kendo-grid-column>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="config?.detailTemplate">
+      <div *kendoGridDetailTemplate="let dataItem">
+        <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]='{dataItem:dataItem}'></ng-template>
+      </div>
+    </ng-container>
+  </kendo-grid>
+</div>
+<div kendoDialogContainer #dialogContainer></div>
